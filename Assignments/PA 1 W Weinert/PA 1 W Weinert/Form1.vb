@@ -19,8 +19,10 @@ Public Class frmCoinProblem
         Dim tendered As Integer
         Dim quarters, dimes, nickels, pennies As Integer
 
-        txtChangeInput.Focus()
-        txtChangeInput.SelectAll()
+        With txtChangeInput
+            .Focus()
+            .SelectAll()
+        End With
 
         Try
             tendered = Integer.Parse(txtChangeInput.Text)
