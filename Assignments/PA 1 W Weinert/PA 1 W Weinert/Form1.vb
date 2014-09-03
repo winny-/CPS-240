@@ -17,10 +17,7 @@ Public Class frmCoinProblem
 
     Private Sub btnChange_Click(sender As Object, e As EventArgs) Handles btnChange.Click
         Dim tendered As Integer
-        Dim quarters As Integer
-        Dim dimes As Integer
-        Dim nickels As Integer
-        Dim pennies As Integer
+        Dim quarters, dimes, nickels, pennies As Integer
 
         txtChangeInput.Focus()
         txtChangeInput.SelectAll()
@@ -33,7 +30,7 @@ Public Class frmCoinProblem
 
             'VB.net has named paramters, nice!
             'http://msdn.microsoft.com/en-us/library/51wfzyw0.aspx
-            MessageBox.Show(text:="Invalid input """ & txtChangeInput.Text & """",
+            MessageBox.Show(text:="Invalid input """ & txtChangeInput.Text & """. Please enter an integer.",
                             caption:="Error",
                             buttons:=System.Windows.Forms.MessageBoxButtons.OK,
                             icon:=System.Windows.Forms.MessageBoxIcon.Error)
@@ -55,10 +52,10 @@ Public Class frmCoinProblem
         'tendered should always be equal to zero, if not, our math is inaccurate.
         Debug.Assert(tendered = 0)
 
-        txtQuartersOutput.Text = CStr(quarters)
-        txtDimesOutput.Text = CStr(dimes)
-        txtNickelsOutput.Text = CStr(nickels)
-        txtPenniesOutput.Text = CStr(pennies)
+        txtQuartersOutput.Text = quarters.ToString
+        txtDimesOutput.Text = dimes.ToString
+        txtNickelsOutput.Text = nickels.ToString
+        txtPenniesOutput.Text = pennies.ToString
     End Sub
 
     Private Sub txtChangeInput_TextChanged(sender As Object, e As EventArgs) Handles txtChangeInput.TextChanged
