@@ -24,13 +24,15 @@ Public Class frmCoinProblem
 
         Try
             tendered = Integer.Parse(txtChangeInput.Text)
+
+            If tendered <= 0 Then Throw New FormatException()
         Catch ex As Exception When TypeOf ex Is FormatException OrElse TypeOf ex Is OverflowException
             'Even Java 6 doesn't offer the above!
             'http://stackoverflow.com/questions/136035/catch-multiple-exceptions-at-once/136114#136114
 
             'VB.net has named paramters, nice!
             'http://msdn.microsoft.com/en-us/library/51wfzyw0.aspx
-            MessageBox.Show(text:="Invalid input """ & txtChangeInput.Text & """. Please enter an integer.",
+            MessageBox.Show(text:="Invalid input """ & txtChangeInput.Text & """. Please enter a positive, non-zero integer.",
                             caption:="Error",
                             buttons:=System.Windows.Forms.MessageBoxButtons.OK,
                             icon:=System.Windows.Forms.MessageBoxIcon.Error)
