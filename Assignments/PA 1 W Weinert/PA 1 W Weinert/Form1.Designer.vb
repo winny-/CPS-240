@@ -173,6 +173,7 @@ Partial Class frmCoinProblem
         Me.Controls.Add(Me.lblEnterChange)
         Me.Controls.Add(Me.Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.MaximizeBox = False
         Me.Name = "frmCoinProblem"
         Me.Text = "The Coin Problem"
         Me.ResumeLayout(False)
