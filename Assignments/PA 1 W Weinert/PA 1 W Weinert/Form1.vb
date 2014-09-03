@@ -44,7 +44,6 @@ Public Class frmCoinProblem
 
     Private Sub btnChange_Click(sender As Object, e As EventArgs) Handles btnChange.Click
         Dim tendered As Integer
-        Dim myChange As Change
 
         With txtChangeInput
             .Focus()
@@ -68,9 +67,7 @@ Public Class frmCoinProblem
             Return
         End Try
 
-        myChange = makeChange(tendered)
-
-        With myChange
+        With makeChange(tendered)
             txtQuartersOutput.Text = .quarters.ToString
             txtDimesOutput.Text = .dimes.ToString
             txtNickelsOutput.Text = .nickels.ToString
