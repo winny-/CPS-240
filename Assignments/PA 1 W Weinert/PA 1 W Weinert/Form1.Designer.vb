@@ -106,6 +106,7 @@ Partial Class frmCoinProblem
         Me.txtQuartersOutput.ReadOnly = True
         Me.txtQuartersOutput.Size = New System.Drawing.Size(30, 20)
         Me.txtQuartersOutput.TabIndex = 4
+        Me.txtQuartersOutput.TabStop = False
         Me.txtQuartersOutput.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtDimesOutput
@@ -115,6 +116,7 @@ Partial Class frmCoinProblem
         Me.txtDimesOutput.ReadOnly = True
         Me.txtDimesOutput.Size = New System.Drawing.Size(30, 20)
         Me.txtDimesOutput.TabIndex = 5
+        Me.txtDimesOutput.TabStop = False
         Me.txtDimesOutput.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtNickelsOutput
@@ -124,6 +126,7 @@ Partial Class frmCoinProblem
         Me.txtNickelsOutput.ReadOnly = True
         Me.txtNickelsOutput.Size = New System.Drawing.Size(30, 20)
         Me.txtNickelsOutput.TabIndex = 6
+        Me.txtNickelsOutput.TabStop = False
         Me.txtNickelsOutput.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtPenniesOutput
@@ -133,6 +136,7 @@ Partial Class frmCoinProblem
         Me.txtPenniesOutput.ReadOnly = True
         Me.txtPenniesOutput.Size = New System.Drawing.Size(30, 20)
         Me.txtPenniesOutput.TabIndex = 7
+        Me.txtPenniesOutput.TabStop = False
         Me.txtPenniesOutput.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'btnChange
