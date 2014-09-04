@@ -82,6 +82,10 @@ Public Class frmCoinProblem
         txtPenniesOutput.Clear()
     End Sub
 
+    Private Sub txtChangeInput_MouseClickAndGotFocus(sender As Object, e As EventArgs) Handles txtChangeInput.MouseClick, txtChangeInput.GotFocus
+        txtChangeInput.SelectAll()
+    End Sub
+
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
         Me.Close()
     End Sub
