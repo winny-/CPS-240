@@ -15,6 +15,9 @@ Public Class frmCoinProblem
     Private Const NICKEL As Integer = 5
     Private Const PENNY As Integer = 1
 
+    Private Const ERROR_FORMAT As String = "Invalid input ""{0}"". " &
+        "Please enter a positive, non-zero integer less than 2,147,483,648."
+
     Private Structure Change
         Public quarters, dimes, nickels, pennies As Integer
     End Structure
@@ -60,7 +63,7 @@ Public Class frmCoinProblem
 
             'VB.net has named paramters, nice!
             'http://msdn.microsoft.com/en-us/library/51wfzyw0.aspx
-            MessageBox.Show(text:="Invalid input """ & txtChangeInput.Text & """. Please enter a positive, non-zero integer.",
+            MessageBox.Show(text:=String.Format(ERROR_FORMAT, txtChangeInput.Text),
                             caption:="Error",
                             buttons:=System.Windows.Forms.MessageBoxButtons.OK,
                             icon:=System.Windows.Forms.MessageBoxIcon.Error)
