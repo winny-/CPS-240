@@ -22,7 +22,7 @@ Partial Class frmCoinProblem
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblAssignmentName = New System.Windows.Forms.Label()
         Me.lblEnterChange = New System.Windows.Forms.Label()
         Me.txtChangeInput = New System.Windows.Forms.TextBox()
         Me.lblQuarters = New System.Windows.Forms.Label()
@@ -37,14 +37,14 @@ Partial Class frmCoinProblem
         Me.btnExit = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'Label1
+        'lblAssignmentName
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(106, 173)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(126, 13)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "PA 1 by Winston Weinert"
+        Me.lblAssignmentName.AutoSize = True
+        Me.lblAssignmentName.Location = New System.Drawing.Point(106, 173)
+        Me.lblAssignmentName.Name = "lblAssignmentName"
+        Me.lblAssignmentName.Size = New System.Drawing.Size(126, 13)
+        Me.lblAssignmentName.TabIndex = 0
+        Me.lblAssignmentName.Text = "PA 1 by Winston Weinert"
         '
         'lblEnterChange
         '
@@ -175,7 +175,7 @@ Partial Class frmCoinProblem
         Me.Controls.Add(Me.lblQuarters)
         Me.Controls.Add(Me.txtChangeInput)
         Me.Controls.Add(Me.lblEnterChange)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lblAssignmentName)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.Name = "frmCoinProblem"
@@ -184,7 +184,7 @@ Partial Class frmCoinProblem
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents lblAssignmentName As System.Windows.Forms.Label
     Friend WithEvents lblEnterChange As System.Windows.Forms.Label
     Friend WithEvents txtChangeInput As System.Windows.Forms.TextBox
     Friend WithEvents lblQuarters As System.Windows.Forms.Label
