@@ -45,13 +45,18 @@ Public Class frmCoinProblem
         Return myChange
     End Function
 
-    Private Sub btnChange_Click(sender As Object, e As EventArgs) Handles btnChange.Click
+    Private Sub updateUI()
         Dim tendered As Integer
 
-        With txtChangeInput
-            .Focus()
-            .SelectAll()
-        End With
+        If Not chkLivePreview.Checked Then
+            With txtChangeInput
+                .Focus()
+                .SelectAll()
+            End With
+        End If
+
+        ' Empty input when using live preview is okay -- just return.
+        If chkLivePreview.Checked AndAlso txtChangeInput.Text = "" Then Return
 
         Try
             tendered = Integer.Parse(txtChangeInput.Text)
@@ -78,11 +83,17 @@ Public Class frmCoinProblem
         End With
     End Sub
 
+    Private Sub btnChange_Click(sender As Object, e As EventArgs) Handles btnChange.Click
+        updateUI()
+    End Sub
+
     Private Sub txtChangeInput_TextChanged(sender As Object, e As EventArgs) Handles txtChangeInput.TextChanged
         txtQuartersOutput.Clear()
         txtDimesOutput.Clear()
         txtNickelsOutput.Clear()
         txtPenniesOutput.Clear()
+
+        If chkLivePreview.Checked Then updateUI()
     End Sub
 
     Private Sub txtChangeInput_MouseClickAndGotFocus(sender As Object, e As EventArgs) Handles txtChangeInput.MouseClick, txtChangeInput.GotFocus

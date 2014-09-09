@@ -35,6 +35,7 @@ Partial Class frmCoinProblem
         Me.txtPenniesOutput = New System.Windows.Forms.TextBox()
         Me.btnChange = New System.Windows.Forms.Button()
         Me.btnExit = New System.Windows.Forms.Button()
+        Me.chkLivePreview = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'lblAssignmentName
@@ -157,12 +158,23 @@ Partial Class frmCoinProblem
         Me.btnExit.Text = "E&xit"
         Me.btnExit.UseVisualStyleBackColor = True
         '
+        'chkLivePreview
+        '
+        Me.chkLivePreview.AutoSize = True
+        Me.chkLivePreview.Location = New System.Drawing.Point(12, 172)
+        Me.chkLivePreview.Name = "chkLivePreview"
+        Me.chkLivePreview.Size = New System.Drawing.Size(86, 17)
+        Me.chkLivePreview.TabIndex = 4
+        Me.chkLivePreview.Text = "&Live preview"
+        Me.chkLivePreview.UseVisualStyleBackColor = True
+        '
         'frmCoinProblem
         '
         Me.AcceptButton = Me.btnChange
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(250, 195)
+        Me.Controls.Add(Me.chkLivePreview)
         Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.btnChange)
         Me.Controls.Add(Me.txtPenniesOutput)
@@ -197,5 +209,6 @@ Partial Class frmCoinProblem
     Friend WithEvents txtPenniesOutput As System.Windows.Forms.TextBox
     Friend WithEvents btnChange As System.Windows.Forms.Button
     Friend WithEvents btnExit As System.Windows.Forms.Button
+    Friend WithEvents chkLivePreview As System.Windows.Forms.CheckBox
 
 End Class
