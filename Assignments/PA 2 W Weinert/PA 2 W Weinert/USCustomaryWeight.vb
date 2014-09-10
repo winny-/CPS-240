@@ -6,7 +6,7 @@
 ''' <remarks>
 ''' Please note, this class is immutable and any operators will return a new instance.
 ''' </remarks>
-Public Class Weight
+Public Class USCustomaryWeight
     Private Const TO_STRING_FORMAT As String = "{0} lb. {1} oz."
     Private Const OUNCES_IN_A_POUND As Integer = 16
 
@@ -46,7 +46,7 @@ Public Class Weight
         Return String.Format(TO_STRING_FORMAT, Pounds, Ounces)
     End Function
 
-    Public Shared Operator +(ByVal a As Weight, ByVal b As Weight) As Weight
-        Return New Weight(a.TotalOunces + b.TotalOunces)
+    Public Shared Operator +(ByVal a As USCustomaryWeight, ByVal b As USCustomaryWeight) As USCustomaryWeight
+        Return New USCustomaryWeight(a.TotalOunces + b.TotalOunces)
     End Operator
 End Class

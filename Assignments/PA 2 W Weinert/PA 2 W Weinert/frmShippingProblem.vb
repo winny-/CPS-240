@@ -7,7 +7,7 @@
 
 Option Strict On
 
-Imports PA_2_W_Weinert.Weight
+Imports PA_2_W_Weinert.USCustomaryWeight
 
 Public Class frmShippingProblem
 
@@ -67,8 +67,8 @@ Public Class frmShippingProblem
         Dim bothMeasuresAreEmpty As Boolean
         Dim pounds, ounces As Integer
 
-        Static totalWeight As Weight = New Weight()
-        Dim inputtedWeight As Weight
+        Static totalWeight As USCustomaryWeight = New USCustomaryWeight()
+        Dim inputtedWeight As USCustomaryWeight
 
         Static totalCost As Decimal
         Dim cost As Decimal
@@ -92,7 +92,7 @@ Public Class frmShippingProblem
             Return
         End If
 
-        inputtedWeight = New Weight(pounds, ounces)
+        inputtedWeight = New USCustomaryWeight(pounds, ounces)
         cost = CDec(inputtedWeight.TotalOunces) * SHIPPING_RATE
         txtCost.Text = cost.ToString("C")
 
