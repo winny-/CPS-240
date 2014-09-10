@@ -60,9 +60,6 @@ Public Class frmShippingProblem
     'a live update in to use one subroutine to fire for both the calculate button and
     'the text changed events.
     Private Sub updateUI(sender As Object, e As EventArgs) Handles txtPounds.TextChanged, txtOunces.TextChanged, btnCanculate.Click
-        txtCost.Clear()
-        If sender IsNot btnCanculate AndAlso Not chkLiveUpdate.Checked Then Return
-
         Dim poundsValid, ouncesValid As Boolean
         Dim bothMeasuresAreEmpty As Boolean
         Dim pounds, ounces As Integer
@@ -73,9 +70,19 @@ Public Class frmShippingProblem
         Static totalCost As Decimal
         Dim cost As Decimal
 
+        Dim liveUpdate As Boolean = chkLiveUpdate.Checked
+        Dim isButton As Boolean = TypeOf sender Is System.Windows.Forms.Button
+
+        'On TextChanged, clear txtCost and return unless Live update in enabled.
+        txtCost.Clear()
+        If Not isButton AndAlso Not liveUpdate Then Return
+
         poundsValid = parseInteger(txtPounds.Text, pounds)
         ouncesValid = parseInteger(txtOunces.Text, ounces)
         bothMeasuresAreEmpty = txtPounds.Text = "" AndAlso txtOunces.Text = ""
+
+        'On TextChanged, when Live update in enabled, it's okay if both weight inputs are empty -- simply return.
+        If Not isButton AndAlso liveUpdate AndAlso bothMeasuresAreEmpty Then Return
 
         If Not poundsValid OrElse Not ouncesValid OrElse bothMeasuresAreEmpty Then
             Dim errorMessages As List(Of String) = New List(Of String)
@@ -96,7 +103,8 @@ Public Class frmShippingProblem
         cost = CDec(inputtedWeight.TotalOunces) * SHIPPING_RATE
         txtCost.Text = cost.ToString("C")
 
-        If sender IsNot btnCanculate Then Return
+        'On TextChanged, Return now, so we don't add the input to the totals and list box.
+        If Not isButton Then Return
 
         lstSummary.Items.Add(String.Format(SHIPMENT_SUMMARY_FORMAT, txtID.Text, inputtedWeight, cost))
 
