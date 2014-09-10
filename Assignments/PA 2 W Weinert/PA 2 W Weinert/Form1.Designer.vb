@@ -42,6 +42,7 @@ Partial Class frmShippingProblem
         Me.btnClear = New System.Windows.Forms.Button()
         Me.btnExit = New System.Windows.Forms.Button()
         Me.lblAssignmentName = New System.Windows.Forms.Label()
+        Me.chkLiveUpdate = New System.Windows.Forms.CheckBox()
         Me.gbInputs.SuspendLayout()
         Me.gbSummary.SuspendLayout()
         Me.SuspendLayout()
@@ -229,12 +230,23 @@ Partial Class frmShippingProblem
         Me.lblAssignmentName.TabIndex = 7
         Me.lblAssignmentName.Text = "PA 2 by Winston Weinert"
         '
+        'chkLiveUpdate
+        '
+        Me.chkLiveUpdate.AutoSize = True
+        Me.chkLiveUpdate.Location = New System.Drawing.Point(12, 280)
+        Me.chkLiveUpdate.Name = "chkLiveUpdate"
+        Me.chkLiveUpdate.Size = New System.Drawing.Size(84, 17)
+        Me.chkLiveUpdate.TabIndex = 8
+        Me.chkLiveUpdate.Text = "&Live Update"
+        Me.chkLiveUpdate.UseVisualStyleBackColor = True
+        '
         'frmShippingProblem
         '
         Me.AcceptButton = Me.btnCanculate
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(436, 303)
+        Me.Controls.Add(Me.chkLiveUpdate)
         Me.Controls.Add(Me.lblAssignmentName)
         Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.btnClear)
@@ -275,5 +287,6 @@ Partial Class frmShippingProblem
     Friend WithEvents btnClear As System.Windows.Forms.Button
     Friend WithEvents btnExit As System.Windows.Forms.Button
     Friend WithEvents lblAssignmentName As System.Windows.Forms.Label
+    Friend WithEvents chkLiveUpdate As System.Windows.Forms.CheckBox
 
 End Class

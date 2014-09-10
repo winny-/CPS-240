@@ -23,16 +23,48 @@ Public Class frmShippingProblem
         txtID.Text = String.Format(SHIPPING_ID_FORMAT, ShippingID)
     End Sub
 
+    ''' <summary>
+    ''' Integer.TryParse(String, Integer) wrapper
+    ''' </summary>
+    ''' <param name="s">String to parse an Integer from</param>
+    ''' <param name="dest">Destination for the parsed Integer</param>
+    ''' <returns>Boolean indicating success of the operation</returns>
+    ''' <remarks>
+    ''' This Function takes care not to overwrite dest if the operation failed.
+    ''' 
+    ''' The following Strings are valid:
+    ''' 1234
+    ''' String.Empty is 0
+    ''' 
+    ''' All negative numbers are invalid
+    ''' </remarks>
+    Private Function parseInteger(ByVal s As String, ByRef dest As Integer) As Boolean
+        Dim valid As Boolean
+        Dim tmp As Integer
+
+        If s = "" Then
+            dest = 0
+            Return True
+        End If
+
+        valid = Integer.TryParse(s, tmp) AndAlso tmp >= 0
+        If valid Then dest = tmp
+        Return valid
+    End Function
+
     Private Sub frmShippingProblem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         makeNextID()
     End Sub
 
-    Private Sub txtPoundsAndtxtOunces_TextChanged(sender As Object, e As EventArgs) Handles txtPounds.TextChanged, txtPounds.TextChanged
+    'Since the project requires no Class-level variables, the simplest way to implement
+    'a live update in to use one subroutine to fire for both the calculate button and
+    'the text changed events.
+    Private Sub updateUI(sender As Object, e As EventArgs) Handles txtPounds.TextChanged, txtOunces.TextChanged, btnCanculate.Click
         txtCost.Clear()
-    End Sub
+        If sender IsNot btnCanculate AndAlso Not chkLiveUpdate.Checked Then Return
 
-    Private Sub btnCanculate_Click(sender As Object, e As EventArgs) Handles btnCanculate.Click
         Dim poundsValid, ouncesValid As Boolean
+        Dim bothMeasuresAreEmpty As Boolean
         Dim pounds, ounces As Integer
 
         Static totalWeight As Weight = New Weight()
@@ -41,14 +73,16 @@ Public Class frmShippingProblem
         Static totalCost As Decimal
         Dim cost As Decimal
 
-        poundsValid = Integer.TryParse(txtPounds.Text, pounds) AndAlso pounds >= 0
-        ouncesValid = Integer.TryParse(txtOunces.Text, ounces) AndAlso ounces >= 0
+        poundsValid = parseInteger(txtPounds.Text, pounds)
+        ouncesValid = parseInteger(txtOunces.Text, ounces)
+        bothMeasuresAreEmpty = txtPounds.Text = "" AndAlso txtOunces.Text = ""
 
-        If Not poundsValid OrElse Not ouncesValid Then
+        If Not poundsValid OrElse Not ouncesValid OrElse bothMeasuresAreEmpty Then
             Dim errorMessages As List(Of String) = New List(Of String)
 
             If Not poundsValid Then errorMessages.Add(String.Format("Invalid pounds input ""{0}"".", txtPounds.Text))
             If Not ouncesValid Then errorMessages.Add(String.Format("Invalid ounces input ""{0}"".", txtOunces.Text))
+            If bothMeasuresAreEmpty Then errorMessages.Add("Weight input (lb. and/or oz.) is required.")
             errorMessages.Add("Please input positive, non-zero whole numbers.")
 
             MessageBox.Show(text:=String.Join(" ", errorMessages),
@@ -61,6 +95,9 @@ Public Class frmShippingProblem
         inputtedWeight = New Weight(pounds, ounces)
         cost = CDec(inputtedWeight.TotalOunces) * SHIPPING_RATE
         txtCost.Text = cost.ToString("C")
+
+        If sender IsNot btnCanculate Then Return
+
         lstSummary.Items.Add(String.Format(SHIPMENT_SUMMARY_FORMAT, txtID.Text, inputtedWeight, cost))
 
         totalCost += cost
