@@ -79,20 +79,21 @@ Partial Class frmShippingProblem
         Me.txtCost.ReadOnly = True
         Me.txtCost.Size = New System.Drawing.Size(100, 20)
         Me.txtCost.TabIndex = 7
+        Me.txtCost.TabStop = False
         '
         'txtOunces
         '
         Me.txtOunces.Location = New System.Drawing.Point(51, 77)
         Me.txtOunces.Name = "txtOunces"
         Me.txtOunces.Size = New System.Drawing.Size(100, 20)
-        Me.txtOunces.TabIndex = 6
+        Me.txtOunces.TabIndex = 5
         '
         'txtPounds
         '
         Me.txtPounds.Location = New System.Drawing.Point(51, 47)
         Me.txtPounds.Name = "txtPounds"
         Me.txtPounds.Size = New System.Drawing.Size(100, 20)
-        Me.txtPounds.TabIndex = 5
+        Me.txtPounds.TabIndex = 3
         '
         'txtID
         '
@@ -100,7 +101,8 @@ Partial Class frmShippingProblem
         Me.txtID.Name = "txtID"
         Me.txtID.ReadOnly = True
         Me.txtID.Size = New System.Drawing.Size(100, 20)
-        Me.txtID.TabIndex = 4
+        Me.txtID.TabIndex = 1
+        Me.txtID.TabStop = False
         '
         'lblCost
         '
@@ -108,8 +110,8 @@ Partial Class frmShippingProblem
         Me.lblCost.Location = New System.Drawing.Point(6, 110)
         Me.lblCost.Name = "lblCost"
         Me.lblCost.Size = New System.Drawing.Size(28, 13)
-        Me.lblCost.TabIndex = 3
-        Me.lblCost.Text = "Cost"
+        Me.lblCost.TabIndex = 6
+        Me.lblCost.Text = "Co&st"
         '
         'lblOunces
         '
@@ -117,7 +119,7 @@ Partial Class frmShippingProblem
         Me.lblOunces.Location = New System.Drawing.Point(6, 80)
         Me.lblOunces.Name = "lblOunces"
         Me.lblOunces.Size = New System.Drawing.Size(44, 13)
-        Me.lblOunces.TabIndex = 2
+        Me.lblOunces.TabIndex = 4
         Me.lblOunces.Text = "&Ounces"
         '
         'lblPounds
@@ -126,7 +128,7 @@ Partial Class frmShippingProblem
         Me.lblPounds.Location = New System.Drawing.Point(6, 50)
         Me.lblPounds.Name = "lblPounds"
         Me.lblPounds.Size = New System.Drawing.Size(43, 13)
-        Me.lblPounds.TabIndex = 1
+        Me.lblPounds.TabIndex = 2
         Me.lblPounds.Text = "&Pounds"
         '
         'lblID
@@ -136,7 +138,7 @@ Partial Class frmShippingProblem
         Me.lblID.Name = "lblID"
         Me.lblID.Size = New System.Drawing.Size(18, 13)
         Me.lblID.TabIndex = 0
-        Me.lblID.Text = "ID"
+        Me.lblID.Text = "&ID"
         '
         'gbSummary
         '
@@ -147,7 +149,7 @@ Partial Class frmShippingProblem
         Me.gbSummary.Location = New System.Drawing.Point(12, 172)
         Me.gbSummary.Name = "gbSummary"
         Me.gbSummary.Size = New System.Drawing.Size(408, 55)
-        Me.gbSummary.TabIndex = 2
+        Me.gbSummary.TabIndex = 3
         Me.gbSummary.TabStop = False
         Me.gbSummary.Text = "Summary"
         '
@@ -158,6 +160,7 @@ Partial Class frmShippingProblem
         Me.txtTotalCost.ReadOnly = True
         Me.txtTotalCost.Size = New System.Drawing.Size(100, 20)
         Me.txtTotalCost.TabIndex = 3
+        Me.txtTotalCost.TabStop = False
         '
         'lblTotalCost
         '
@@ -166,7 +169,7 @@ Partial Class frmShippingProblem
         Me.lblTotalCost.Name = "lblTotalCost"
         Me.lblTotalCost.Size = New System.Drawing.Size(55, 13)
         Me.lblTotalCost.TabIndex = 2
-        Me.lblTotalCost.Text = "Total Cost"
+        Me.lblTotalCost.Text = "Total Cos&t"
         '
         'txtTotalWeight
         '
@@ -175,6 +178,7 @@ Partial Class frmShippingProblem
         Me.txtTotalWeight.ReadOnly = True
         Me.txtTotalWeight.Size = New System.Drawing.Size(100, 20)
         Me.txtTotalWeight.TabIndex = 1
+        Me.txtTotalWeight.TabStop = False
         '
         'lblTotalWeight
         '
@@ -183,7 +187,7 @@ Partial Class frmShippingProblem
         Me.lblTotalWeight.Name = "lblTotalWeight"
         Me.lblTotalWeight.Size = New System.Drawing.Size(68, 13)
         Me.lblTotalWeight.TabIndex = 0
-        Me.lblTotalWeight.Text = "Total Weight"
+        Me.lblTotalWeight.Text = "Total &Weight"
         '
         'lstSummary
         '
@@ -191,7 +195,8 @@ Partial Class frmShippingProblem
         Me.lstSummary.Location = New System.Drawing.Point(225, 32)
         Me.lstSummary.Name = "lstSummary"
         Me.lstSummary.Size = New System.Drawing.Size(185, 134)
-        Me.lstSummary.TabIndex = 3
+        Me.lstSummary.TabIndex = 2
+        Me.lstSummary.TabStop = False
         '
         'btnCanculate
         '
@@ -227,7 +232,7 @@ Partial Class frmShippingProblem
         Me.lblAssignmentName.Location = New System.Drawing.Point(298, 281)
         Me.lblAssignmentName.Name = "lblAssignmentName"
         Me.lblAssignmentName.Size = New System.Drawing.Size(126, 13)
-        Me.lblAssignmentName.TabIndex = 7
+        Me.lblAssignmentName.TabIndex = 8
         Me.lblAssignmentName.Text = "PA 2 by Winston Weinert"
         '
         'chkLiveUpdate
@@ -236,8 +241,8 @@ Partial Class frmShippingProblem
         Me.chkLiveUpdate.Location = New System.Drawing.Point(12, 280)
         Me.chkLiveUpdate.Name = "chkLiveUpdate"
         Me.chkLiveUpdate.Size = New System.Drawing.Size(84, 17)
-        Me.chkLiveUpdate.TabIndex = 8
-        Me.chkLiveUpdate.Text = "&Live Update"
+        Me.chkLiveUpdate.TabIndex = 7
+        Me.chkLiveUpdate.Text = "Li&ve Update"
         Me.chkLiveUpdate.UseVisualStyleBackColor = True
         '
         'frmShippingProblem
