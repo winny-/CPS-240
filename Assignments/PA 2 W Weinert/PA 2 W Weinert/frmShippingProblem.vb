@@ -15,13 +15,14 @@ Public Class frmShippingProblem
     Private Const SHIPPING_ID_FORMAT As String = "AWB{0:D2}"
     Private Const SHIPMENT_SUMMARY_FORMAT As String = "{0} {1} {2:C}"
 
-    Private Sub makeNextID()
-        Static ShippingID As Integer
+    Private Enum LogicalEventType
+        Calculate
+        LiveUpdate
+    End Enum
 
-        ShippingID += 1
-
-        txtID.Text = String.Format(SHIPPING_ID_FORMAT, ShippingID)
-    End Sub
+    '********************
+    'Helpers
+    '********************
 
     ''' <summary>
     ''' Integer.TryParse(String, Integer) wrapper
@@ -52,37 +53,45 @@ Public Class frmShippingProblem
         Return valid
     End Function
 
-    Private Sub frmShippingProblem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    '********************
+    'UI Helpers
+    '********************
+
+    Private Sub updateUI(ByVal type As LogicalEventType)
+        Dim weight As USCustomaryWeight
+        Dim cost As Decimal
+
+        weight = parseWeight(type)
+        If weight Is Nothing Then Return
+        cost = CDec(weight.TotalOunces) * SHIPPING_RATE
+        txtCost.Text = cost.ToString("C")
+
+        'On TextChanged, Return now, so we don't add the input to the totals and list box.
+        If type <> LogicalEventType.Calculate Then Return
+
+        addShipmentToSummary(weight, cost)
+
         makeNextID()
     End Sub
 
-    'Since the project requires no Class-level variables, the simplest way to implement
-    'a live update in to use one subroutine to fire for both the calculate button and
-    'the text changed events.
-    Private Sub updateUI(sender As Object, e As EventArgs) Handles txtPounds.TextChanged, txtOunces.TextChanged, btnCanculate.Click
+    Private Sub makeNextID()
+        Static ShippingID As Integer
+
+        ShippingID += 1
+
+        txtID.Text = String.Format(SHIPPING_ID_FORMAT, ShippingID)
+    End Sub
+
+    Private Function parseWeight(ByVal type As LogicalEventType) As USCustomaryWeight
         Dim poundsValid, ouncesValid As Boolean
         Dim bothMeasuresAreEmptyOrZero As Boolean
         Dim pounds, ounces As Integer
 
-        Static totalWeight As USCustomaryWeight = New USCustomaryWeight()
-        Dim inputtedWeight As USCustomaryWeight
-
-        Static totalCost As Decimal
-        Dim cost As Decimal
-
-        Dim liveUpdate As Boolean = chkLiveUpdate.Checked
-        Dim isButton As Boolean = TypeOf sender Is System.Windows.Forms.Button
-
-        'On TextChanged, clear txtCost and return unless Live update in enabled.
-        txtCost.Clear()
-        If Not isButton AndAlso Not liveUpdate Then Return
-
         poundsValid = parseInteger(txtPounds.Text, pounds)
         ouncesValid = parseInteger(txtOunces.Text, ounces)
-        bothMeasuresAreEmptyOrZero = pounds = 0 AndAlso ounces = 0
+        bothMeasuresAreEmptyOrZero = (txtPounds.Text = "" OrElse pounds = 0) AndAlso (txtOunces.Text = "" OrElse ounces = 0)
 
-        'On TextChanged, when Live update in enabled, it's okay if both weight inputs are empty or zero -- simply return.
-        If Not isButton AndAlso liveUpdate AndAlso bothMeasuresAreEmptyOrZero Then Return
+        If type = LogicalEventType.LiveUpdate AndAlso bothMeasuresAreEmptyOrZero Then Return Nothing
 
         If Not poundsValid OrElse Not ouncesValid OrElse bothMeasuresAreEmptyOrZero Then
             Dim errorMessages As List(Of String) = New List(Of String)
@@ -93,27 +102,43 @@ Public Class frmShippingProblem
             errorMessages.Add("Please input positive, whole numbers.")
 
             MessageBox.Show(text:=String.Join(" ", errorMessages),
-                            caption:="Error: invalid input",
-                            buttons:=MessageBoxButtons.OK,
-                            icon:=MessageBoxIcon.Error)
-            Return
+                caption:="Error: invalid input",
+                buttons:=MessageBoxButtons.OK,
+                icon:=MessageBoxIcon.Error)
+            Return Nothing
         End If
 
-        inputtedWeight = New USCustomaryWeight(pounds, ounces)
-        cost = CDec(inputtedWeight.TotalOunces) * SHIPPING_RATE
-        txtCost.Text = cost.ToString("C")
+        Return New USCustomaryWeight(pounds, ounces)
+    End Function
 
-        'On TextChanged, Return now, so we don't add the input to the totals and list box.
-        If Not isButton Then Return
+    Private Sub addShipmentToSummary(ByVal weight As USCustomaryWeight, ByVal cost As Decimal)
+        Static totalWeight As USCustomaryWeight = New USCustomaryWeight()
+        Static totalCost As Decimal
 
-        lstSummary.Items.Add(String.Format(SHIPMENT_SUMMARY_FORMAT, txtID.Text, inputtedWeight, cost))
+        lstSummary.Items.Add(String.Format(SHIPMENT_SUMMARY_FORMAT, txtID.Text, weight, cost))
 
         totalCost += cost
-        totalWeight += inputtedWeight
+        totalWeight += weight
+
         txtTotalCost.Text = totalCost.ToString("C")
         txtTotalWeight.Text = totalWeight.ToString
+    End Sub
 
+    '********************
+    'Event Handlers
+    '********************
+
+    Private Sub frmShippingProblem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         makeNextID()
+    End Sub
+
+    Private Sub txtPoundsOrtxtOunces_TextChanged(sender As Object, e As EventArgs) Handles txtPounds.TextChanged, txtOunces.TextChanged
+        txtCost.Clear()
+        If chkLiveUpdate.Checked Then updateUI(LogicalEventType.LiveUpdate)
+    End Sub
+
+    Private Sub btnCanculate_Click(sender As Object, e As EventArgs) Handles btnCanculate.Click
+        updateUI(LogicalEventType.Calculate)
     End Sub
 
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
@@ -125,4 +150,5 @@ Public Class frmShippingProblem
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
         Me.Close()
     End Sub
+
 End Class
