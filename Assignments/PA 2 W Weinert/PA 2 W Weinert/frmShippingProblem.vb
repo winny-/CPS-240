@@ -61,7 +61,7 @@ Public Class frmShippingProblem
     'the text changed events.
     Private Sub updateUI(sender As Object, e As EventArgs) Handles txtPounds.TextChanged, txtOunces.TextChanged, btnCanculate.Click
         Dim poundsValid, ouncesValid As Boolean
-        Dim bothMeasuresAreEmpty As Boolean
+        Dim bothMeasuresAreEmptyOrZero As Boolean
         Dim pounds, ounces As Integer
 
         Static totalWeight As USCustomaryWeight = New USCustomaryWeight()
@@ -79,18 +79,18 @@ Public Class frmShippingProblem
 
         poundsValid = parseInteger(txtPounds.Text, pounds)
         ouncesValid = parseInteger(txtOunces.Text, ounces)
-        bothMeasuresAreEmpty = txtPounds.Text = "" AndAlso txtOunces.Text = ""
+        bothMeasuresAreEmptyOrZero = pounds = 0 AndAlso ounces = 0
 
-        'On TextChanged, when Live update in enabled, it's okay if both weight inputs are empty -- simply return.
-        If Not isButton AndAlso liveUpdate AndAlso bothMeasuresAreEmpty Then Return
+        'On TextChanged, when Live update in enabled, it's okay if both weight inputs are empty or zero -- simply return.
+        If Not isButton AndAlso liveUpdate AndAlso bothMeasuresAreEmptyOrZero Then Return
 
-        If Not poundsValid OrElse Not ouncesValid OrElse bothMeasuresAreEmpty Then
+        If Not poundsValid OrElse Not ouncesValid OrElse bothMeasuresAreEmptyOrZero Then
             Dim errorMessages As List(Of String) = New List(Of String)
 
             If Not poundsValid Then errorMessages.Add(String.Format("Invalid pounds input ""{0}"".", txtPounds.Text))
             If Not ouncesValid Then errorMessages.Add(String.Format("Invalid ounces input ""{0}"".", txtOunces.Text))
-            If bothMeasuresAreEmpty Then errorMessages.Add("Weight input (lb. and/or oz.) is required.")
-            errorMessages.Add("Please input positive, non-zero whole numbers.")
+            If bothMeasuresAreEmptyOrZero Then errorMessages.Add("Weight input (lb. and/or oz.) is required.")
+            errorMessages.Add("Please input positive, whole numbers.")
 
             MessageBox.Show(text:=String.Join(" ", errorMessages),
                             caption:="Error: invalid input",
