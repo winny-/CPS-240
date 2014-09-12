@@ -44,7 +44,10 @@ Public Class frmQuadraticFormula
             Double.TryParse(txtB.Text, computation.b) AndAlso
             Double.TryParse(txtC.Text, computation.c)) Then
 
-            MessageBox.Show(text:="Invalid input!")
+            MessageBox.Show(text:="Invalid input!",
+                            caption:="Error",
+                            buttons:=MessageBoxButtons.OK,
+                            icon:=MessageBoxIcon.Error)
             Return
         End If
 
