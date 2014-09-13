@@ -2,7 +2,7 @@
 
 Public Class frmQuadraticFormula
 
-    Private Enum solutions
+    Private Enum realSolutions
         None
         One
         Two
@@ -12,22 +12,22 @@ Public Class frmQuadraticFormula
         Public a, b, c As Double
         Public discriminant As Double
         Public x1, x2 As Double
-        Public solutions As solutions
+        Public solutions As realSolutions
     End Structure
 
     Private Function computeQuadraticFormula(ByVal computation As quadraticFormulaComputation) As quadraticFormulaComputation
         With computation
             .discriminant = .b ^ 2 - 4 * .a * .c
             If .discriminant < 0 Then
-                .solutions = solutions.None
+                .solutions = realSolutions.None
                 .x1 = Nothing
                 .x2 = Nothing
-            ElseIf .discriminant = 0 Then
-                .solutions = solutions.One
-                .x1 = (-.b + Math.Sqrt(.b ^ 2 - 4 * .a * .c)) / (2 * .a)
-                .x2 = Nothing
-            ElseIf .discriminant > 0 Then
-                .solutions = solutions.Two
+            Else
+                If .discriminant = 0 Then
+                    .solutions = realSolutions.One
+                ElseIf .discriminant > 0 Then
+                    .solutions = realSolutions.Two
+                End If
                 .x1 = (-.b + Math.Sqrt(.b ^ 2 - 4 * .a * .c)) / (2 * .a)
                 .x2 = (-.b - Math.Sqrt(.b ^ 2 - 4 * .a * .c)) / (2 * .a)
             End If
@@ -55,15 +55,15 @@ Public Class frmQuadraticFormula
 
         txtDiscriminant.Text = computation.discriminant.ToString
 
-        If computation.solutions = solutions.None Then
+        If computation.solutions = realSolutions.None Then
             txtSolutions.Text = "No real solutions"
         Else
             txtX1.Text = computation.x1.ToString
-            If computation.solutions = solutions.One Then
+            txtX2.Text = computation.x2.ToString
+            If computation.solutions = realSolutions.One Then
                 txtSolutions.Text = "One real solution"
-            ElseIf computation.solutions = solutions.Two Then
+            ElseIf computation.solutions = realSolutions.Two Then
                 txtSolutions.Text = "Two real solutions"
-                txtX2.Text = computation.x2.ToString
             Else
                 Debug.Fail("Bad computation.solutions value")
             End If
