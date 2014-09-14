@@ -43,7 +43,7 @@ Public Class USCustomaryWeight
     End Property
 
     Public Shared Function TryParse(ByVal s As String, ByRef weight As USCustomaryWeight) As Boolean
-        Dim parts As String() = s.Trim.Split(CChar(" "))
+        Dim parts As String() = s.Trim.Split(" "c)
         If parts.Count() <> 4 Then Return False
 
         Dim oz, lb As Integer

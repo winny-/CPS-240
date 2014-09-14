@@ -104,7 +104,7 @@ Public Class frmShippingProblem
             errorMessages.Add("Please input positive, whole numbers.")
 
             MessageBox.Show(text:=String.Join(" ", errorMessages),
-                caption:="Error: invalid input",
+                caption:="Error: Invalid input",
                 buttons:=MessageBoxButtons.OK,
                 icon:=MessageBoxIcon.Error)
             Return Nothing
@@ -162,18 +162,29 @@ Public Class frmShippingProblem
     End Sub
 
     Private Sub btnDeleteShipment_Click(sender As Object, e As EventArgs) Handles btnDeleteShipment.Click
-        If lstSummary.SelectedIndex = -1 Then Return
+        If lstSummary.SelectedIndex = -1 Then
+            MessageBox.Show(text:=If(lstSummary.Items.Count = 0,
+                                     "There are no more shipments to delete.",
+                                     "Please select a shipment to delete."),
+                            caption:="Error: Cannot delete shipment",
+                            buttons:=MessageBoxButtons.OK,
+                            icon:=MessageBoxIcon.Error)
+            Return
+        End If
+
         Dim selectedObj As Object = lstSummary.SelectedItem
         Dim selected As String = selectedObj.ToString
         Dim cost As Decimal
         Dim weight As USCustomaryWeight = Nothing
 
         Dim match As Match = Regex.Match(selected, SHIPMENT_REGEX)
-        Debug.Assert(USCustomaryWeight.TryParse(match.Groups("weight").Value, weight) AndAlso
-            Decimal.TryParse(s:=match.Groups("cost").Value,
-                             style:=Globalization.NumberStyles.Currency,
-                             provider:=Globalization.CultureInfo.CreateSpecificCulture("en-US"),
-                             result:=cost))
+        Dim validCost As Boolean = Decimal.TryParse(s:=match.Groups("cost").Value,
+                                                    style:=Globalization.NumberStyles.Currency,
+                                                    provider:=Globalization.CultureInfo.CreateSpecificCulture("en-US"),
+                                                    result:=cost)
+        Dim validWeight As Boolean = USCustomaryWeight.TryParse(match.Groups("weight").Value, weight)
+
+        Debug.Assert(validCost AndAlso validWeight, String.Format("Invalid ListBox entry ""{0}""", selected))
         modifyTotals(-weight, -cost)
         lstSummary.Items.Remove(selectedObj)
     End Sub
