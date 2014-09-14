@@ -143,6 +143,10 @@ Public Class frmShippingProblem
         If chkLiveUpdate.Checked Then updateUI(LogicalEventType.LiveUpdate)
     End Sub
 
+    Private Sub txtPoundsOrtxtOunces_GotFocusOrClick(sender As Object, e As EventArgs) Handles txtPounds.GotFocus, txtOunces.GotFocus, txtPounds.Click, txtOunces.Click
+        CType(sender, System.Windows.Forms.TextBox).SelectAll()
+    End Sub
+
     Private Sub btnCanculate_Click(sender As Object, e As EventArgs) Handles btnCanculate.Click
         updateUI(LogicalEventType.Calculate)
     End Sub
