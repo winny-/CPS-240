@@ -42,11 +42,32 @@ Public Class USCustomaryWeight
         End Get
     End Property
 
+    Public Shared Function TryParse(ByVal s As String, ByRef weight As USCustomaryWeight) As Boolean
+        Dim parts As String() = s.Trim.Split(CChar(" "))
+        If parts.Count() <> 4 Then Return False
+
+        Dim oz, lb As Integer
+        If Integer.TryParse(parts(0), lb) AndAlso Integer.TryParse(parts(2), oz) Then
+            Try
+                weight = New USCustomaryWeight(lb, oz)
+                Return True
+            Catch ex As Exception
+
+            End Try
+        End If
+
+        Return False
+    End Function
+
     Public Overrides Function ToString() As String
         Return String.Format(TO_STRING_FORMAT, Pounds, Ounces)
     End Function
 
     Public Shared Operator +(ByVal a As USCustomaryWeight, ByVal b As USCustomaryWeight) As USCustomaryWeight
         Return New USCustomaryWeight(a.TotalOunces + b.TotalOunces)
+    End Operator
+
+    Public Shared Operator -(ByVal a As USCustomaryWeight) As USCustomaryWeight
+        Return New USCustomaryWeight(-a.TotalOunces)
     End Operator
 End Class

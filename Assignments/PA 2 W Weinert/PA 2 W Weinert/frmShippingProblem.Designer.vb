@@ -43,6 +43,7 @@ Partial Class frmShippingProblem
         Me.btnExit = New System.Windows.Forms.Button()
         Me.lblAssignmentName = New System.Windows.Forms.Label()
         Me.chkLiveUpdate = New System.Windows.Forms.CheckBox()
+        Me.btnDeleteShipment = New System.Windows.Forms.Button()
         Me.gbInputs.SuspendLayout()
         Me.gbSummary.SuspendLayout()
         Me.SuspendLayout()
@@ -200,7 +201,7 @@ Partial Class frmShippingProblem
         '
         'btnCanculate
         '
-        Me.btnCanculate.Location = New System.Drawing.Point(74, 243)
+        Me.btnCanculate.Location = New System.Drawing.Point(12, 243)
         Me.btnCanculate.Name = "btnCanculate"
         Me.btnCanculate.Size = New System.Drawing.Size(75, 23)
         Me.btnCanculate.TabIndex = 4
@@ -210,7 +211,7 @@ Partial Class frmShippingProblem
         'btnClear
         '
         Me.btnClear.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClear.Location = New System.Drawing.Point(175, 243)
+        Me.btnClear.Location = New System.Drawing.Point(114, 243)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(75, 23)
         Me.btnClear.TabIndex = 5
@@ -219,7 +220,7 @@ Partial Class frmShippingProblem
         '
         'btnExit
         '
-        Me.btnExit.Location = New System.Drawing.Point(276, 243)
+        Me.btnExit.Location = New System.Drawing.Point(343, 243)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(75, 23)
         Me.btnExit.TabIndex = 6
@@ -245,12 +246,22 @@ Partial Class frmShippingProblem
         Me.chkLiveUpdate.Text = "Li&ve Update"
         Me.chkLiveUpdate.UseVisualStyleBackColor = True
         '
+        'btnDeleteShipment
+        '
+        Me.btnDeleteShipment.Location = New System.Drawing.Point(216, 243)
+        Me.btnDeleteShipment.Name = "btnDeleteShipment"
+        Me.btnDeleteShipment.Size = New System.Drawing.Size(100, 23)
+        Me.btnDeleteShipment.TabIndex = 9
+        Me.btnDeleteShipment.Text = "&Delete Shipment"
+        Me.btnDeleteShipment.UseVisualStyleBackColor = True
+        '
         'frmShippingProblem
         '
         Me.AcceptButton = Me.btnCanculate
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(436, 303)
+        Me.Controls.Add(Me.btnDeleteShipment)
         Me.Controls.Add(Me.chkLiveUpdate)
         Me.Controls.Add(Me.lblAssignmentName)
         Me.Controls.Add(Me.btnExit)
@@ -293,5 +304,6 @@ Partial Class frmShippingProblem
     Friend WithEvents btnExit As System.Windows.Forms.Button
     Friend WithEvents lblAssignmentName As System.Windows.Forms.Label
     Friend WithEvents chkLiveUpdate As System.Windows.Forms.CheckBox
+    Friend WithEvents btnDeleteShipment As System.Windows.Forms.Button
 
 End Class

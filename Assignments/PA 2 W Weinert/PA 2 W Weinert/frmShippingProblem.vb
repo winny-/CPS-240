@@ -8,12 +8,14 @@
 Option Strict On
 
 Imports PA_2_W_Weinert.USCustomaryWeight
+Imports System.Text.RegularExpressions
 
 Public Class frmShippingProblem
 
     Private Const SHIPPING_RATE As Decimal = 0.12D 'Per ounce
     Private Const SHIPPING_ID_FORMAT As String = "AWB{0:D2}"
     Private Const SHIPMENT_SUMMARY_FORMAT As String = "{0} {1} {2:C}"
+    Private Const SHIPMENT_REGEX As String = "(?<id>AWB[0-9]{2}) (?<weight>[0-9]+ lb\. [0-9]+ oz\.) (?<cost>\$[0-9.]+)"
 
     Private Enum LogicalEventType
         Calculate
@@ -112,10 +114,14 @@ Public Class frmShippingProblem
     End Function
 
     Private Sub addShipmentToSummary(ByVal weight As USCustomaryWeight, ByVal cost As Decimal)
+        lstSummary.Items.Add(String.Format(SHIPMENT_SUMMARY_FORMAT, txtID.Text, weight, cost))
+
+        modifyTotals(weight, cost)
+    End Sub
+
+    Private Sub modifyTotals(ByVal weight As USCustomaryWeight, ByVal cost As Decimal)
         Static totalWeight As USCustomaryWeight = New USCustomaryWeight()
         Static totalCost As Decimal
-
-        lstSummary.Items.Add(String.Format(SHIPMENT_SUMMARY_FORMAT, txtID.Text, weight, cost))
 
         totalCost += cost
         totalWeight += weight
@@ -151,4 +157,20 @@ Public Class frmShippingProblem
         Me.Close()
     End Sub
 
+    Private Sub btnDeleteShipment_Click(sender As Object, e As EventArgs) Handles btnDeleteShipment.Click
+        If lstSummary.SelectedIndex = -1 Then Return
+        Dim selectedObj As Object = lstSummary.SelectedItem
+        Dim selected As String = selectedObj.ToString
+        Dim cost As Decimal
+        Dim weight As USCustomaryWeight = Nothing
+
+        Dim match As Match = Regex.Match(selected, SHIPMENT_REGEX)
+        Debug.Assert(USCustomaryWeight.TryParse(match.Groups("weight").Value, weight) AndAlso
+            Decimal.TryParse(s:=match.Groups("cost").Value,
+                             style:=Globalization.NumberStyles.Currency,
+                             provider:=Globalization.CultureInfo.CreateSpecificCulture("en-US"),
+                             result:=cost))
+        modifyTotals(-weight, -cost)
+        lstSummary.Items.Remove(selectedObj)
+    End Sub
 End Class
