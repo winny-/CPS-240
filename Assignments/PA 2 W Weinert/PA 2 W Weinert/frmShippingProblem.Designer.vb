@@ -223,7 +223,7 @@ Partial Class frmShippingProblem
         Me.btnExit.Location = New System.Drawing.Point(343, 243)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(75, 23)
-        Me.btnExit.TabIndex = 6
+        Me.btnExit.TabIndex = 7
         Me.btnExit.Text = "E&xit"
         Me.btnExit.UseVisualStyleBackColor = True
         '
@@ -233,7 +233,7 @@ Partial Class frmShippingProblem
         Me.lblAssignmentName.Location = New System.Drawing.Point(298, 281)
         Me.lblAssignmentName.Name = "lblAssignmentName"
         Me.lblAssignmentName.Size = New System.Drawing.Size(126, 13)
-        Me.lblAssignmentName.TabIndex = 8
+        Me.lblAssignmentName.TabIndex = 0
         Me.lblAssignmentName.Text = "PA 2 by Winston Weinert"
         '
         'chkLiveUpdate
@@ -242,7 +242,7 @@ Partial Class frmShippingProblem
         Me.chkLiveUpdate.Location = New System.Drawing.Point(12, 280)
         Me.chkLiveUpdate.Name = "chkLiveUpdate"
         Me.chkLiveUpdate.Size = New System.Drawing.Size(84, 17)
-        Me.chkLiveUpdate.TabIndex = 7
+        Me.chkLiveUpdate.TabIndex = 8
         Me.chkLiveUpdate.Text = "Li&ve Update"
         Me.chkLiveUpdate.UseVisualStyleBackColor = True
         '
@@ -251,7 +251,7 @@ Partial Class frmShippingProblem
         Me.btnDeleteShipment.Location = New System.Drawing.Point(216, 243)
         Me.btnDeleteShipment.Name = "btnDeleteShipment"
         Me.btnDeleteShipment.Size = New System.Drawing.Size(100, 23)
-        Me.btnDeleteShipment.TabIndex = 9
+        Me.btnDeleteShipment.TabIndex = 6
         Me.btnDeleteShipment.Text = "&Delete Shipment"
         Me.btnDeleteShipment.UseVisualStyleBackColor = True
         '
