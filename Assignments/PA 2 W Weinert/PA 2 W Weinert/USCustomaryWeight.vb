@@ -7,6 +7,7 @@
 ''' Please note, this class is immutable and any operators will return a new instance.
 ''' </remarks>
 Public Class USCustomaryWeight
+
     Private Const TO_STRING_FORMAT As String = "{0} lb. {1} oz."
     Private Const OUNCES_IN_A_POUND As Integer = 16
 
@@ -70,4 +71,5 @@ Public Class USCustomaryWeight
     Public Shared Operator -(ByVal a As USCustomaryWeight) As USCustomaryWeight
         Return New USCustomaryWeight(-a.TotalOunces)
     End Operator
+
 End Class

@@ -188,4 +188,5 @@ Public Class frmShippingProblem
         modifyTotals(-weight, -cost)
         lstSummary.Items.Remove(selectedObj)
     End Sub
+
 End Class
