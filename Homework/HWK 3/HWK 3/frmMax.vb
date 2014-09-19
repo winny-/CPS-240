@@ -1,4 +1,6 @@
-﻿Public Class frmMax
+﻿Option Strict On
+
+Public Class frmMax
 
     'Using generics, we can create a Max() and then a Max3() function that will
     'work with any comparable type, meaning Double, Integer, Decimal and so on.
@@ -25,4 +27,5 @@
     Private Sub focusedATextBox(sender As Object, e As EventArgs) Handles txtA.Click, txtA.GotFocus, txtB.Click, txtB.GotFocus, txtC.Click, txtC.GotFocus, txtGreatestNumber.Click, txtGreatestNumber.GotFocus
         CType(sender, TextBox).SelectAll()
     End Sub
+
 End Class
