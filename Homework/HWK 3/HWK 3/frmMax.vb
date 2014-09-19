@@ -25,7 +25,10 @@ Public Class frmMax
             Integer.TryParse(txtC.Text, c)
 
         If Not validInput Then
-            MessageBox.Show("Invalid input.")
+            MessageBox.Show(text:="Invalid input. Enter whole numbers.",
+                            caption:="Error",
+                            buttons:=MessageBoxButtons.OK,
+                            icon:=MessageBoxIcon.Error)
             Return
         End If
 
