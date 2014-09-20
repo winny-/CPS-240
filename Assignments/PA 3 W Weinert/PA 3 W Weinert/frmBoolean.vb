@@ -51,9 +51,9 @@ Public Class frmBoolean
         End If
 
         lblQuestion.Text = String.Format("{0} {1} {2} =",
-                                    first,
-                                    If(op = Operation.And_, "AND", "OR"),
-                                    second)
+                                         first,
+                                         If(op = Operation.And_, "AND", "OR"),
+                                         second)
 
         rdHidden.Checked = True
         btnNext.Enabled = False
@@ -85,7 +85,10 @@ Public Class frmBoolean
         newGame()
     End Sub
 
-    Private Sub rdTrueOrrdFalse_CheckedChanged(sender As Object, e As EventArgs) Handles rdTrue.CheckedChanged, rdFalse.CheckedChanged
+    Private Sub rdTrueOrrdFalse_CheckedChanged(sender As Object, e As EventArgs) Handles _
+        rdTrue.CheckedChanged,
+        rdFalse.CheckedChanged
+
         Dim radio As RadioButton = CType(sender, RadioButton)
 
         If Not radio.Checked Then Return
@@ -114,7 +117,10 @@ Public Class frmBoolean
         lblWrongCount.Visible = chkShowCount.Checked
     End Sub
 
-    Private Sub btnExitOrmiExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click, miExit.Click
+    Private Sub btnExitOrmiExit_Click(sender As Object, e As EventArgs) Handles _
+        btnExit.Click,
+        miExit.Click
+
         Me.Close()
     End Sub
 
