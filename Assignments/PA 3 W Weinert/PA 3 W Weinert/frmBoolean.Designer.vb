@@ -68,7 +68,7 @@ Partial Class frmBoolean
         'miExit
         '
         Me.miExit.Name = "miExit"
-        Me.miExit.Size = New System.Drawing.Size(152, 22)
+        Me.miExit.Size = New System.Drawing.Size(92, 22)
         Me.miExit.Text = "E&xit"
         '
         'miTools
@@ -218,7 +218,6 @@ Partial Class frmBoolean
         '
         'picActualAnswer
         '
-        Me.picActualAnswer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.picActualAnswer.Location = New System.Drawing.Point(15, 124)
         Me.picActualAnswer.Name = "picActualAnswer"
         Me.picActualAnswer.Size = New System.Drawing.Size(77, 76)
