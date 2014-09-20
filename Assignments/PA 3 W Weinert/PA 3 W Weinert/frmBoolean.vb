@@ -50,7 +50,7 @@ Public Class frmBoolean
             Debug.Fail("Unknown operation type.")
         End If
 
-        lblQuestion.Text = String.Format("{0} {1} {2} =",
+        lblQuestion.Text = String.Format("{0} {1} {2}",
                                          first,
                                          If(op = Operation.And_, "AND", "OR"),
                                          second)
