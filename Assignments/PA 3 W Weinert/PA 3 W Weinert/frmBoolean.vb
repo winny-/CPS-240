@@ -99,7 +99,17 @@ Public Class frmBoolean
     End Sub
 
     Private Sub miChangeForm_Click(sender As Object, e As EventArgs) Handles miChangeForm.Click
+        'Since cdFormColor.Color defaults to Color.Black, we should set a sensible default choice.
+        'However, if the user chooses Color.Black, don't override their choice.
+        Static hasChoosenAColor As Boolean
+
+        If cdFormColor.Color = Color.Black AndAlso Not hasChoosenAColor Then
+            cdFormColor.Color = Color.Fuchsia 'Set a sensible default.
+        End If
+
         If cdFormColor.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            hasChoosenAColor = True
+
             BackColor = cdFormColor.Color
             lblQuestion.BackColor = cdFormColor.Color
             msMainMenu.Renderer = New ToolStripProfessionalRenderer(New CustomProfessionalColors(cdFormColor.Color))

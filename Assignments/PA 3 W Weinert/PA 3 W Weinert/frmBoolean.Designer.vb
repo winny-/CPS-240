@@ -82,8 +82,8 @@ Partial Class frmBoolean
         '
         Me.miChangeForm.Name = "miChangeForm"
         Me.miChangeForm.ShortcutKeys = System.Windows.Forms.Keys.F10
-        Me.miChangeForm.Size = New System.Drawing.Size(163, 22)
-        Me.miChangeForm.Text = "&Change Form"
+        Me.miChangeForm.Size = New System.Drawing.Size(191, 22)
+        Me.miChangeForm.Text = "&Change Form Color"
         '
         'miDefaultColor
         '
