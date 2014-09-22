@@ -8,6 +8,7 @@
 Option Strict On
 
 Imports PA_3_W_Weinert.CustomProfessionalColors
+Imports PA_3_W_Weinert.HSVColor
 
 Public Class frmBoolean
 
@@ -110,9 +111,13 @@ Public Class frmBoolean
         If cdFormColor.ShowDialog() = Windows.Forms.DialogResult.OK Then
             hasChoosenAColor = True
 
-            BackColor = cdFormColor.Color
-            lblQuestion.BackColor = cdFormColor.Color
-            msMainMenu.Renderer = New ToolStripProfessionalRenderer(New CustomProfessionalColors(cdFormColor.Color))
+            Dim c As New HSVColor(cdFormColor.Color)
+            c.Value = Math.Max(c.Value, 0.3) 'Keep the color bright enough for black text
+            Dim adjustedColor As Color = c.ARGB
+
+            BackColor = adjustedColor
+            lblQuestion.BackColor = adjustedColor
+            msMainMenu.Renderer = New ToolStripProfessionalRenderer(New CustomProfessionalColors(adjustedColor))
         End If
     End Sub
 
