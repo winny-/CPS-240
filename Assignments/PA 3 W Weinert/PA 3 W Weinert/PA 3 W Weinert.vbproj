@@ -70,6 +70,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomProfessionalColors.vb" />
     <Compile Include="frmBoolean.vb">
       <SubType>Form</SubType>
     </Compile>

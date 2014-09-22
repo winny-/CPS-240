@@ -7,6 +7,8 @@
 
 Option Strict On
 
+Imports PA_3_W_Weinert.CustomProfessionalColors
+
 Public Class frmBoolean
 
     Private solution As Boolean
@@ -99,11 +101,15 @@ Public Class frmBoolean
     Private Sub miChangeForm_Click(sender As Object, e As EventArgs) Handles miChangeForm.Click
         If cdFormColor.ShowDialog() = Windows.Forms.DialogResult.OK Then
             BackColor = cdFormColor.Color
+            lblQuestion.BackColor = cdFormColor.Color
+            msMainMenu.Renderer = New ToolStripProfessionalRenderer(New CustomProfessionalColors(cdFormColor.Color))
         End If
     End Sub
 
     Private Sub miDefaultColor_Click(sender As Object, e As EventArgs) Handles miDefaultColor.Click
         BackColor = DefaultBackColor
+        lblQuestion.BackColor = DefaultBackColor
+        msMainMenu.Renderer = New ToolStripProfessionalRenderer()
     End Sub
 
     Private Sub miSelectFile_Click(sender As Object, e As EventArgs) Handles miSelectFile.Click
