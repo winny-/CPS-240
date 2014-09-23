@@ -3,14 +3,20 @@
 ''' <summary>
 ''' Work with Colors in terms of Hue, Saturation, and Value
 ''' </summary>
-''' <remarks>
-''' Hue is the color itself.
-''' Saturation is the intesity of the Hue.
-''' Value is the relative brightness of the color.
-''' </remarks>
 Public Class HSVColor
 
-    Public Hue, Saturation, Value As Double
+    ''' <summary>
+    ''' The color itself
+    ''' </summary>
+    Public Hue As Double
+    ''' <summary>
+    ''' Intesity of the Hue
+    ''' </summary>
+    Public Saturation As Double
+    ''' <summary>
+    ''' Relative brightness of the color
+    ''' </summary>
+    Public Value As Double
 
     Public Sub New()
         'Intentionally left blank.
