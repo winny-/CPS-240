@@ -113,7 +113,7 @@ Public Class frmBoolean
 
             Dim c As New HSVColor(cdFormColor.Color)
             c.Value = Math.Max(c.Value, 0.3) 'Keep the color bright enough for black text
-            Dim adjustedColor As Color = c.ARGB
+            Dim adjustedColor As Color = c.RGB
 
             BackColor = adjustedColor
             lblQuestion.BackColor = adjustedColor

@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PA 3 W Weinert", "PA 3 W Weinert\PA 3 W Weinert.vbproj", "{E3A35BBC-6858-44DE-AAFF-8A0D3D21D005}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PA 3 W Weinert Tests", "PA 3 W Weinert Tests\PA 3 W Weinert Tests.vbproj", "{D56EFBE1-44C4-457A-9539-7DA2ACF942B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{E3A35BBC-6858-44DE-AAFF-8A0D3D21D005}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3A35BBC-6858-44DE-AAFF-8A0D3D21D005}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3A35BBC-6858-44DE-AAFF-8A0D3D21D005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D56EFBE1-44C4-457A-9539-7DA2ACF942B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D56EFBE1-44C4-457A-9539-7DA2ACF942B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D56EFBE1-44C4-457A-9539-7DA2ACF942B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D56EFBE1-44C4-457A-9539-7DA2ACF942B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -89,14 +89,14 @@ Partial Class frmBoolean
         '
         Me.miDefaultColor.Name = "miDefaultColor"
         Me.miDefaultColor.ShortcutKeys = System.Windows.Forms.Keys.F11
-        Me.miDefaultColor.Size = New System.Drawing.Size(163, 22)
+        Me.miDefaultColor.Size = New System.Drawing.Size(191, 22)
         Me.miDefaultColor.Text = "&Default Color"
         '
         'miSelectFile
         '
         Me.miSelectFile.Name = "miSelectFile"
         Me.miSelectFile.ShortcutKeys = System.Windows.Forms.Keys.F12
-        Me.miSelectFile.Size = New System.Drawing.Size(163, 22)
+        Me.miSelectFile.Size = New System.Drawing.Size(191, 22)
         Me.miSelectFile.Text = "&Select File"
         '
         'lblQuestion

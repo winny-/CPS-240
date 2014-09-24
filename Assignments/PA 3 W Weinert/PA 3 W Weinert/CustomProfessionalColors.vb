@@ -10,7 +10,7 @@ Public Class CustomProfessionalColors
     Public Shared Function blendColorValues(ByVal base As Color, ByVal other As Color) As Color
         Dim c As HSVColor = New HSVColor(base)
         c.Value = (c.Value + (New HSVColor(other)).Value) / 2
-        Return c.ARGB
+        Return c.RGB
     End Function
 
     Public Sub New(ByVal c As Color)
