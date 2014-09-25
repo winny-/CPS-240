@@ -8,12 +8,18 @@ Public Class ColorPair
 
     Public Color As Drawing.Color
     Public Hue, Saturation, Value As Double
+    Public Precsion As Integer = 3
 
     Public Sub New(ByVal color As Drawing.Color, ByVal hue As Double, ByVal saturation As Double, ByVal value As Double)
         Me.Color = color
         Me.Hue = hue
         Me.Saturation = saturation
         Me.Value = value
+    End Sub
+
+    Public Sub New(ByVal color As Drawing.Color, ByVal hue As Double, ByVal saturation As Double, ByVal value As Double, ByVal precision As Integer)
+        Me.New(color, hue, saturation, value)
+        Me.Precsion = precision
     End Sub
 
     Public Overrides Function ToString() As String
@@ -34,8 +40,11 @@ End Class
         colors.Add(New ColorPair(Drawing.Color.Black, 0, 0, 0))
         colors.Add(New ColorPair(Drawing.Color.White, 0, 0, 1))
         colors.Add(New ColorPair(Drawing.Color.Red, 0, 1, 1))
-        colors.Add(New ColorPair(Drawing.Color.FromArgb(0, 255, 0), 120, 1, 1))
-        colors.Add(New ColorPair(Drawing.Color.FromArgb(0, 0, 255), 240, 1, 1))
+        colors.Add(New ColorPair(Drawing.Color.FromArgb(0, 255, 0), 120, 1, 1)) 'Saturated Green
+        colors.Add(New ColorPair(Drawing.Color.FromArgb(0, 0, 255), 240, 1, 1)) 'Saturated Blue
+        colors.Add(New ColorPair(Drawing.Color.Gray, 0, 0, 0.5, 1))
+        colors.Add(New ColorPair(Drawing.Color.FromArgb(191, 191, 0), 60, 1, 0.75, 2)) 'Leaf Green
+        colors.Add(New ColorPair(Drawing.Color.FromArgb(128, 128, 255), 240, 0.5, 1, 1)) 'Violet
     End Sub
 
     'This is necessary because Drawing.Color.Black <> Drawing.Color.fromARGB(255, 0, 0, 0).
@@ -48,9 +57,9 @@ End Class
         For Each c In colors
             Dim h, s, v As Double
             HSVColor.colorToHSV(c.color, h, s, v)
-            Assert.AreEqual(h, c.Hue, c.ToString)
-            Assert.AreEqual(s, c.Saturation, c.ToString)
-            Assert.AreEqual(v, c.Value, c.ToString)
+            Assert.AreEqual(Math.Round(h, c.Precsion), c.Hue, c.ToString)
+            Assert.AreEqual(Math.Round(s, c.Precsion), c.Saturation, c.ToString)
+            Assert.AreEqual(Math.Round(v, c.Precsion), c.Value, c.ToString)
         Next
     End Sub
 
@@ -80,9 +89,9 @@ End Class
     <TestMethod()> Public Sub TestNewFromColor()
         For Each c In colors
             Dim hsv As HSVColor = New HSVColor(c.Color)
-            Assert.AreEqual(c.Hue, hsv.Hue)
-            Assert.AreEqual(c.Saturation, hsv.Saturation)
-            Assert.AreEqual(c.Value, hsv.Value)
+            Assert.AreEqual(Math.Round(hsv.Hue, c.Precsion), c.Hue, c.ToString)
+            Assert.AreEqual(Math.Round(hsv.Saturation, c.Precsion), c.Saturation, c.ToString)
+            Assert.AreEqual(Math.Round(hsv.Value, c.Precsion), c.Value, c.ToString)
             Assert.IsTrue(equalRGB(c.Color, hsv.RGB), c.ToString & " <> " & hsv.RGB.ToString)
         Next
     End Sub
