@@ -8,7 +8,7 @@ Public Class ColorPair
 
     Public Color As Drawing.Color
     Public Hue, Saturation, Value As Double
-    Public Precsion As Integer = 3
+    Public Precsion As Integer = 3 'Is used to get around imprecise lookup tables on Wikipedia.
 
     Public Sub New(ByVal color As Drawing.Color, ByVal hue As Double, ByVal saturation As Double, ByVal value As Double)
         Me.Color = color
@@ -41,6 +41,8 @@ End Class
 
         colors = New List(Of ColorPair)
 
+        'Most of these colors are from an imprecise HSV-HSL-RGB lookup table located here:
+        'https://en.wikipedia.org/wiki/HSL_and_HSV#Examples
         colors.Add(New ColorPair(Drawing.Color.Black, 0, 0, 0))
         colors.Add(New ColorPair(Drawing.Color.White, 0, 0, 1))
         colors.Add(New ColorPair(Drawing.Color.Red, 0, 1, 1))
