@@ -23,7 +23,11 @@ Public Class ColorPair
     End Sub
 
     Public Overrides Function ToString() As String
-        Return String.Format("RGB=#{0:x2}{1:x2}{2:x2} H={3} S={4} V={5}", Color.R, Color.G, Color.B, Hue, Saturation, Value)
+        Return String.Format("RGB={0} {1}", ColorToString(Color), New HSVColor(Hue, Saturation, Value).ToString)
+    End Function
+
+    Public Shared Function ColorToString(ByVal c As Drawing.Color) As String
+        Return String.Format("#{0:x2}{1:x2}{2:x2})", c.R, c.G, c.B)
     End Function
 
 End Class

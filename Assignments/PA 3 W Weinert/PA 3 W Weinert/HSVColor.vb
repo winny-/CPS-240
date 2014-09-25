@@ -46,6 +46,10 @@ Public Class HSVColor
         End Get
     End Property
 
+    Public Overrides Function ToString() As String
+        Return String.Format("hsv({0},{1},{2})", Hue, Saturation, Value)
+    End Function
+
     '*************************
     'Color to/from HSV helpers
     '*************************
