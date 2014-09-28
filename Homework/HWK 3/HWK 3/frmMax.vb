@@ -17,7 +17,33 @@ Public Class frmMax
         Return Max(Max(a, b), c)
     End Function
 
-    Private Sub btnMax_Click(sender As Object, e As EventArgs) Handles btnMax.Click
+    Private Function Max3Carl(ByVal num1 As Integer, ByVal num2 As Integer, ByVal num3 As Integer) As Integer
+        Dim max As Integer
+        max = num1
+        If num2 > max Then
+            max = num2
+        ElseIf num3 > max Then
+            max = num3
+        End If
+        Return max
+    End Function
+
+    Private Function Max3FixedCarl(ByVal num1 As Integer, ByVal num2 As Integer, ByVal num3 As Integer) As Integer
+        Dim max As Integer
+        If num2 > max Then
+            max = num2
+        End If
+        If num3 > max Then
+            max = num3
+        End If
+        Return max
+    End Function
+
+    Private Sub button_Click(sender As Object, e As EventArgs) Handles _
+        btnWinnyMax.Click,
+        btnWrongCarlMax.Click,
+        btnFixedCarlMax.Click
+
         Dim a, b, c As Integer
         Dim validInput As Boolean =
             Integer.TryParse(txtA.Text, a) AndAlso
@@ -32,7 +58,16 @@ Public Class frmMax
             Return
         End If
 
-        txtGreatestNumber.Text = Max(a, b, c).ToString()
+        Dim m As Integer
+        If sender Is btnWinnyMax Then
+            m = Max(a, b, c)
+        ElseIf sender Is btnWrongCarlMax Then
+            m = Max3Carl(a, b, c)
+        Else
+            m = Max3FixedCarl(a, b, c)
+        End If
+
+        txtGreatestNumber.Text = m.ToString
     End Sub
 
     Private Sub focusedATextBox(sender As Object, e As EventArgs) Handles _

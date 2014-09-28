@@ -26,7 +26,9 @@ Partial Class frmMax
         Me.txtB = New System.Windows.Forms.TextBox()
         Me.txtC = New System.Windows.Forms.TextBox()
         Me.txtGreatestNumber = New System.Windows.Forms.TextBox()
-        Me.btnMax = New System.Windows.Forms.Button()
+        Me.btnWinnyMax = New System.Windows.Forms.Button()
+        Me.btnWrongCarlMax = New System.Windows.Forms.Button()
+        Me.btnFixedCarlMax = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'txtA
@@ -58,22 +60,42 @@ Partial Class frmMax
         Me.txtGreatestNumber.Size = New System.Drawing.Size(100, 20)
         Me.txtGreatestNumber.TabIndex = 3
         '
-        'btnMax
+        'btnWinnyMax
         '
-        Me.btnMax.Location = New System.Drawing.Point(22, 116)
-        Me.btnMax.Name = "btnMax"
-        Me.btnMax.Size = New System.Drawing.Size(75, 23)
-        Me.btnMax.TabIndex = 4
-        Me.btnMax.Text = "&Max"
-        Me.btnMax.UseVisualStyleBackColor = True
+        Me.btnWinnyMax.Location = New System.Drawing.Point(12, 116)
+        Me.btnWinnyMax.Name = "btnWinnyMax"
+        Me.btnWinnyMax.Size = New System.Drawing.Size(99, 23)
+        Me.btnWinnyMax.TabIndex = 4
+        Me.btnWinnyMax.Text = "Winny &Max"
+        Me.btnWinnyMax.UseVisualStyleBackColor = True
+        '
+        'btnWrongCarlMax
+        '
+        Me.btnWrongCarlMax.Location = New System.Drawing.Point(12, 145)
+        Me.btnWrongCarlMax.Name = "btnWrongCarlMax"
+        Me.btnWrongCarlMax.Size = New System.Drawing.Size(99, 23)
+        Me.btnWrongCarlMax.TabIndex = 5
+        Me.btnWrongCarlMax.Text = "Wrong &Carl Max"
+        Me.btnWrongCarlMax.UseVisualStyleBackColor = True
+        '
+        'btnFixedCarlMax
+        '
+        Me.btnFixedCarlMax.Location = New System.Drawing.Point(12, 174)
+        Me.btnFixedCarlMax.Name = "btnFixedCarlMax"
+        Me.btnFixedCarlMax.Size = New System.Drawing.Size(100, 23)
+        Me.btnFixedCarlMax.TabIndex = 6
+        Me.btnFixedCarlMax.Text = "&Fixed Carl Max"
+        Me.btnFixedCarlMax.UseVisualStyleBackColor = True
         '
         'frmMax
         '
-        Me.AcceptButton = Me.btnMax
+        Me.AcceptButton = Me.btnWinnyMax
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(123, 147)
-        Me.Controls.Add(Me.btnMax)
+        Me.ClientSize = New System.Drawing.Size(123, 207)
+        Me.Controls.Add(Me.btnFixedCarlMax)
+        Me.Controls.Add(Me.btnWrongCarlMax)
+        Me.Controls.Add(Me.btnWinnyMax)
         Me.Controls.Add(Me.txtGreatestNumber)
         Me.Controls.Add(Me.txtC)
         Me.Controls.Add(Me.txtB)
@@ -90,6 +112,8 @@ Partial Class frmMax
     Friend WithEvents txtB As System.Windows.Forms.TextBox
     Friend WithEvents txtC As System.Windows.Forms.TextBox
     Friend WithEvents txtGreatestNumber As System.Windows.Forms.TextBox
-    Friend WithEvents btnMax As System.Windows.Forms.Button
+    Friend WithEvents btnWinnyMax As System.Windows.Forms.Button
+    Friend WithEvents btnWrongCarlMax As System.Windows.Forms.Button
+    Friend WithEvents btnFixedCarlMax As System.Windows.Forms.Button
 
 End Class
