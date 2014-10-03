@@ -28,6 +28,29 @@ Public Class frmLast3Added
         totalPeopleAdded += 1
     End Sub
 
+    Private Function validateAndParseInputs(ByRef p As Person) As Boolean
+        Dim validInput As Boolean = Person.TryParse(txtNameInput.Text, txtAgeInput.Text, p)
+
+        If Not validInput Then
+            Dim errors As New List(Of String)
+            Dim validName As Boolean = Person.NameIsValid(txtNameInput.Text)
+            If Not validName Then
+                errors.Add(String.Format("Invalid name ""{0}"".", txtNameInput.Text))
+                txtNameInput.Focus()
+            End If
+            If Not Person.AgeIsValid(txtAgeInput.Text) Then
+                errors.Add(String.Format("Invalid age ""{0}"".", txtAgeInput.Text))
+                If validName Then txtAgeInput.Focus() 'Don't take focus from the first invalid input
+            End If
+            MessageBox.Show(text:=String.Join(" ", errors),
+                            caption:="Error: invalid input",
+                            buttons:=MessageBoxButtons.OK,
+                            icon:=MessageBoxIcon.Error)
+        End If
+
+        Return validInput
+    End Function
+
     Private Sub exit_Click(sender As Object, e As EventArgs) Handles _
         btnExit.Click,
         miExit.Click
@@ -45,10 +68,8 @@ Public Class frmLast3Added
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Dim p As Person = Nothing
-        If Not Person.TryParse(txtNameInput.Text, txtAgeInput.Text, p) Then
-            MessageBox.Show("Invalid input")
-            Return
-        End If
+
+        If Not validateAndParseInputs(p) Then Return
 
         addPerson(p)
     End Sub
@@ -62,6 +83,7 @@ Public Class frmLast3Added
 
     Private Sub ChangemaxPeopleToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangemaxPeopleToolStripMenuItem.Click
         maxPeople = frmNumberPrompt.ShowDialogForInteger("Input a number", "Change the max people", maxPeople)
+        'Remove excess people in lstPeople after max people is changed.
         Do While lstPeople.Items.Count > maxPeople
             lstPeople.Items.RemoveAt(lstPeople.Items.Count - 1)
         Loop

@@ -40,6 +40,11 @@ Public Class Person
         Return age > 0 And age < 150
     End Function
 
+    Public Shared Function AgeIsValid(ByVal age As String) As Boolean
+        Dim ageN As Integer
+        Return Integer.TryParse(age, ageN) AndAlso AgeIsValid(ageN)
+    End Function
+
     Public Shared Function TryParse(ByVal name As String, ByVal age As String, ByRef p As Person) As Boolean
         p = Nothing
         Dim ageN As Integer
