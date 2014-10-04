@@ -22,18 +22,18 @@ Partial Class frmNumberPrompt
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.nudNumber = New System.Windows.Forms.NumericUpDown()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.lblPrompt = New System.Windows.Forms.Label()
+        CType(Me.nudNumber, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'NumericUpDown1
         '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(12, 26)
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(120, 20)
-        Me.NumericUpDown1.TabIndex = 0
+        Me.nudNumber.Location = New System.Drawing.Point(12, 26)
+        Me.nudNumber.Name = "NumericUpDown1"
+        Me.nudNumber.Size = New System.Drawing.Size(120, 20)
+        Me.nudNumber.TabIndex = 0
         '
         'Button1
         '
@@ -46,11 +46,11 @@ Partial Class frmNumberPrompt
         '
         'Label1
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(9, 9)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(0, 13)
-        Me.Label1.TabIndex = 2
+        Me.lblPrompt.AutoSize = True
+        Me.lblPrompt.Location = New System.Drawing.Point(9, 9)
+        Me.lblPrompt.Name = "Label1"
+        Me.lblPrompt.Size = New System.Drawing.Size(0, 13)
+        Me.lblPrompt.TabIndex = 2
         '
         'frmNumberPrompt
         '
@@ -58,20 +58,20 @@ Partial Class frmNumberPrompt
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(143, 87)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lblPrompt)
         Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.NumericUpDown1)
+        Me.Controls.Add(Me.nudNumber)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmNumberPrompt"
         Me.Text = "NumberPrompt"
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nudNumber, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents NumericUpDown1 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents nudNumber As System.Windows.Forms.NumericUpDown
     Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents lblPrompt As System.Windows.Forms.Label
 End Class
