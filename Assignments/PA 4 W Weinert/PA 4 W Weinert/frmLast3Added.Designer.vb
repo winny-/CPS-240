@@ -27,6 +27,7 @@ Partial Class frmLast3Added
         Me.miExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.miCount = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ChangemaxPeopleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lstPeople = New System.Windows.Forms.ListBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -43,7 +44,6 @@ Partial Class frmLast3Added
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.ChangemaxPeopleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -82,8 +82,14 @@ Partial Class frmLast3Added
         'miCount
         '
         Me.miCount.Name = "miCount"
-        Me.miCount.Size = New System.Drawing.Size(152, 22)
+        Me.miCount.Size = New System.Drawing.Size(169, 22)
         Me.miCount.Text = "&Count"
+        '
+        'ChangemaxPeopleToolStripMenuItem
+        '
+        Me.ChangemaxPeopleToolStripMenuItem.Name = "ChangemaxPeopleToolStripMenuItem"
+        Me.ChangemaxPeopleToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
+        Me.ChangemaxPeopleToolStripMenuItem.Text = "Change &max people"
         '
         'Label1
         '
@@ -235,14 +241,9 @@ Partial Class frmLast3Added
         Me.PictureBox1.TabIndex = 3
         Me.PictureBox1.TabStop = False
         '
-        'ChangemaxPeopleToolStripMenuItem
-        '
-        Me.ChangemaxPeopleToolStripMenuItem.Name = "ChangemaxPeopleToolStripMenuItem"
-        Me.ChangemaxPeopleToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
-        Me.ChangemaxPeopleToolStripMenuItem.Text = "Change &max people"
-        '
         'frmLast3Added
         '
+        Me.AcceptButton = Me.btnAdd
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(318, 286)

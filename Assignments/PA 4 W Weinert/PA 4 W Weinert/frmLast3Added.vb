@@ -17,13 +17,27 @@ Public Class frmLast3Added
     Private maxPeople As Integer = DEFAULT_MAX_PEOPLE
 
     Private Sub addPerson(ByVal p As Person)
-        Dim index As Integer = lstPeople.Items.Count 'This is always the last element + 1, could also use lstPeople.Items.Add() in an Else clause.
+        For Each e As Person In lstPeople.Items
+            If e.Name = p.Name Then
+                MessageBox.Show(text:=String.Format("Person named ""{0}"" is already on the list. Please choose a different name.", p.Name),
+                                caption:="Error: person already added",
+                                buttons:=MessageBoxButtons.OK,
+                                icon:=MessageBoxIcon.Error)
+                Return
+            End If
+        Next
+
+        'This should satisfy the extra credit requirements.
         If lstPeople.Items.Count = maxPeople Then
-            index = totalPeopleAdded Mod maxPeople
-            lstPeople.Items.RemoveAt(index)
+            If lstPeople.SelectedIndex = 0 Then
+                lstPeople.SelectedIndex = 1
+                lstPeople_SelectedIndexChanged(Nothing, Nothing)
+            End If
+            'This must come second because if the selected index is 0, and index 0 is removed, the selected index become -1.
+            lstPeople.Items.RemoveAt(0)
         End If
 
-        lstPeople.Items.Insert(index, p)
+        lstPeople.Items.Add(p)
 
         totalPeopleAdded += 1
     End Sub
@@ -61,6 +75,15 @@ Public Class frmLast3Added
         Me.Close()
     End Sub
 
+    Private Sub textbox_Focused(sender As Object, e As EventArgs) Handles _
+        txtNameInput.GotFocus,
+        txtAgeInput.GotFocus,
+        txtNameDetail.GotFocus,
+        txtAgeDetail.GotFocus
+
+        CType(sender, TextBox).SelectAll()
+    End Sub
+
     Private Sub lstPeople_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstPeople.SelectedIndexChanged
         Dim selected As Object = lstPeople.SelectedItem
         If selected Is Nothing Then Return
@@ -88,7 +111,7 @@ Public Class frmLast3Added
         maxPeople = frmNumberPrompt.ShowDialogForInteger("Input a number", "Change the max people", maxPeople)
         'Remove excess people in lstPeople after max people is changed.
         Do While lstPeople.Items.Count > maxPeople
-            lstPeople.Items.RemoveAt(lstPeople.Items.Count - 1)
+            lstPeople.Items.RemoveAt(0)
         Loop
     End Sub
 

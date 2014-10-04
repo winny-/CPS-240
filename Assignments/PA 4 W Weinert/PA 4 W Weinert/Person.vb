@@ -1,10 +1,14 @@
 ﻿Option Strict On
 
+Imports System.Text.RegularExpressions
+
 Public Class Person
 
     Private _name As String
     Private _age As Integer
 
+    '.NET style setter and getters. I use these throughout the code, but worry not,
+    'I included the Java style as per assignment requirements.
     Public Property Name As String
         Get
             Return _name
@@ -23,6 +27,28 @@ Public Class Person
         End Set
     End Property
 
+    'Java style setter and getter methods to fulfill the assignment requirements.
+    'Out of Obj-C, Python, .NET, and Java I find Java's too easy to make mistakes on, and try to avoid it for most projects.
+    Public Function getName() As String
+        Return _name
+    End Function
+
+    Public Sub setName(ByVal name As String)
+        _name = name
+    End Sub
+
+    Public Function getAge() As Integer
+        Return _age
+    End Function
+
+    Public Sub setAge(ByVal age As Integer)
+        _age = age
+    End Sub
+
+    Public Sub New()
+        'Intentionally left blank.
+    End Sub
+
     Public Sub New(ByVal name As String, ByVal age As Integer)
         Me.Name = name
         Me.Age = age
@@ -33,7 +59,9 @@ Public Class Person
     End Function
 
     Public Shared Function NameIsValid(ByVal name As String) As Boolean
-        Return name <> String.Empty
+        'Basically anything that starts with a letter and ends with a letter is okay.
+        'Hyphens, spaces, and apostraphe are all okay in the middle.
+        Return Regex.IsMatch(name, "^(?![-' ])[a-zA-Z-' ]*[a-zA-Z]$")
     End Function
 
     Public Shared Function AgeIsValid(ByVal age As Integer) As Boolean
