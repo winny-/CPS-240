@@ -12,9 +12,30 @@ Imports PA_4_W_Weinert
 Public Class frmLast3Added
 
     Private Const DEFAULT_MAX_PEOPLE As Integer = 3
+    Private Const CHANGE_MAX_PEOPLE_MENU_TEXT As String = "Change &max people ({0})"
 
     Private totalPeopleAdded As Integer = 0
-    Private maxPeople As Integer = DEFAULT_MAX_PEOPLE
+
+    'Don't assign to this, use the property below!
+    Private _maxPeople As Integer = DEFAULT_MAX_PEOPLE
+
+    Private Property maxPeople As Integer
+        Get
+            Return _maxPeople
+        End Get
+        Set(value As Integer)
+            _maxPeople = value
+            miChangeMaxPeople.Text = String.Format(CHANGE_MAX_PEOPLE_MENU_TEXT, maxPeople)
+            'Remove excess people in lstPeople after max people is changed.
+            Do While lstPeople.Items.Count > maxPeople
+                lstPeople.Items.RemoveAt(0)
+            Loop
+        End Set
+    End Property
+
+    '*****************************************************************
+    'The main business logic
+    '*****************************************************************
 
     Private Sub addPerson(ByVal p As Person)
         For Each e As Person In lstPeople.Items
@@ -26,6 +47,8 @@ Public Class frmLast3Added
                 Return
             End If
         Next
+
+        Debug.Assert(lstPeople.Items.Count <= maxPeople)
 
         'This should satisfy the extra credit requirements.
         If lstPeople.Items.Count = maxPeople Then
@@ -43,19 +66,21 @@ Public Class frmLast3Added
     End Sub
 
     Private Function validateAndParseInputs(ByRef p As Person) As Boolean
-        Dim validInput As Boolean = Person.TryParse(txtNameInput.Text, txtAgeInput.Text, p)
+        Dim name As String = txtNameInput.Text
+        Dim age As String = txtAgeInput.Text
+        Dim validInput As Boolean = Person.TryParse(name, age, p)
 
         If Not validInput Then
             Dim errors As New List(Of String)
-            Dim validName As Boolean = Person.NameIsValid(txtNameInput.Text)
+            Dim validName As Boolean = Person.NameIsValid(name)
 
             If Not validName Then
-                errors.Add(String.Format("Invalid name ""{0}"".", txtNameInput.Text))
+                errors.Add(String.Format("Invalid name ""{0}"".", name))
                 txtNameInput.Focus()
             End If
 
-            If Not Person.AgeIsValid(txtAgeInput.Text) Then
-                errors.Add(String.Format("Invalid age ""{0}"".", txtAgeInput.Text))
+            If Not Person.AgeIsValid(age) Then
+                errors.Add(String.Format("Invalid age ""{0}"".", age))
                 If validName Then txtAgeInput.Focus() 'Don't take focus from the first invalid input
             End If
 
@@ -68,20 +93,16 @@ Public Class frmLast3Added
         Return validInput
     End Function
 
-    Private Sub exit_Click(sender As Object, e As EventArgs) Handles _
-        btnExit.Click,
-        miExit.Click
+    '*****************************************************************
+    'Event handlers
+    '*****************************************************************
 
-        Me.Close()
-    End Sub
+    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+        Dim p As Person = Nothing
 
-    Private Sub textbox_Focused(sender As Object, e As EventArgs) Handles _
-        txtNameInput.GotFocus,
-        txtAgeInput.GotFocus,
-        txtNameDetail.GotFocus,
-        txtAgeDetail.GotFocus
+        If Not validateAndParseInputs(p) Then Return
 
-        CType(sender, TextBox).SelectAll()
+        addPerson(p)
     End Sub
 
     Private Sub lstPeople_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstPeople.SelectedIndexChanged
@@ -92,14 +113,6 @@ Public Class frmLast3Added
         txtAgeDetail.Text = p.Age.ToString()
     End Sub
 
-    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        Dim p As Person = Nothing
-
-        If Not validateAndParseInputs(p) Then Return
-
-        addPerson(p)
-    End Sub
-
     Private Sub miCount_Click(sender As Object, e As EventArgs) Handles miCount.Click
         MessageBox.Show(text:=totalPeopleAdded.ToString & " persons have been added.",
                         caption:="Total Count",
@@ -107,12 +120,26 @@ Public Class frmLast3Added
                         icon:=MessageBoxIcon.Information)
     End Sub
 
-    Private Sub ChangemaxPeopleToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangemaxPeopleToolStripMenuItem.Click
+    Private Sub miChangeMaxPeople_Click(sender As Object, e As EventArgs) Handles miChangeMaxPeople.Click
         maxPeople = frmNumberPrompt.ShowDialogForInteger("Input a number", "Change the max people", maxPeople)
-        'Remove excess people in lstPeople after max people is changed.
-        Do While lstPeople.Items.Count > maxPeople
-            lstPeople.Items.RemoveAt(0)
-        Loop
+    End Sub
+
+    '*****************************************************************
+
+    Private Sub textbox_Focused(sender As Object, e As EventArgs) Handles _
+        txtNameInput.GotFocus,
+        txtAgeInput.GotFocus,
+        txtNameDetail.GotFocus,
+        txtAgeDetail.GotFocus
+
+        CType(sender, TextBox).SelectAll()
+    End Sub
+
+    Private Sub exit_Click(sender As Object, e As EventArgs) Handles _
+        btnExit.Click,
+        miExit.Click
+
+        Me.Close()
     End Sub
 
 End Class

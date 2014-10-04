@@ -23,7 +23,7 @@ Partial Class frmNumberPrompt
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.nudNumber = New System.Windows.Forms.NumericUpDown()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnExit = New System.Windows.Forms.Button()
         Me.lblPrompt = New System.Windows.Forms.Label()
         CType(Me.nudNumber, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -37,12 +37,12 @@ Partial Class frmNumberPrompt
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(31, 52)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 1
-        Me.Button1.Text = "&Okay"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnExit.Location = New System.Drawing.Point(31, 52)
+        Me.btnExit.Name = "Button1"
+        Me.btnExit.Size = New System.Drawing.Size(75, 23)
+        Me.btnExit.TabIndex = 1
+        Me.btnExit.Text = "&Okay"
+        Me.btnExit.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -54,12 +54,12 @@ Partial Class frmNumberPrompt
         '
         'frmNumberPrompt
         '
-        Me.AcceptButton = Me.Button1
+        Me.AcceptButton = Me.btnExit
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(143, 87)
         Me.Controls.Add(Me.lblPrompt)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.nudNumber)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
@@ -72,6 +72,6 @@ Partial Class frmNumberPrompt
 
     End Sub
     Friend WithEvents nudNumber As System.Windows.Forms.NumericUpDown
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents btnExit As System.Windows.Forms.Button
     Friend WithEvents lblPrompt As System.Windows.Forms.Label
 End Class

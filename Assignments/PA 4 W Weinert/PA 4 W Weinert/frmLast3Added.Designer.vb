@@ -27,7 +27,7 @@ Partial Class frmLast3Added
         Me.miExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.miCount = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ChangemaxPeopleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miChangeMaxPeople = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lstPeople = New System.Windows.Forms.ListBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -74,7 +74,7 @@ Partial Class frmLast3Added
         '
         'ToolsToolStripMenuItem
         '
-        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miCount, Me.ChangemaxPeopleToolStripMenuItem})
+        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miCount, Me.miChangeMaxPeople})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
         Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.ToolsToolStripMenuItem.Text = "&Tools"
@@ -82,14 +82,15 @@ Partial Class frmLast3Added
         'miCount
         '
         Me.miCount.Name = "miCount"
+        Me.miCount.ShortcutKeys = System.Windows.Forms.Keys.F12
         Me.miCount.Size = New System.Drawing.Size(169, 22)
         Me.miCount.Text = "&Count"
         '
-        'ChangemaxPeopleToolStripMenuItem
+        'miChangeMaxPeople
         '
-        Me.ChangemaxPeopleToolStripMenuItem.Name = "ChangemaxPeopleToolStripMenuItem"
-        Me.ChangemaxPeopleToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
-        Me.ChangemaxPeopleToolStripMenuItem.Text = "Change &max people"
+        Me.miChangeMaxPeople.Name = "miChangeMaxPeople"
+        Me.miChangeMaxPeople.Size = New System.Drawing.Size(169, 22)
+        Me.miChangeMaxPeople.Text = "Change &max people"
         '
         'Label1
         '
@@ -289,6 +290,6 @@ Partial Class frmLast3Added
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
-    Friend WithEvents ChangemaxPeopleToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents miChangeMaxPeople As System.Windows.Forms.ToolStripMenuItem
 
 End Class

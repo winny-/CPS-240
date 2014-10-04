@@ -4,8 +4,16 @@ Imports System.Text.RegularExpressions
 
 Public Class Person
 
+    '*****************************************************************
+    'Private fields
+    '*****************************************************************
+
     Private _name As String
     Private _age As Integer
+
+    '*****************************************************************
+    'Properties
+    '*****************************************************************
 
     '.NET style setter and getters. I use these throughout the code, but worry not,
     'I included the Java style as per assignment requirements.
@@ -27,8 +35,10 @@ Public Class Person
         End Set
     End Property
 
-    'Java style setter and getter methods to fulfill the assignment requirements.
-    'Out of Obj-C, Python, .NET, and Java I find Java's too easy to make mistakes on, and try to avoid it for most projects.
+    '*****************************************************************
+    'Java style properties to fulfill assignment requirements
+    '*****************************************************************
+
     Public Function getName() As String
         Return _name
     End Function
@@ -45,6 +55,10 @@ Public Class Person
         _age = age
     End Sub
 
+    '*****************************************************************
+    'Constructors
+    '*****************************************************************
+
     Public Sub New()
         'Intentionally left blank.
     End Sub
@@ -54,9 +68,15 @@ Public Class Person
         Me.Age = age
     End Sub
 
+    '*****************************************************************
+
     Public Overrides Function ToString() As String
         Return Name
     End Function
+
+    '*****************************************************************
+    'String validation and parsing
+    '*****************************************************************
 
     Public Shared Function NameIsValid(ByVal name As String) As Boolean
         'Basically anything that starts with a letter and ends with a letter is okay.
@@ -69,18 +89,30 @@ Public Class Person
     End Function
 
     Public Shared Function AgeIsValid(ByVal age As String) As Boolean
-        Dim ageN As Integer
-        Return Integer.TryParse(age, ageN) AndAlso AgeIsValid(ageN)
+        Return parseAge(age, Nothing)
     End Function
 
     Public Shared Function TryParse(ByVal name As String, ByVal age As String, ByRef p As Person) As Boolean
         p = Nothing
         Dim ageN As Integer
-        Dim valid As Boolean = NameIsValid(name) AndAlso Integer.TryParse(age, ageN) AndAlso AgeIsValid(ageN)
+        Dim valid As Boolean = NameIsValid(name) AndAlso parseAge(age, ageN)
 
         If valid Then
             p = New Person(name, ageN)
         End If
+
+        Return valid
+    End Function
+
+    '*****************************************************************
+    'Private methods
+    '*****************************************************************
+
+    Private Shared Function parseAge(ByVal s As String, ByRef age As Integer) As Boolean
+        Dim n As Integer
+        Dim valid As Boolean = Integer.TryParse(s, n) AndAlso AgeIsValid(n)
+
+        If valid Then age = n
 
         Return valid
     End Function
