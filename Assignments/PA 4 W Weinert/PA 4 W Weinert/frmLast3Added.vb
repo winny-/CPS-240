@@ -17,7 +17,7 @@ Public Class frmLast3Added
     Private maxPeople As Integer = DEFAULT_MAX_PEOPLE
 
     Private Sub addPerson(ByVal p As Person)
-        Dim index As Integer = lstPeople.Items.Count
+        Dim index As Integer = lstPeople.Items.Count 'This is always the last element + 1, could also use lstPeople.Items.Add() in an Else clause.
         If lstPeople.Items.Count = maxPeople Then
             index = totalPeopleAdded Mod maxPeople
             lstPeople.Items.RemoveAt(index)
@@ -34,14 +34,17 @@ Public Class frmLast3Added
         If Not validInput Then
             Dim errors As New List(Of String)
             Dim validName As Boolean = Person.NameIsValid(txtNameInput.Text)
+
             If Not validName Then
                 errors.Add(String.Format("Invalid name ""{0}"".", txtNameInput.Text))
                 txtNameInput.Focus()
             End If
+
             If Not Person.AgeIsValid(txtAgeInput.Text) Then
                 errors.Add(String.Format("Invalid age ""{0}"".", txtAgeInput.Text))
                 If validName Then txtAgeInput.Focus() 'Don't take focus from the first invalid input
             End If
+
             MessageBox.Show(text:=String.Join(" ", errors),
                             caption:="Error: invalid input",
                             buttons:=MessageBoxButtons.OK,
