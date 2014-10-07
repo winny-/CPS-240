@@ -38,16 +38,6 @@ Public Class frmLast3Added
     '*****************************************************************
 
     Private Sub addPerson(ByVal p As Person)
-        For Each e As Person In lstPeople.Items
-            If e.Name = p.Name Then
-                MessageBox.Show(text:=String.Format("Person named ""{0}"" is already on the list. Please choose a different name.", p.Name),
-                                caption:="Error: person already added",
-                                buttons:=MessageBoxButtons.OK,
-                                icon:=MessageBoxIcon.Error)
-                Return
-            End If
-        Next
-
         Debug.Assert(lstPeople.Items.Count <= maxPeople)
 
         'This should satisfy the extra credit requirements.
@@ -65,29 +55,44 @@ Public Class frmLast3Added
         totalPeopleAdded += 1
     End Sub
 
+    Private Function nameIsUnique(ByVal name As String) As Boolean
+        For Each p As Person In lstPeople.Items
+            If p.Name = name Then Return False
+        Next
+        Return True
+    End Function
+
     Private Function validateAndParseInputs(ByRef p As Person) As Boolean
         Dim name As String = txtNameInput.Text
         Dim age As String = txtAgeInput.Text
-        Dim validInput As Boolean = Person.TryParse(name, age, p)
+        Dim parseable As Boolean = Person.TryParse(name, age, p)
+        Dim uniqueName As Boolean = nameIsUnique(name)
+        Dim validInput As Boolean = parseable AndAlso uniqueName
 
         If Not validInput Then
-            Dim errors As New List(Of String)
             Dim validName As Boolean = Person.NameIsValid(name)
+            Dim validAge As Boolean = Person.AgeIsValid(age)
 
-            If Not validName Then
-                errors.Add(String.Format("Invalid name ""{0}"".", name))
-                txtNameInput.Focus()
+            Dim errors As New List(Of String)
+
+            Dim focusMe As Control = Nothing
+
+            If Not validName OrElse Not uniqueName Then
+                If Not validName Then errors.Add(String.Format("Invalid name ""{0}"".", name))
+                If Not uniqueName Then errors.Add(String.Format("A person with name ""{0}"" has already been added. Please choose a unique name.", name))
+                focusMe = CType(txtNameInput, Control)
             End If
 
-            If Not Person.AgeIsValid(age) Then
+            If Not validAge Then
                 errors.Add(String.Format("Invalid age ""{0}"".", age))
-                If validName Then txtAgeInput.Focus() 'Don't take focus from the first invalid input
+                If focusMe Is Nothing Then focusMe = CType(txtAgeInput, Control)
             End If
 
             MessageBox.Show(text:=String.Join(" ", errors),
                             caption:="Error: invalid input",
                             buttons:=MessageBoxButtons.OK,
                             icon:=MessageBoxIcon.Error)
+            focusMe.Focus()
         End If
 
         Return validInput
