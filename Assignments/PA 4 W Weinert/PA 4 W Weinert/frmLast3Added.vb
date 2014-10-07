@@ -17,7 +17,7 @@ Public Class frmLast3Added
     Private totalPeopleAdded As Integer = 0
 
     'Don't assign to this, use the property below!
-    Private _maxPeople As Integer = DEFAULT_MAX_PEOPLE
+    Private _maxPeople As Integer
 
     Private Property maxPeople As Integer
         Get
@@ -40,17 +40,17 @@ Public Class frmLast3Added
     Private Sub addPerson(ByVal p As Person)
         Debug.Assert(lstPeople.Items.Count <= maxPeople)
 
+        txtNameInput.Clear()
+        txtAgeInput.Clear()
+        txtNameInput.Focus()
+
         'This should satisfy the extra credit requirements.
         If lstPeople.Items.Count = maxPeople Then
-            If lstPeople.SelectedIndex = 0 Then
-                lstPeople.SelectedIndex = 1
-                lstPeople_SelectedIndexChanged(Nothing, Nothing)
-            End If
-            'This must come second because if the selected index is 0, and index 0 is removed, the selected index become -1.
             lstPeople.Items.RemoveAt(0)
         End If
 
         lstPeople.Items.Add(p)
+        lstPeople.SelectedItem = p
 
         totalPeopleAdded += 1
     End Sub
@@ -126,7 +126,7 @@ Public Class frmLast3Added
     End Sub
 
     Private Sub miChangeMaxPeople_Click(sender As Object, e As EventArgs) Handles miChangeMaxPeople.Click
-        maxPeople = frmNumberPrompt.ShowDialogForInteger("Input a number", "Change the max people", maxPeople)
+        maxPeople = frmNumberPrompt.ShowDialogForInteger("Input a number", "Change max people", maxPeople)
     End Sub
 
     '*****************************************************************
@@ -145,6 +145,10 @@ Public Class frmLast3Added
         miExit.Click
 
         Me.Close()
+    End Sub
+
+    Private Sub frmLast3Added_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        maxPeople = DEFAULT_MAX_PEOPLE
     End Sub
 
 End Class
