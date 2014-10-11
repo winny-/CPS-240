@@ -11,29 +11,42 @@ Imports PA_5_W_Weinert
 
 Public Class frmBankAccounts
 
-    Private people(Account.MAX_ACCOUNTS - 1) As Account
+    Private People(Account.MAX_ACCOUNTS - 1) As Account
+
+    Private ReadOnly Property SelectedAccount As Account
+        Get
+            Return TryCast(lstCustomers.SelectedItem, Account)
+        End Get
+    End Property
 
     '*****************************************************************
     'Helpers
     '*****************************************************************
 
-    Private Sub display()
-        Dim selected As Account = TryCast(lstCustomers.SelectedItem, Account)
+    Private Sub Display(ByVal overideSelected As Account)
+        Dim selected As Account = If(overideSelected IsNot Nothing,
+                                     overideSelected,
+                                     SelectedAccount)
         lstCustomers.Items.Clear()
-        For i As Integer = 0 To people.Length - 1
-            If people(i) Is Nothing Then Exit For
-            lstCustomers.Items.Add(people(i))
+
+        Dim instantiatedAccounts As IEnumerable(Of Account) = From p In People Where p IsNot Nothing
+        For Each a In instantiatedAccounts
+            lstCustomers.Items.Add(a)
         Next
-        If selected IsNot Nothing Then
-            lstCustomers.SelectedItem = selected
-            lblAccountInfo.Text = selected.details()
-        End If
+        If selected IsNot Nothing Then lstCustomers.SelectedItem = selected
     End Sub
 
-    Private Function parseCurrency(ByRef n As Decimal) As Boolean
+    Private Sub Display()
+        Display(overideSelected:=Nothing)
+    End Sub
+
+    Private Function ParseCurrency(ByRef n As Decimal) As Boolean
         Dim valid As Boolean = Account.TryParseCurrency(txtAmount.Text, n)
         If Not valid Then
-            MessageBox.Show("Invalid amount.")
+            MessageBox.Show(text:="Invalid amount.",
+                            caption:="Bad input",
+                            buttons:=MessageBoxButtons.OK,
+                            icon:=MessageBoxIcon.Error)
         End If
         Return valid
     End Function
@@ -43,45 +56,62 @@ Public Class frmBankAccounts
     '*****************************************************************
 
     Private Sub miNewCustomer_Click(sender As Object, e As EventArgs) Handles miNewCustomer.Click
-        Dim name As String = InputBox("Enter a name: ")
-        If Not Account.NameIsValid(name) Then
-            MessageBox.Show("Bad name")
+        If People.Last IsNot Nothing Then
+            MessageBox.Show(text:="Sorry, no more accounts may be created.",
+                            caption:="Max account limit reached",
+                            buttons:=MessageBoxButtons.OK,
+                            icon:=MessageBoxIcon.Error)
             Return
         End If
-        Debug.Assert(people.Last Is Nothing)
-        For i As Integer = 0 To people.Length - 1
-            If people(i) IsNot Nothing Then Continue For
-            people(i) = New Account(name)
-            If i = people.Length - 1 Then miNewCustomer.Enabled = False
-            Exit For
+
+        Dim nameResult As Tuple(Of Boolean, String) = frmNewAccount.ShowDialogForName()
+        If Not nameResult.Item1 Then Return 'The user clicked Cancel.
+        Dim name As String = nameResult.Item2
+
+        Debug.Assert(People.Last Is Nothing)
+        Dim newAccount As New Account(name)
+        For i As Integer = 0 To People.Length - 1
+            If People(i) Is Nothing Then
+                People(i) = newAccount
+                Exit For
+            End If
         Next
-        display()
+
+        Display(overideSelected:=newAccount)
     End Sub
 
     Private Sub lstCustomers_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstCustomers.SelectedIndexChanged
-        Dim a As Account = TryCast(lstCustomers.SelectedItem, Account)
-        lblAccountInfo.Text = If(a Is Nothing, String.Empty, a.details())
-        gbMakeATransaction.Enabled = a IsNot Nothing
+        Dim anAccountIsSelected As Boolean = SelectedAccount IsNot Nothing
+        lblAccountInfo.Text = If(anAccountIsSelected,
+                                 SelectedAccount.ToDetailsString(),
+                                 String.Empty)
+        gbMakeATransaction.Enabled = anAccountIsSelected
     End Sub
 
-    Private Sub bntDeposit_Click(sender As Object, e As EventArgs) Handles bntDeposit.Click
-        Debug.Assert(lstCustomers.SelectedIndex <> -1)
+    Private Sub btnDeposit_Click(sender As Object, e As EventArgs) Handles btnDeposit.Click
         Dim amount As Decimal
-        If Not parseCurrency(amount) Then Return
-        CType(lstCustomers.SelectedItem, Account).deposit(amount)
-        display()
+        If Not ParseCurrency(amount) Then Return
+        Debug.Assert(SelectedAccount.Deposit(amount)) 'Should always be successful.
+        Display()
     End Sub
 
     Private Sub btnWithdraw_Click(sender As Object, e As EventArgs) Handles btnWithdraw.Click
-        Debug.Assert(lstCustomers.SelectedIndex <> -1)
         Dim amount As Decimal
-        If Not parseCurrency(amount) Then Return
-        If Not CType(lstCustomers.SelectedItem, Account).withdraw(amount) Then MessageBox.Show("Not enough funds")
-        display()
+        If Not ParseCurrency(amount) Then Return
+        If Not SelectedAccount.Withdraw(amount) Then
+            MessageBox.Show(text:="Not enough funds",
+                            caption:="Could not withdraw",
+                            buttons:=MessageBoxButtons.OK,
+                            icon:=MessageBoxIcon.Error)
+        End If
+        Display()
     End Sub
 
     Private Sub miTotalBankBalance_Click(sender As Object, e As EventArgs) Handles miTotalBankBalance.Click
-        MessageBox.Show(text:="Total balance: " & Account.totalFunds.ToString("C"))
+        MessageBox.Show(text:="Total balance: " & Account.TotalFunds.ToString("C"),
+                        caption:="Total balance",
+                        buttons:=MessageBoxButtons.OK,
+                        icon:=MessageBoxIcon.Information)
     End Sub
 
     Private Sub exit_Click(sender As Object, e As EventArgs) Handles _

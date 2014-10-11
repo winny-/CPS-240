@@ -30,7 +30,7 @@ Partial Class frmBankAccounts
         Me.miTotalBankBalance = New System.Windows.Forms.ToolStripMenuItem()
         Me.gbMakeATransaction = New System.Windows.Forms.GroupBox()
         Me.btnWithdraw = New System.Windows.Forms.Button()
-        Me.bntDeposit = New System.Windows.Forms.Button()
+        Me.btnDeposit = New System.Windows.Forms.Button()
         Me.txtAmount = New System.Windows.Forms.TextBox()
         Me.lblAmount = New System.Windows.Forms.Label()
         Me.lblAuthor = New System.Windows.Forms.Label()
@@ -64,7 +64,7 @@ Partial Class frmBankAccounts
         'miExit
         '
         Me.miExit.Name = "miExit"
-        Me.miExit.Size = New System.Drawing.Size(152, 22)
+        Me.miExit.Size = New System.Drawing.Size(92, 22)
         Me.miExit.Text = "E&xit"
         '
         'ToolsToolStripMenuItem
@@ -91,38 +91,38 @@ Partial Class frmBankAccounts
         'gbMakeATransaction
         '
         Me.gbMakeATransaction.Controls.Add(Me.btnWithdraw)
-        Me.gbMakeATransaction.Controls.Add(Me.bntDeposit)
+        Me.gbMakeATransaction.Controls.Add(Me.btnDeposit)
         Me.gbMakeATransaction.Controls.Add(Me.txtAmount)
         Me.gbMakeATransaction.Controls.Add(Me.lblAmount)
         Me.gbMakeATransaction.Enabled = False
-        Me.gbMakeATransaction.Location = New System.Drawing.Point(195, 140)
+        Me.gbMakeATransaction.Location = New System.Drawing.Point(195, 131)
         Me.gbMakeATransaction.Name = "gbMakeATransaction"
         Me.gbMakeATransaction.Size = New System.Drawing.Size(194, 100)
-        Me.gbMakeATransaction.TabIndex = 1
+        Me.gbMakeATransaction.TabIndex = 5
         Me.gbMakeATransaction.TabStop = False
         Me.gbMakeATransaction.Text = "Make a transaction"
         '
         'btnWithdraw
         '
-        Me.btnWithdraw.Location = New System.Drawing.Point(113, 50)
+        Me.btnWithdraw.Location = New System.Drawing.Point(112, 60)
         Me.btnWithdraw.Name = "btnWithdraw"
         Me.btnWithdraw.Size = New System.Drawing.Size(75, 23)
         Me.btnWithdraw.TabIndex = 3
         Me.btnWithdraw.Text = "&Withdraw"
         Me.btnWithdraw.UseVisualStyleBackColor = True
         '
-        'bntDeposit
+        'btnDeposit
         '
-        Me.bntDeposit.Location = New System.Drawing.Point(10, 50)
-        Me.bntDeposit.Name = "bntDeposit"
-        Me.bntDeposit.Size = New System.Drawing.Size(75, 23)
-        Me.bntDeposit.TabIndex = 2
-        Me.bntDeposit.Text = "&Deposit"
-        Me.bntDeposit.UseVisualStyleBackColor = True
+        Me.btnDeposit.Location = New System.Drawing.Point(10, 60)
+        Me.btnDeposit.Name = "btnDeposit"
+        Me.btnDeposit.Size = New System.Drawing.Size(75, 23)
+        Me.btnDeposit.TabIndex = 2
+        Me.btnDeposit.Text = "&Deposit"
+        Me.btnDeposit.UseVisualStyleBackColor = True
         '
         'txtAmount
         '
-        Me.txtAmount.Location = New System.Drawing.Point(87, 17)
+        Me.txtAmount.Location = New System.Drawing.Point(87, 26)
         Me.txtAmount.Name = "txtAmount"
         Me.txtAmount.Size = New System.Drawing.Size(100, 20)
         Me.txtAmount.TabIndex = 1
@@ -130,7 +130,7 @@ Partial Class frmBankAccounts
         'lblAmount
         '
         Me.lblAmount.AutoSize = True
-        Me.lblAmount.Location = New System.Drawing.Point(7, 20)
+        Me.lblAmount.Location = New System.Drawing.Point(23, 29)
         Me.lblAmount.Name = "lblAmount"
         Me.lblAmount.Size = New System.Drawing.Size(43, 13)
         Me.lblAmount.TabIndex = 0
@@ -139,10 +139,10 @@ Partial Class frmBankAccounts
         'lblAuthor
         '
         Me.lblAuthor.AutoSize = True
-        Me.lblAuthor.Location = New System.Drawing.Point(89, 262)
+        Me.lblAuthor.Location = New System.Drawing.Point(89, 251)
         Me.lblAuthor.Name = "lblAuthor"
         Me.lblAuthor.Size = New System.Drawing.Size(100, 13)
-        Me.lblAuthor.TabIndex = 2
+        Me.lblAuthor.TabIndex = 6
         Me.lblAuthor.Text = "PA 5 by Winston W"
         '
         'lblCustomersTitle
@@ -151,8 +151,8 @@ Partial Class frmBankAccounts
         Me.lblCustomersTitle.Location = New System.Drawing.Point(45, 34)
         Me.lblCustomersTitle.Name = "lblCustomersTitle"
         Me.lblCustomersTitle.Size = New System.Drawing.Size(56, 13)
-        Me.lblCustomersTitle.TabIndex = 3
-        Me.lblCustomersTitle.Text = "Customers"
+        Me.lblCustomersTitle.TabIndex = 1
+        Me.lblCustomersTitle.Text = "&Customers"
         '
         'lstCustomers
         '
@@ -160,14 +160,14 @@ Partial Class frmBankAccounts
         Me.lstCustomers.Location = New System.Drawing.Point(16, 58)
         Me.lstCustomers.Name = "lstCustomers"
         Me.lstCustomers.Size = New System.Drawing.Size(120, 173)
-        Me.lstCustomers.TabIndex = 4
+        Me.lstCustomers.TabIndex = 2
         '
         'btnExit
         '
-        Me.btnExit.Location = New System.Drawing.Point(195, 257)
+        Me.btnExit.Location = New System.Drawing.Point(195, 246)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(75, 23)
-        Me.btnExit.TabIndex = 5
+        Me.btnExit.TabIndex = 7
         Me.btnExit.Text = "E&xit"
         Me.btnExit.UseVisualStyleBackColor = True
         '
@@ -177,17 +177,19 @@ Partial Class frmBankAccounts
         Me.lblAccountInfoTitle.Location = New System.Drawing.Point(258, 34)
         Me.lblAccountInfoTitle.Name = "lblAccountInfoTitle"
         Me.lblAccountInfoTitle.Size = New System.Drawing.Size(68, 13)
-        Me.lblAccountInfoTitle.TabIndex = 6
+        Me.lblAccountInfoTitle.TabIndex = 3
         Me.lblAccountInfoTitle.Text = "Account Info"
         '
         'lblAccountInfo
         '
         Me.lblAccountInfo.BackColor = System.Drawing.Color.White
         Me.lblAccountInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblAccountInfo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblAccountInfo.Location = New System.Drawing.Point(195, 58)
         Me.lblAccountInfo.Name = "lblAccountInfo"
-        Me.lblAccountInfo.Size = New System.Drawing.Size(194, 72)
-        Me.lblAccountInfo.TabIndex = 7
+        Me.lblAccountInfo.Size = New System.Drawing.Size(194, 63)
+        Me.lblAccountInfo.TabIndex = 4
+        Me.lblAccountInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'pbFlowIndicator
         '
@@ -204,7 +206,7 @@ Partial Class frmBankAccounts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(407, 293)
+        Me.ClientSize = New System.Drawing.Size(407, 280)
         Me.Controls.Add(Me.pbFlowIndicator)
         Me.Controls.Add(Me.lblAccountInfo)
         Me.Controls.Add(Me.lblAccountInfoTitle)
@@ -236,7 +238,7 @@ Partial Class frmBankAccounts
     Friend WithEvents miTotalBankBalance As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents gbMakeATransaction As System.Windows.Forms.GroupBox
     Friend WithEvents btnWithdraw As System.Windows.Forms.Button
-    Friend WithEvents bntDeposit As System.Windows.Forms.Button
+    Friend WithEvents btnDeposit As System.Windows.Forms.Button
     Friend WithEvents txtAmount As System.Windows.Forms.TextBox
     Friend WithEvents lblAmount As System.Windows.Forms.Label
     Friend WithEvents lblAuthor As System.Windows.Forms.Label
