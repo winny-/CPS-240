@@ -40,6 +40,26 @@ Public Class frmBankAccounts
         Display(overideSelected:=Nothing)
     End Sub
 
+    Private Sub DisplayTransactions()
+        dgvTransactions.Columns.Clear()
+        dgvTransactions.AutoGenerateColumns = True
+        dgvTransactions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        If Not chkShowTransactionsForAllAccounts.Checked Then
+            Dim selected As Account = SelectedAccount
+
+            If selected Is Nothing Then Return
+
+            dgvTransactions.DataSource = (From t In selected.Transactions Select Time = t.Time, Kind = t.Kind, Amount = t.Amount.ToString("C")).ToList()
+            dgvTransactions.Columns(0).MinimumWidth = 100
+        Else
+            Dim allPeople As IEnumerable(Of Account) = (From a In People Where a IsNot Nothing)
+            Dim allTransactions As IEnumerable(Of Account.Transaction) = (From a In allPeople, t In a.Transactions Select t Order By t.Time Ascending)
+            dgvTransactions.DataSource = (From t In allTransactions Select Name = t.Account.Name, Time = t.Time, Kind = t.Kind, Amount = t.Amount.ToString("C")).ToList()
+            dgvTransactions.Columns(1).MinimumWidth = 100
+        End If
+
+    End Sub
+
     Private Function ParseCurrency(ByRef n As Decimal) As Boolean
         Dim valid As Boolean = Account.TryParseCurrency(txtAmount.Text, n)
         If Not valid Then
@@ -86,6 +106,7 @@ Public Class frmBankAccounts
                                  SelectedAccount.ToDetailsString(),
                                  String.Empty)
         gbMakeATransaction.Enabled = anAccountIsSelected
+        DisplayTransactions()
     End Sub
 
     Private Sub btnDeposit_Click(sender As Object, e As EventArgs) Handles btnDeposit.Click
@@ -121,4 +142,7 @@ Public Class frmBankAccounts
         Close()
     End Sub
 
+    Private Sub chkShowTransactionsForAllAccounts_CheckedChanged(sender As Object, e As EventArgs) Handles chkShowTransactionsForAllAccounts.CheckedChanged
+        DisplayTransactions()
+    End Sub
 End Class
