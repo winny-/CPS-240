@@ -44,18 +44,23 @@ Public Class frmBankAccounts
         dgvTransactions.Columns.Clear()
         dgvTransactions.AutoGenerateColumns = True
         dgvTransactions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+
         If Not chkShowTransactionsForAllAccounts.Checked Then
             Dim selected As Account = SelectedAccount
 
-            If selected Is Nothing Then Return
+            If selected Is Nothing Then
+                'A hack to always show columns.
+                Static dummy As New Account("Dummy account do not use")
+                selected = dummy
+            End If
 
-            dgvTransactions.DataSource = (From t In selected.Transactions Select Time = t.Time, Kind = t.Kind, Amount = t.Amount.ToString("C")).ToList()
-            dgvTransactions.Columns(0).MinimumWidth = 100
+            dgvTransactions.DataSource = (From t In selected.Transactions Select Time = t.Time, Amount = t.Amount.ToString("C"), Kind = t.Kind, Balance = t.Balance.ToString("C")).ToList()
+            dgvTransactions.Columns(0).MinimumWidth = 100 'Make sure time column is readable.
         Else
             Dim allPeople As IEnumerable(Of Account) = (From a In People Where a IsNot Nothing)
             Dim allTransactions As IEnumerable(Of Account.Transaction) = (From a In allPeople, t In a.Transactions Select t Order By t.Time Ascending)
-            dgvTransactions.DataSource = (From t In allTransactions Select Name = t.Account.Name, Time = t.Time, Kind = t.Kind, Amount = t.Amount.ToString("C")).ToList()
-            dgvTransactions.Columns(1).MinimumWidth = 100
+            dgvTransactions.DataSource = (From t In allTransactions Select Name = t.Account.Name, Time = t.Time, Amount = t.Amount.ToString("C"), Kind = t.Kind, Balance = t.Balance.ToString("C")).ToList()
+            dgvTransactions.Columns(1).MinimumWidth = 100 'Notice it's not the first column.
         End If
 
     End Sub
@@ -67,6 +72,8 @@ Public Class frmBankAccounts
                             caption:="Bad input",
                             buttons:=MessageBoxButtons.OK,
                             icon:=MessageBoxIcon.Error)
+            txtAmount.Focus()
+            txtAmount.SelectAll()
         End If
         Return valid
     End Function
@@ -98,6 +105,7 @@ Public Class frmBankAccounts
         Next
 
         Display(overideSelected:=newAccount)
+        txtAmount.Focus()
     End Sub
 
     Private Sub lstCustomers_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstCustomers.SelectedIndexChanged
@@ -112,6 +120,8 @@ Public Class frmBankAccounts
     Private Sub btnDeposit_Click(sender As Object, e As EventArgs) Handles btnDeposit.Click
         Dim amount As Decimal
         If Not ParseCurrency(amount) Then Return
+        txtAmount.Clear()
+        txtAmount.Focus()
         Debug.Assert(SelectedAccount.Deposit(amount)) 'Should always be successful.
         Display()
     End Sub
@@ -124,6 +134,9 @@ Public Class frmBankAccounts
                             caption:="Could not withdraw",
                             buttons:=MessageBoxButtons.OK,
                             icon:=MessageBoxIcon.Error)
+        Else
+            txtAmount.Clear()
+            txtAmount.Focus()
         End If
         Display()
     End Sub
@@ -143,6 +156,10 @@ Public Class frmBankAccounts
     End Sub
 
     Private Sub chkShowTransactionsForAllAccounts_CheckedChanged(sender As Object, e As EventArgs) Handles chkShowTransactionsForAllAccounts.CheckedChanged
+        DisplayTransactions()
+    End Sub
+
+    Private Sub frmBankAccounts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DisplayTransactions()
     End Sub
 End Class

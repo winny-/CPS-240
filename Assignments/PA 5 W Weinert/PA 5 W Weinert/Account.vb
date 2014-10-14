@@ -31,6 +31,7 @@ Public Class Account
         Private _Kind As TransactionType
         Private _Amount As Decimal
         Private _Account As Account
+        Private _Balance As Decimal
 
         Public ReadOnly Property Time As Date
             Get
@@ -56,11 +57,18 @@ Public Class Account
             End Get
         End Property
 
+        Public ReadOnly Property Balance As Decimal
+            Get
+                Return _Balance
+            End Get
+        End Property
+
         Public Sub New(ByVal time As Date, ByVal kind As TransactionType, ByVal amount As Decimal, ByVal account As Account)
             _Time = time
             _Kind = kind
             _Amount = amount
             _Account = account
+            _Balance = account.Funds
         End Sub
 
         Public Overrides Function ToString() As String

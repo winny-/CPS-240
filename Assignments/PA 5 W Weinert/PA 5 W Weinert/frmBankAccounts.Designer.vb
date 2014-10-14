@@ -54,7 +54,7 @@ Partial Class frmBankAccounts
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.ToolsToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(736, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(410, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -143,7 +143,7 @@ Partial Class frmBankAccounts
         'lblAuthor
         '
         Me.lblAuthor.AutoSize = True
-        Me.lblAuthor.Location = New System.Drawing.Point(12, 250)
+        Me.lblAuthor.Location = New System.Drawing.Point(99, 496)
         Me.lblAuthor.Name = "lblAuthor"
         Me.lblAuthor.Size = New System.Drawing.Size(100, 13)
         Me.lblAuthor.TabIndex = 6
@@ -168,7 +168,7 @@ Partial Class frmBankAccounts
         '
         'btnExit
         '
-        Me.btnExit.Location = New System.Drawing.Point(118, 245)
+        Me.btnExit.Location = New System.Drawing.Point(205, 491)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(75, 23)
         Me.btnExit.TabIndex = 7
@@ -209,7 +209,7 @@ Partial Class frmBankAccounts
         'lblTransactions
         '
         Me.lblTransactions.AutoSize = True
-        Me.lblTransactions.Location = New System.Drawing.Point(533, 34)
+        Me.lblTransactions.Location = New System.Drawing.Point(171, 243)
         Me.lblTransactions.Name = "lblTransactions"
         Me.lblTransactions.Size = New System.Drawing.Size(68, 13)
         Me.lblTransactions.TabIndex = 9
@@ -218,7 +218,7 @@ Partial Class frmBankAccounts
         'chkShowTransactionsForAllAccounts
         '
         Me.chkShowTransactionsForAllAccounts.AutoSize = True
-        Me.chkShowTransactionsForAllAccounts.Location = New System.Drawing.Point(536, 246)
+        Me.chkShowTransactionsForAllAccounts.Location = New System.Drawing.Point(102, 459)
         Me.chkShowTransactionsForAllAccounts.Name = "chkShowTransactionsForAllAccounts"
         Me.chkShowTransactionsForAllAccounts.Size = New System.Drawing.Size(188, 17)
         Me.chkShowTransactionsForAllAccounts.TabIndex = 11
@@ -234,18 +234,18 @@ Partial Class frmBankAccounts
         Me.dgvTransactions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader
         Me.dgvTransactions.BackgroundColor = System.Drawing.Color.White
         Me.dgvTransactions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvTransactions.Location = New System.Drawing.Point(410, 58)
+        Me.dgvTransactions.Location = New System.Drawing.Point(16, 270)
         Me.dgvTransactions.Name = "dgvTransactions"
         Me.dgvTransactions.ReadOnly = True
         Me.dgvTransactions.RowHeadersVisible = False
-        Me.dgvTransactions.Size = New System.Drawing.Size(314, 173)
+        Me.dgvTransactions.Size = New System.Drawing.Size(373, 173)
         Me.dgvTransactions.TabIndex = 13
         '
         'frmBankAccounts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(736, 280)
+        Me.ClientSize = New System.Drawing.Size(410, 529)
         Me.Controls.Add(Me.dgvTransactions)
         Me.Controls.Add(Me.chkShowTransactionsForAllAccounts)
         Me.Controls.Add(Me.lblTransactions)

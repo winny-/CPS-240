@@ -55,6 +55,7 @@ Partial Class frmNewAccount
         '
         'btnCancel
         '
+        Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnCancel.Location = New System.Drawing.Point(119, 88)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
@@ -67,6 +68,7 @@ Partial Class frmNewAccount
         Me.AcceptButton = Me.btnOkay
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.CancelButton = Me.btnCancel
         Me.ClientSize = New System.Drawing.Size(234, 130)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnOkay)
