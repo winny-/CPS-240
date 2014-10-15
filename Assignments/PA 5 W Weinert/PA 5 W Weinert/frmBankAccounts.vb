@@ -47,14 +47,12 @@ Public Class frmBankAccounts
 
         If Not chkShowTransactionsForAllAccounts.Checked Then
             Dim selected As Account = SelectedAccount
+            'Give something to the LINQ query that'll keep the compiler content, even without a selected account.
+            Dim selectedTransactions As List(Of Account.Transaction) = If(selected IsNot Nothing,
+                                                                          selected.Transactions,
+                                                                          New List(Of Account.Transaction))
 
-            If selected Is Nothing Then
-                'A hack to always show columns.
-                Static dummy As New Account("Dummy account do not use")
-                selected = dummy
-            End If
-
-            dgvTransactions.DataSource = (From t In selected.Transactions Select Time = t.Time, Amount = t.Amount.ToString("C"), Kind = t.Kind, Balance = t.Balance.ToString("C")).ToList()
+            dgvTransactions.DataSource = (From t In selectedTransactions Select Time = t.Time, Amount = t.Amount.ToString("C"), Kind = t.Kind, Balance = t.Balance.ToString("C")).ToList()
             dgvTransactions.Columns(0).MinimumWidth = 100 'Make sure time column is readable.
         Else
             Dim allPeople As IEnumerable(Of Account) = (From a In People Where a IsNot Nothing)
