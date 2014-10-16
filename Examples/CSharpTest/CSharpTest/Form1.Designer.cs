@@ -28,58 +28,59 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnGreet = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnRandom = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // btnGreet
             // 
-            this.button1.Location = new System.Drawing.Point(205, 238);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnGreet.Location = new System.Drawing.Point(23, 212);
+            this.btnGreet.Name = "btnGreet";
+            this.btnGreet.Size = new System.Drawing.Size(75, 23);
+            this.btnGreet.TabIndex = 0;
+            this.btnGreet.Text = "&Greet";
+            this.btnGreet.UseVisualStyleBackColor = true;
+            this.btnGreet.Click += new System.EventHandler(this.btnGreet_Click);
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(0, 0);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 199);
+            this.listBox1.Size = new System.Drawing.Size(120, 173);
             this.listBox1.TabIndex = 1;
             // 
-            // button2
+            // btnRandom
             // 
-            this.button2.Location = new System.Drawing.Point(12, 218);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnRandom.Location = new System.Drawing.Point(23, 179);
+            this.btnRandom.Name = "btnRandom";
+            this.btnRandom.Size = new System.Drawing.Size(75, 23);
+            this.btnRandom.TabIndex = 2;
+            this.btnRandom.Text = "&Random";
+            this.btnRandom.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnRandom.UseVisualStyleBackColor = true;
+            this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 273);
-            this.Controls.Add(this.button2);
+            this.ClientSize = new System.Drawing.Size(120, 240);
+            this.Controls.Add(this.btnRandom);
             this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnGreet);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "CS Test";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnGreet;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnRandom;
     }
 }
 

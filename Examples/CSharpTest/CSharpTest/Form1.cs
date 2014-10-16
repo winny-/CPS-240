@@ -19,7 +19,7 @@ namespace CSharpTest
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnGreet_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
                 text: "Hello world",
@@ -29,7 +29,7 @@ namespace CSharpTest
             );
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnRandom_Click(object sender, EventArgs e)
         {
             listBox1.Items.Clear();
             for (int i = 0; i < 10; i++)
