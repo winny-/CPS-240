@@ -231,7 +231,7 @@ Partial Class frmBankAccounts
         Me.dgvTransactions.AllowUserToDeleteRows = False
         Me.dgvTransactions.AllowUserToResizeColumns = False
         Me.dgvTransactions.AllowUserToResizeRows = False
-        Me.dgvTransactions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader
+        Me.dgvTransactions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvTransactions.BackgroundColor = System.Drawing.Color.White
         Me.dgvTransactions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvTransactions.Location = New System.Drawing.Point(16, 270)

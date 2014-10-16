@@ -20,6 +20,25 @@ Public Class frmBankAccounts
     End Property
 
     '*****************************************************************
+    'LINQ helper properties
+    '*****************************************************************
+
+    Private ReadOnly Property InstantiatedAccounts As IEnumerable(Of Account)
+        Get
+            Return From p In People
+                   Where p IsNot Nothing
+        End Get
+    End Property
+
+    Private ReadOnly Property AllTransactions As IEnumerable(Of Account.Transaction)
+        Get
+            Return From p In InstantiatedAccounts, t In p.Transactions
+                   Select t
+                   Order By t.Time Ascending
+        End Get
+    End Property
+
+    '*****************************************************************
     'Helpers
     '*****************************************************************
 
@@ -29,10 +48,10 @@ Public Class frmBankAccounts
                                      SelectedAccount)
         lstCustomers.Items.Clear()
 
-        Dim instantiatedAccounts As IEnumerable(Of Account) = From p In People Where p IsNot Nothing
-        For Each a In instantiatedAccounts
+        For Each a In InstantiatedAccounts
             lstCustomers.Items.Add(a)
         Next
+
         If selected IsNot Nothing Then lstCustomers.SelectedItem = selected
     End Sub
 
@@ -40,27 +59,54 @@ Public Class frmBankAccounts
         Display(overideSelected:=Nothing)
     End Sub
 
+    'This is a bit of a monster. I didn't find a more concise way to populate a DataGridView when one does not have a database of sorts.
+    '
+    'It looks like a lot, but it only does the following:
+    '1. Clear the DataGridView.
+    '2. Tell the DataGridView generate column names from their DataSource field names.
+    '3. If the user wants to see all transactions, do that
+    '   ELSE show tranactions for the selected user.
+    '4. Adjust the column width for the Time column so it is not truncated with "..." in the UI.
+    '
     Private Sub DisplayTransactions()
         dgvTransactions.Columns.Clear()
-        dgvTransactions.AutoGenerateColumns = True
-        dgvTransactions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgvTransactions.AutoGenerateColumns = True 'Does not appear in my Properties window.
 
-        If Not chkShowTransactionsForAllAccounts.Checked Then
+        If chkShowTransactionsForAllAccounts.Checked Then
+            'Show transactions for ALL accounts.
+
+            'The aliased columns are necessary to give the datasource nice looking column names.
+            dgvTransactions.DataSource = (From t In AllTransactions
+                                          Select
+                                          Name = t.Account.Name,
+                                          Time = t.Time,
+                                          Amount = t.Amount.ToString("C"),
+                                          Kind = t.Kind,
+                                          Balance = t.Balance.ToString("C")
+                                          ).ToList()
+
+            dgvTransactions.Columns(1).MinimumWidth = 100 'Adjust the time (second) column to avoid truncation.
+        Else
+            'Show tranactions for only the selected account.
             Dim selected As Account = SelectedAccount
+
             'Give something to the LINQ query that'll keep the compiler content, even without a selected account.
             Dim selectedTransactions As List(Of Account.Transaction) = If(selected IsNot Nothing,
                                                                           selected.Transactions,
                                                                           New List(Of Account.Transaction))
 
-            dgvTransactions.DataSource = (From t In selectedTransactions Select Time = t.Time, Amount = t.Amount.ToString("C"), Kind = t.Kind, Balance = t.Balance.ToString("C")).ToList()
-            dgvTransactions.Columns(0).MinimumWidth = 100 'Make sure time column is readable.
-        Else
-            Dim allPeople As IEnumerable(Of Account) = (From a In People Where a IsNot Nothing)
-            Dim allTransactions As IEnumerable(Of Account.Transaction) = (From a In allPeople, t In a.Transactions Select t Order By t.Time Ascending)
-            dgvTransactions.DataSource = (From t In allTransactions Select Name = t.Account.Name, Time = t.Time, Amount = t.Amount.ToString("C"), Kind = t.Kind, Balance = t.Balance.ToString("C")).ToList()
-            dgvTransactions.Columns(1).MinimumWidth = 100 'Notice it's not the first column.
-        End If
+            'Almost the same as the above query except we omit the Name column because they will never differ
+            'for a single account's transactions.
+            dgvTransactions.DataSource = (From t In selectedTransactions
+                                          Select
+                                          Time = t.Time,
+                                          Amount = t.Amount.ToString("C"),
+                                          Kind = t.Kind,
+                                          Balance = t.Balance.ToString("C")
+                                          ).ToList()
 
+            dgvTransactions.Columns(0).MinimumWidth = 100 'Make sure time (first) column is readable.
+        End If
     End Sub
 
     Private Function ParseCurrency(ByRef n As Decimal) As Boolean
@@ -93,7 +139,6 @@ Public Class frmBankAccounts
         If Not nameResult.Item1 Then Return 'The user clicked Cancel.
         Dim name As String = nameResult.Item2
 
-        Debug.Assert(People.Last Is Nothing)
         Dim newAccount As New Account(name)
         For i As Integer = 0 To People.Length - 1
             If People(i) Is Nothing Then
@@ -112,7 +157,9 @@ Public Class frmBankAccounts
                                  SelectedAccount.ToDetailsString(),
                                  String.Empty)
         gbMakeATransaction.Enabled = anAccountIsSelected
-        DisplayTransactions()
+        'Don't force a DataSource rebuild when tranactions for all users are shown.
+        'Without the check, it'll always scroll to the top which is undesirable.
+        If Not chkShowTransactionsForAllAccounts.Checked Then DisplayTransactions()
     End Sub
 
     Private Sub btnDeposit_Click(sender As Object, e As EventArgs) Handles btnDeposit.Click
@@ -132,10 +179,11 @@ Public Class frmBankAccounts
                             caption:="Could not withdraw",
                             buttons:=MessageBoxButtons.OK,
                             icon:=MessageBoxIcon.Error)
+            txtAmount.SelectAll()
         Else
             txtAmount.Clear()
-            txtAmount.Focus()
         End If
+        txtAmount.Focus()
         Display()
     End Sub
 
@@ -160,4 +208,5 @@ Public Class frmBankAccounts
     Private Sub frmBankAccounts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DisplayTransactions()
     End Sub
+
 End Class
