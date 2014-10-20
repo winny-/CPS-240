@@ -4,6 +4,10 @@ Imports PA_6_W_Weinert
 
 Public Class Video
 
+    '*****************************************************************
+    'Constants & Enums
+    '*****************************************************************
+
     Private Const ID_FORMAT As String = "V{0:D2}"
 
     Public Enum State
@@ -11,7 +15,15 @@ Public Class Video
         Rented
     End Enum
 
+    '*****************************************************************
+    'Shared
+    '*****************************************************************
+
     Private Shared _IdCount As Integer = 1
+
+    '*****************************************************************
+    'Fields and properties
+    '*****************************************************************
 
     Private _Title As String
     Private _CurrentState As State
@@ -36,10 +48,18 @@ Public Class Video
         End Get
     End Property
 
+    '*****************************************************************
+    'Constructor
+    '*****************************************************************
+
     Public Sub New(ByVal title As String)
         _Title = title
         _Id = newID()
     End Sub
+
+    '*****************************************************************
+    'State methods
+    '*****************************************************************
 
     Public Sub Rent()
         _StartTime = DateTime.Now
@@ -53,9 +73,17 @@ Public Class Video
         Return duration
     End Function
 
+    '*****************************************************************
+    'As string
+    '*****************************************************************
+
     Public Overrides Function ToString() As String
         Return Title
     End Function
+
+    '*****************************************************************
+    'Shared utility
+    '*****************************************************************
 
     Private Shared Function newID() As String
         Dim n As Integer = _IdCount

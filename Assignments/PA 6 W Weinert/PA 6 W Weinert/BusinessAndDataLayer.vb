@@ -15,6 +15,10 @@ Public Class BusinessAndDataLayer
         End Get
     End Property
 
+    '*****************************************************************
+    'Get all, rented, or available videos as a list
+    '*****************************************************************
+
     Public ReadOnly Property Videos As List(Of Video)
         Get
             Return _Videos
@@ -33,6 +37,10 @@ Public Class BusinessAndDataLayer
         End Get
     End Property
 
+    '*****************************************************************
+    'Videos (list) property operation wrappers
+    '*****************************************************************
+
     Public Sub Add(ByVal v As Video)
         _Videos.Add(v)
     End Sub
@@ -40,6 +48,10 @@ Public Class BusinessAndDataLayer
     Public Sub Remove(ByVal v As Video)
         _Videos.Remove(v)
     End Sub
+
+    '*****************************************************************
+    'Video operation wrappers
+    '*****************************************************************
 
     Public Sub Rent(ByVal v As Video)
         v.Rent()
@@ -51,12 +63,17 @@ Public Class BusinessAndDataLayer
         Return cost
     End Function
 
+    '*****************************************************************
+    'Utility
+    '*****************************************************************
+
     Public Function CostForDuration(ByVal duration As TimeSpan) As Decimal
+        'We floor seconds because every whole second counts towards the cost.
         Return CDec(Math.Ceiling(duration.TotalSeconds)) * RatePerSecond
     End Function
 
     Public Function TitleIsUnique(ByVal title As String) As Boolean
-        Return Videos.All(Function(v As Video) v.Title <> title)
+        Return Videos.All(Function(v As Video) v.Title.ToLower() <> title.ToLower())
     End Function
 
 End Class

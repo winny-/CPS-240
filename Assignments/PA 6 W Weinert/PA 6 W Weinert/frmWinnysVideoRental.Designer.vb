@@ -26,8 +26,8 @@ Partial Class frmWinnysVideoRental
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.miExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.miAddMovie = New System.Windows.Forms.ToolStripMenuItem()
-        Me.miRemoveMovie = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miAddVideo = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miRemoveVideo = New System.Windows.Forms.ToolStripMenuItem()
         Me.miTotalFees = New System.Windows.Forms.ToolStripMenuItem()
         Me.lblAvailable = New System.Windows.Forms.Label()
         Me.lblRented = New System.Windows.Forms.Label()
@@ -48,7 +48,7 @@ Partial Class frmWinnysVideoRental
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.ToolsToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(321, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(361, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -68,36 +68,36 @@ Partial Class frmWinnysVideoRental
         '
         'ToolsToolStripMenuItem
         '
-        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miAddMovie, Me.miRemoveMovie, Me.miTotalFees})
+        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miAddVideo, Me.miRemoveVideo, Me.miTotalFees})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
         Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.ToolsToolStripMenuItem.Text = "&Tools"
         '
-        'miAddMovie
+        'miAddVideo
         '
-        Me.miAddMovie.Name = "miAddMovie"
-        Me.miAddMovie.ShortcutKeys = System.Windows.Forms.Keys.F9
-        Me.miAddMovie.Size = New System.Drawing.Size(169, 22)
-        Me.miAddMovie.Text = "&Add Movie"
+        Me.miAddVideo.Name = "miAddVideo"
+        Me.miAddVideo.ShortcutKeys = System.Windows.Forms.Keys.F9
+        Me.miAddVideo.Size = New System.Drawing.Size(167, 22)
+        Me.miAddVideo.Text = "&Add Video"
         '
-        'miRemoveMovie
+        'miRemoveVideo
         '
-        Me.miRemoveMovie.Name = "miRemoveMovie"
-        Me.miRemoveMovie.ShortcutKeys = System.Windows.Forms.Keys.F10
-        Me.miRemoveMovie.Size = New System.Drawing.Size(169, 22)
-        Me.miRemoveMovie.Text = "&Remove Movie"
+        Me.miRemoveVideo.Name = "miRemoveVideo"
+        Me.miRemoveVideo.ShortcutKeys = System.Windows.Forms.Keys.F10
+        Me.miRemoveVideo.Size = New System.Drawing.Size(167, 22)
+        Me.miRemoveVideo.Text = "&Remove Video"
         '
         'miTotalFees
         '
         Me.miTotalFees.Name = "miTotalFees"
         Me.miTotalFees.ShortcutKeys = System.Windows.Forms.Keys.F11
-        Me.miTotalFees.Size = New System.Drawing.Size(169, 22)
+        Me.miTotalFees.Size = New System.Drawing.Size(167, 22)
         Me.miTotalFees.Text = "Total &Fees"
         '
         'lblAvailable
         '
         Me.lblAvailable.AutoSize = True
-        Me.lblAvailable.Location = New System.Drawing.Point(12, 41)
+        Me.lblAvailable.Location = New System.Drawing.Point(67, 39)
         Me.lblAvailable.Name = "lblAvailable"
         Me.lblAvailable.Size = New System.Drawing.Size(50, 13)
         Me.lblAvailable.TabIndex = 1
@@ -106,31 +106,31 @@ Partial Class frmWinnysVideoRental
         'lblRented
         '
         Me.lblRented.AutoSize = True
-        Me.lblRented.Location = New System.Drawing.Point(162, 41)
+        Me.lblRented.Location = New System.Drawing.Point(248, 39)
         Me.lblRented.Name = "lblRented"
         Me.lblRented.Size = New System.Drawing.Size(42, 13)
-        Me.lblRented.TabIndex = 2
+        Me.lblRented.TabIndex = 3
         Me.lblRented.Text = "&Rented"
         '
         'lstAvailable
         '
         Me.lstAvailable.FormattingEnabled = True
-        Me.lstAvailable.Location = New System.Drawing.Point(15, 70)
+        Me.lstAvailable.Location = New System.Drawing.Point(12, 68)
         Me.lstAvailable.Name = "lstAvailable"
-        Me.lstAvailable.Size = New System.Drawing.Size(120, 95)
-        Me.lstAvailable.TabIndex = 3
+        Me.lstAvailable.Size = New System.Drawing.Size(160, 95)
+        Me.lstAvailable.TabIndex = 2
         '
         'lstRented
         '
         Me.lstRented.FormattingEnabled = True
-        Me.lstRented.Location = New System.Drawing.Point(165, 70)
+        Me.lstRented.Location = New System.Drawing.Point(189, 68)
         Me.lstRented.Name = "lstRented"
-        Me.lstRented.Size = New System.Drawing.Size(120, 95)
+        Me.lstRented.Size = New System.Drawing.Size(160, 95)
         Me.lstRented.TabIndex = 4
         '
         'btnRent
         '
-        Me.btnRent.Location = New System.Drawing.Point(33, 180)
+        Me.btnRent.Location = New System.Drawing.Point(55, 178)
         Me.btnRent.Name = "btnRent"
         Me.btnRent.Size = New System.Drawing.Size(75, 23)
         Me.btnRent.TabIndex = 5
@@ -139,7 +139,7 @@ Partial Class frmWinnysVideoRental
         '
         'btnReturn
         '
-        Me.btnReturn.Location = New System.Drawing.Point(184, 180)
+        Me.btnReturn.Location = New System.Drawing.Point(232, 178)
         Me.btnReturn.Name = "btnReturn"
         Me.btnReturn.Size = New System.Drawing.Size(75, 23)
         Me.btnReturn.TabIndex = 6
@@ -149,9 +149,9 @@ Partial Class frmWinnysVideoRental
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsslLastAction, Me.tsslSpacer, Me.tsslAuthor})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 230)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 217)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(321, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(361, 22)
         Me.StatusStrip1.SizingGrip = False
         Me.StatusStrip1.TabIndex = 7
         Me.StatusStrip1.Text = "StatusStrip1"
@@ -164,7 +164,7 @@ Partial Class frmWinnysVideoRental
         'tsslSpacer
         '
         Me.tsslSpacer.Name = "tsslSpacer"
-        Me.tsslSpacer.Size = New System.Drawing.Size(207, 17)
+        Me.tsslSpacer.Size = New System.Drawing.Size(247, 17)
         Me.tsslSpacer.Spring = True
         '
         'tsslAuthor
@@ -177,7 +177,7 @@ Partial Class frmWinnysVideoRental
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(321, 252)
+        Me.ClientSize = New System.Drawing.Size(361, 239)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.btnReturn)
         Me.Controls.Add(Me.btnRent)
@@ -203,8 +203,8 @@ Partial Class frmWinnysVideoRental
     Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents miExit As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents miAddMovie As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents miRemoveMovie As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents miAddVideo As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents miRemoveVideo As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents miTotalFees As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lblAvailable As System.Windows.Forms.Label
     Friend WithEvents lblRented As System.Windows.Forms.Label
