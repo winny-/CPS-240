@@ -30,11 +30,14 @@ Public Class frmWinnysVideoRental
         IndexesChanged() 'Force an invocation
     End Sub
 
-    Private Function GetSelectedItem(ByVal box As ListBox) As Video
+    Private Function GetSelectedItemAndSelectPrevious(ByVal box As ListBox) As Video
         Dim selected As Video = CType(box.SelectedItem, Video)
-        box.SelectedIndex = If(box.Items.Count > 1,
-                               Math.Max(box.Items.Count - 1, 0),
-                               -1)
+        If box.Items.Count > 1 Then
+            Dim selectedIndex As Integer = box.Items.IndexOf(selected)
+            box.SelectedIndex = If(selectedIndex = 0,
+                                   1,
+                                   selectedIndex - 1)
+        End If
         Return selected
     End Function
 
@@ -50,20 +53,19 @@ Public Class frmWinnysVideoRental
     'ListBox events
     '*****************************************************************
 
-    Private Sub lstAvailable_Click(sender As Object, e As EventArgs) Handles lstAvailable.Click
-        If lstAvailable.SelectedIndex <> -1 Then lstRented.SelectedIndex = -1
-    End Sub
+    Private Sub ListBox_GotFocus(sender As Object, e As EventArgs) Handles _
+        lstAvailable.GotFocus,
+        lstRented.GotFocus
 
-    Private Sub lstRented_Click(sender As Object, e As EventArgs) Handles lstRented.Click
-        If lstRented.SelectedIndex <> -1 Then lstAvailable.SelectedIndex = -1
-    End Sub
+        Dim thisBox As ListBox = CType(sender, ListBox)
+        Dim otherBox As ListBox = If(thisBox Is lstAvailable,
+                                     lstRented,
+                                     lstAvailable)
 
-    Private Sub lstAvailable_GotFocus(sender As Object, e As EventArgs) Handles lstAvailable.GotFocus
-        If lstAvailable.SelectedIndex = -1 AndAlso lstAvailable.Items.Count > 0 Then lstAvailable.SelectedIndex = 0
-    End Sub
-
-    Private Sub lstRented_GotFocus(sender As Object, e As EventArgs) Handles lstRented.GotFocus
-        If lstRented.SelectedIndex = -1 AndAlso lstRented.Items.Count > 0 Then lstRented.SelectedIndex = 0
+        If thisBox.SelectedIndex = -1 AndAlso thisBox.Items.Count > 0 Then
+            thisBox.SelectedIndex = 0
+        End If
+        otherBox.SelectedIndex = -1 'Remove selection from other ListBox.
     End Sub
 
     Private Sub IndexesChanged() Handles _
@@ -90,7 +92,7 @@ Public Class frmWinnysVideoRental
     '*****************************************************************
 
     Private Sub btnRent_Click(sender As Object, e As EventArgs) Handles btnRent.Click
-        Dim v As Video = GetSelectedItem(lstAvailable)
+        Dim v As Video = GetSelectedItemAndSelectPrevious(lstAvailable)
         Layer.Rent(v)
         tsslLastAction.Text = String.Format("Rented ""{0}""", v)
         Display()
@@ -98,7 +100,7 @@ Public Class frmWinnysVideoRental
 
 
     Private Sub btnReturn_Click(sender As Object, e As EventArgs) Handles btnReturn.Click
-        Dim v As Video = GetSelectedItem(lstRented)
+        Dim v As Video = GetSelectedItemAndSelectPrevious(lstRented)
         Dim cost As Decimal = Layer.Return_(v)
         tsslLastAction.Text = String.Format("Returned ""{0}"" with {1:C} fee", v, cost)
         Display()
@@ -130,7 +132,7 @@ Public Class frmWinnysVideoRental
             MessageBox.Show("No video selected to remove.")
             Return
         End If
-        GetSelectedItem(lstAvailable)
+        GetSelectedItemAndSelectPrevious(lstAvailable)
         Display()
     End Sub
 
