@@ -20,9 +20,7 @@ Public Class frmWinnysVideoRental
     Private Sub ReDisplayListBox(ByVal box As ListBox, ByVal videos As List(Of Video))
         Dim selected As Video = TryCast(box.SelectedItem, Video)
         box.Items.Clear()
-        For Each v As Video In videos
-            box.Items.Add(v)
-        Next
+        videos.ForEach(Function(v As Video) box.Items.Add(v))
         box.SelectedItem = selected
     End Sub
 
@@ -32,10 +30,10 @@ Public Class frmWinnysVideoRental
         IndexesChanged() 'Force an invocation
     End Sub
 
-    Private Function RemoveSelectedItem(ByVal box As ListBox) As Video
+    Private Function GetSelectedItem(ByVal box As ListBox) As Video
         Dim selected As Video = CType(box.SelectedItem, Video)
         box.SelectedIndex = If(box.Items.Count > 1,
-                               Math.Max(box.Items.Count, 0),
+                               Math.Max(box.Items.Count - 1, 0),
                                -1)
         Return selected
     End Function
@@ -92,7 +90,7 @@ Public Class frmWinnysVideoRental
     '*****************************************************************
 
     Private Sub btnRent_Click(sender As Object, e As EventArgs) Handles btnRent.Click
-        Dim v As Video = RemoveSelectedItem(lstAvailable)
+        Dim v As Video = GetSelectedItem(lstAvailable)
         Layer.Rent(v)
         tsslLastAction.Text = String.Format("Rented ""{0}""", v)
         Display()
@@ -100,7 +98,7 @@ Public Class frmWinnysVideoRental
 
 
     Private Sub btnReturn_Click(sender As Object, e As EventArgs) Handles btnReturn.Click
-        Dim v As Video = RemoveSelectedItem(lstRented)
+        Dim v As Video = GetSelectedItem(lstRented)
         Dim cost As Decimal = Layer.Return_(v)
         tsslLastAction.Text = String.Format("Returned ""{0}"" with {1:C} fee", v, cost)
         Display()
@@ -117,8 +115,10 @@ Public Class frmWinnysVideoRental
             Return
         End If
         If title = String.Empty Then Return
-        Layer.Add(New Video(title))
+        Dim v As Video = New Video(title)
+        Layer.Add(v)
         Display()
+        lstAvailable.SelectedItem = v
     End Sub
 
     Private Sub miRemoveVideo_Click(sender As Object, e As EventArgs) Handles miRemoveVideo.Click
@@ -130,7 +130,7 @@ Public Class frmWinnysVideoRental
             MessageBox.Show("No video selected to remove.")
             Return
         End If
-        RemoveSelectedItem(lstAvailable)
+        GetSelectedItem(lstAvailable)
         Display()
     End Sub
 
