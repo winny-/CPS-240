@@ -27,13 +27,13 @@ Public Class BusinessAndDataLayer
 
     Public ReadOnly Property RentedVideos As List(Of Video)
         Get
-            Return (From v In Videos Where v.CurrentState = Video.State.Rented).ToList()
+            Return Videos.Where(Function(v As Video) Not v.Available).ToList()
         End Get
     End Property
 
     Public ReadOnly Property AvailableVideos As List(Of Video)
         Get
-            Return (From v In Videos Where v.CurrentState = Video.State.Available).ToList()
+            Return Videos.Where(Function(v As Video) v.Available).ToList()
         End Get
     End Property
 
@@ -69,10 +69,14 @@ Public Class BusinessAndDataLayer
 
     Public Function CostForDuration(ByVal duration As TimeSpan) As Decimal
         'We floor seconds because every whole second counts towards the cost.
-        Return CDec(Math.Ceiling(duration.TotalSeconds)) * RatePerSecond
+        'Explicitly use an integral data type.
+        Dim wholeSeconds As Integer = CInt(Math.Ceiling(duration.TotalSeconds))
+
+        Return wholeSeconds * RatePerSecond
     End Function
 
     Public Function TitleIsUnique(ByVal title As String) As Boolean
+        'True and only True when title is not used by a known video.
         Return Videos.All(Function(v As Video) v.Title.ToLower() <> title.ToLower())
     End Function
 

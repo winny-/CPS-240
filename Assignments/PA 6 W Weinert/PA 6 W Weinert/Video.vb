@@ -48,6 +48,13 @@ Public Class Video
         End Get
     End Property
 
+    Public ReadOnly Property Available As Boolean
+        Get
+            Return CurrentState = State.Available
+        End Get
+    End Property
+
+
     '*****************************************************************
     'Constructor
     '*****************************************************************
