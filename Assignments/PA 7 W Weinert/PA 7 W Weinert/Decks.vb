@@ -4,7 +4,7 @@ Public Class Decks
 
     Public Shared ReadOnly DefaultBack As Image = My.Resources.cardback1
 
-    Public Shared ReadOnly DefaultDeck As List(Of Card) = ChessBlack
+    Public Shared ReadOnly DefaultDeck As List(Of Card) = Birds
 
     Public Shared ReadOnly Property Test As List(Of Card)
         Get
@@ -49,12 +49,29 @@ Public Class Decks
         End Get
     End Property
 
+    Public Shared ReadOnly Property Birds As List(Of Card)
+        Get
+            Dim L As New List(Of Card)
+            Dim c As Integer = 0
+            For Each i As Image In {My.Resources.puffin,
+                                    My.Resources.penguin,
+                                    My.Resources.flamingo,
+                                    My.Resources.toucan,
+                                    My.Resources.owl}
+                L.Add(New Card(i, c.ToString))
+                c += 1
+            Next
+            Return L
+        End Get
+    End Property
+
     Public Shared ReadOnly Property AllDecks As Dictionary(Of String, List(Of Card))
         Get
             Dim d As New Dictionary(Of String, List(Of Card))
             d.Add("Full Chess suite", ChessAll)
             d.Add("Half Chess suite", ChessBlack)
             d.Add("Test (small)", Test)
+            d.Add("Birds", Birds)
             Return d
         End Get
     End Property

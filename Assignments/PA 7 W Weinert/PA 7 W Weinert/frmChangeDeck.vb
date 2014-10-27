@@ -15,7 +15,7 @@ Public Class frmChangeDeck
         Me.Decks = PA_7_W_Weinert.Decks.AllDecks
     End Sub
 
-    Public Shared Function ChooseNewDeck() As List(Of Card)
+    Public Shared Function ChooseNewDeck(Optional ByVal defaultDeck As List(Of Card) = Nothing) As List(Of Card)
         Dim f As New frmChangeDeck
         Dim l As List(Of String) = f.Decks.Keys.ToList
         l.Sort()
@@ -24,7 +24,7 @@ Public Class frmChangeDeck
         f.cbDeckChoices.SelectedIndex = 0
 
         f.ShowDialog()
-        Return If(f.ChangeDeckWasClicked, f.SelectedDeck, Nothing)
+        Return If(f.ChangeDeckWasClicked, f.SelectedDeck, defaultDeck)
     End Function
 
     Private Sub cbDeckChoices_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbDeckChoices.SelectedIndexChanged
@@ -41,4 +41,5 @@ Public Class frmChangeDeck
         ChangeDeckWasClicked = False
         Me.Close()
     End Sub
+
 End Class

@@ -45,4 +45,5 @@ Public Class frmMemoryGame
         Delegate_.CardWasMiss()
         DisplayStats()
     End Sub
+
 End Class

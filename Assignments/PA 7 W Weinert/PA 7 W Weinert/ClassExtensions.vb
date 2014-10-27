@@ -17,9 +17,4 @@ Module ClassExtensions
         End While
     End Sub
 
-    '<Extension()>
-    'Public Sub DoubleUp(Of T)(ByRef list As IList(Of T))
-    '    list = list.SelectMany(Function(i As T) {i, i}).ToList()
-    'End Sub
-
 End Module

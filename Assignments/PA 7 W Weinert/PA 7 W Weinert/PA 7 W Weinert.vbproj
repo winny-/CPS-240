@@ -187,6 +187,21 @@
   <ItemGroup>
     <None Include="Resources\Chess_rlt45.svg.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\640px-Antarctic,_gentoo_penguin_%28js%29_16.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\640px-Caribbean_flamingo_at_slimbridge_arp.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\640px-Eurasian_Eagle-Owl_RWD.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\640px-Keel-billed_toucan_woodland.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\640px-Puffin_Latrabjarg_Iceland.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
