@@ -82,6 +82,7 @@ Partial Class frmChangeDeck
         '
         'MemoryGameControl1
         '
+        Me.MemoryGameControl1.AutoScroll = True
         Me.MemoryGameControl1.Deck = Nothing
         Me.MemoryGameControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MemoryGameControl1.Location = New System.Drawing.Point(0, 28)

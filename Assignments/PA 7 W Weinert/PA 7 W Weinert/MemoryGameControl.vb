@@ -1,7 +1,5 @@
 ﻿Option Strict On
 
-Imports System.Windows.Threading
-
 Public Class MemoryGameControl
 
     Public Enum RevealedState

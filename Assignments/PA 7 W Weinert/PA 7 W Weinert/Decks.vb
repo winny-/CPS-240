@@ -1,6 +1,31 @@
 ﻿Option Strict On
 
+Imports System.Text.RegularExpressions
+
 Public Class Decks
+
+    Public Shared Function ImagesMatchingName(name As String) As Dictionary(Of String, Image)
+        Dim runTimeResourceSet As Resources.ResourceSet
+        Dim dictEntry As DictionaryEntry
+        Dim r As New Regex(".*" & Regex.Escape(name) & ".*")
+        Dim d As New Dictionary(Of String, Image)
+
+        runTimeResourceSet = My.Resources.ResourceManager.GetResourceSet(System.Globalization.CultureInfo.CurrentCulture, False, True)
+        For Each dictEntry In runTimeResourceSet
+            If dictEntry.Value.GetType() Is GetType(Drawing.Bitmap) AndAlso r.IsMatch(CStr(dictEntry.Key)) Then
+                d.Add(CStr(dictEntry.Key), CType(dictEntry.Value, Image))
+            End If
+        Next
+        Return d
+    End Function
+
+    Public Shared Function CardsMatchingName(name As String) As List(Of Card)
+        Dim L As New List(Of Card)
+        For Each e As System.Collections.Generic.KeyValuePair(Of String, Image) In ImagesMatchingName(name)
+            L.Add(New Card(e.Value, e.Key))
+        Next
+        Return L
+    End Function
 
     Public Shared ReadOnly DefaultBack As Image = My.Resources.cardback1
 
@@ -8,70 +33,49 @@ Public Class Decks
 
     Public Shared ReadOnly Property Test As List(Of Card)
         Get
-            Dim L As New List(Of Card)
-            L.Add(New Card(My.Resources.green_a, "green_a"))
-            L.Add(New Card(My.Resources.green_b, "green_b"))
-            Return L
+            Return CardsMatchingName("green_")
         End Get
     End Property
 
     Public Shared ReadOnly Property ChessAll As List(Of Card)
         Get
-            Dim L As New List(Of Card)
-            Dim c As Integer = 0
-            For Each i As Image In {My.Resources.pawn_white, My.Resources.pawn_black,
-                                    My.Resources.rook_white, My.Resources.rook_black,
-                                    My.Resources.bishop_white, My.Resources.bishop_black,
-                                    My.Resources.knight_white, My.Resources.knight_black,
-                                    My.Resources.queen_white, My.Resources.queen_black,
-                                    My.Resources.king_white, My.Resources.king_black}
-                L.Add(New Card(i, c.ToString))
-                c += 1
-            Next
-            Return L
+            Return CardsMatchingName("_black").Extend(CardsMatchingName("_white"))
         End Get
     End Property
 
     Public Shared ReadOnly Property ChessBlack As List(Of Card)
         Get
-            Dim L As New List(Of Card)
-            Dim c As Integer = 0
-            For Each i As Image In {My.Resources.pawn_black,
-                                    My.Resources.rook_black,
-                                    My.Resources.bishop_black,
-                                    My.Resources.knight_black,
-                                    My.Resources.queen_black,
-                                    My.Resources.king_black}
-                L.Add(New Card(i, c.ToString))
-                c += 1
-            Next
-            Return L
+            Return CardsMatchingName("_black")
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property ChessWhite As List(Of Card)
+        Get
+            Return CardsMatchingName("_white")
         End Get
     End Property
 
     Public Shared ReadOnly Property Birds As List(Of Card)
         Get
-            Dim L As New List(Of Card)
-            Dim c As Integer = 0
-            For Each i As Image In {My.Resources.puffin,
-                                    My.Resources.penguin,
-                                    My.Resources.flamingo,
-                                    My.Resources.toucan,
-                                    My.Resources.owl}
-                L.Add(New Card(i, c.ToString))
-                c += 1
-            Next
-            Return L
+            Return CardsMatchingName("birds")
+        End Get
+    End Property
+
+    Public Shared ReadOnly Property Renders As List(Of Card)
+        Get
+            Return CardsMatchingName("_render")
         End Get
     End Property
 
     Public Shared ReadOnly Property AllDecks As Dictionary(Of String, List(Of Card))
         Get
             Dim d As New Dictionary(Of String, List(Of Card))
-            d.Add("Full Chess suite", ChessAll)
             d.Add("Half Chess suite", ChessBlack)
             d.Add("Test (small)", Test)
             d.Add("Birds", Birds)
+            d.Add("Renders", Renders)
+            d.Add("Everything", d.Values.SelectMany(Function(L As List(Of Card)) L).ToList())
+            d.Add("Full Chess suite", ChessAll)
             Return d
         End Get
     End Property

@@ -202,6 +202,18 @@
   <ItemGroup>
     <None Include="Resources\640px-Puffin_Latrabjarg_Iceland.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clock render.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cloth and cup render.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cup render.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wood cup render.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

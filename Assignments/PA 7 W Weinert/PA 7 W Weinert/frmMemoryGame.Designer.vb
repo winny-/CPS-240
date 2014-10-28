@@ -39,7 +39,7 @@ Partial Class frmMemoryGame
         'btnExit
         '
         Me.btnExit.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.btnExit.Location = New System.Drawing.Point(244, 10)
+        Me.btnExit.Location = New System.Drawing.Point(321, 10)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(75, 23)
         Me.btnExit.TabIndex = 1
@@ -58,9 +58,9 @@ Partial Class frmMemoryGame
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsslMissesThisGame, Me.tsslGames, Me.tsslAverageMisses})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 317)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 544)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(485, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(638, 22)
         Me.StatusStrip1.TabIndex = 3
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -72,7 +72,7 @@ Partial Class frmMemoryGame
         'tsslGames
         '
         Me.tsslGames.Name = "tsslGames"
-        Me.tsslGames.Size = New System.Drawing.Size(439, 17)
+        Me.tsslGames.Size = New System.Drawing.Size(623, 17)
         Me.tsslGames.Spring = True
         '
         'tsslAverageMisses
@@ -84,7 +84,7 @@ Partial Class frmMemoryGame
         '
         Me.lblAuthor.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblAuthor.AutoSize = True
-        Me.lblAuthor.Location = New System.Drawing.Point(373, 15)
+        Me.lblAuthor.Location = New System.Drawing.Point(526, 15)
         Me.lblAuthor.Name = "lblAuthor"
         Me.lblAuthor.Size = New System.Drawing.Size(100, 13)
         Me.lblAuthor.TabIndex = 4
@@ -97,9 +97,9 @@ Partial Class frmMemoryGame
         Me.Panel1.Controls.Add(Me.lblAuthor)
         Me.Panel1.Controls.Add(Me.btnExit)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel1.Location = New System.Drawing.Point(0, 276)
+        Me.Panel1.Location = New System.Drawing.Point(0, 503)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(485, 41)
+        Me.Panel1.Size = New System.Drawing.Size(638, 41)
         Me.Panel1.TabIndex = 5
         '
         'btnChangeDeck
@@ -113,11 +113,13 @@ Partial Class frmMemoryGame
         '
         'MemoryGameControl1
         '
+        Me.MemoryGameControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.MemoryGameControl1.Deck = Nothing
-        Me.MemoryGameControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.MemoryGameControl1.Location = New System.Drawing.Point(0, 0)
         Me.MemoryGameControl1.Name = "MemoryGameControl1"
-        Me.MemoryGameControl1.Size = New System.Drawing.Size(485, 339)
+        Me.MemoryGameControl1.Size = New System.Drawing.Size(638, 497)
         Me.MemoryGameControl1.TabIndex = 0
         Me.MemoryGameControl1.WorkingDeck = Nothing
         '
@@ -126,10 +128,11 @@ Partial Class frmMemoryGame
         Me.AcceptButton = Me.btnNewGame
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(485, 339)
+        Me.ClientSize = New System.Drawing.Size(638, 566)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MemoryGameControl1)
+        Me.MinimumSize = New System.Drawing.Size(493, 366)
         Me.Name = "frmMemoryGame"
         Me.Text = "Memory Game"
         Me.StatusStrip1.ResumeLayout(False)

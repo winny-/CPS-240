@@ -10,6 +10,7 @@ Public Class CardBox
         Me.Card = card
         Me.Card.CardBox = Me
         Me.Image = Decks.DefaultBack
+        Me.Size = New Drawing.Size With {.Height = 150, .Width = 150}
     End Sub
 
 End Class

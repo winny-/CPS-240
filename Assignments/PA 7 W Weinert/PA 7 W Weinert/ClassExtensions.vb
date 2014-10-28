@@ -17,4 +17,11 @@ Module ClassExtensions
         End While
     End Sub
 
+    <Extension()>
+    Public Function Extend(Of T)(ByVal list As List(Of T), ByVal other As IList(Of T)) As List(Of T)
+        Dim L As New List(Of T)(list)
+        L.AddRange(other)
+        Return L
+    End Function
+
 End Module
