@@ -77,7 +77,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ClassExtensions.vb" />
-    <Compile Include="Decks.vb" />
+    <Compile Include="DeckUtility.vb" />
     <Compile Include="frmChangeDeck.Designer.vb">
       <DependentUpon>frmChangeDeck.vb</DependentUpon>
     </Compile>

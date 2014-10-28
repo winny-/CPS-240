@@ -121,7 +121,6 @@ Partial Class frmMemoryGame
         Me.MemoryGameControl1.Name = "MemoryGameControl1"
         Me.MemoryGameControl1.Size = New System.Drawing.Size(638, 497)
         Me.MemoryGameControl1.TabIndex = 0
-        Me.MemoryGameControl1.WorkingDeck = Nothing
         '
         'frmMemoryGame
         '

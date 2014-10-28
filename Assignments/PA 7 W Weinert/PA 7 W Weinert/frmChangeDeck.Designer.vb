@@ -89,7 +89,6 @@ Partial Class frmChangeDeck
         Me.MemoryGameControl1.Name = "MemoryGameControl1"
         Me.MemoryGameControl1.Size = New System.Drawing.Size(507, 351)
         Me.MemoryGameControl1.TabIndex = 6
-        Me.MemoryGameControl1.WorkingDeck = Nothing
         '
         'frmChangeDeck
         '

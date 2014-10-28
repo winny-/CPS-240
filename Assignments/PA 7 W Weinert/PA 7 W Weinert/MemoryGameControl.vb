@@ -13,8 +13,8 @@ Public Class MemoryGameControl
     Public Event CardWasRevealed(ByVal c As Card, ByVal s As RevealedState)
     Public Event GameFinished()
 
-    Public Property Deck As List(Of Card)
-    Public Property WorkingDeck As List(Of Card)
+    Public Property Deck As DeckUtility.Deck
+    Private Property WorkingDeck As List(Of Card)
     Private Property AutomaticallyHidingGuesses As Boolean
         Get
             Return Timer1.Enabled
@@ -34,14 +34,14 @@ Public Class MemoryGameControl
         Me.AutomaticallyHidingGuesses = False
     End Sub
 
-    Public Sub New(ByVal deck As List(Of Card))
+    Public Sub New(ByVal deck As DeckUtility.Deck)
         Me.New()
 
         Me.Deck = deck
     End Sub
 
     Public Sub CreateGameLayout(Optional ByVal presentationMode As Boolean = False)
-        WorkingDeck = New List(Of Card)(Deck)
+        WorkingDeck = New List(Of Card)(Deck.Cards)
         If Not presentationMode Then
             WorkingDeck = WorkingDeck.SelectMany(Function(c As Card) {c.Clone(), c.Clone()}).ToList()
             WorkingDeck.Shuffle()
@@ -69,7 +69,7 @@ Public Class MemoryGameControl
                 AutomaticallyHidingGuesses = False
                 For Each c As Card In GuessedCards()
                     c.CurrentState = Card.State.FaceDown
-                    c.CardBox.Image = Decks.DefaultBack
+                    c.CardBox.Image = DeckUtility.DefaultBack
                 Next
             Case 1
                 If isFaceDown Then
@@ -118,12 +118,12 @@ Public Class MemoryGameControl
     Private Sub ClearGuessed()
         GuessedCards.ForEach(Sub(c As Card)
                                  c.CurrentState = Card.State.FaceDown
-                                 c.CardBox.Image = Decks.DefaultBack
+                                 c.CardBox.Image = DeckUtility.DefaultBack
                              End Sub)
     End Sub
 
-    Public Sub ShowDeckInPresentationMode(Optional ByVal deck As List(Of Card) = Nothing)
-        If deck IsNot Nothing Then Me.Deck = deck
+    Public Sub ShowDeckInPresentationMode(Optional ByVal deck As DeckUtility.Deck = Nothing)
+        If deck.Cards IsNot Nothing Then Me.Deck = deck
         CreateGameLayout(presentationMode:=True)
     End Sub
 

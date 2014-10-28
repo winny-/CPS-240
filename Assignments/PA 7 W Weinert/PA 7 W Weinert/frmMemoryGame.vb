@@ -4,7 +4,6 @@ Public Class frmMemoryGame
 
     Public Delegate_ As New AppDelegate(MemoryGameControl1)
 
-
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DisplayStats()
     End Sub
@@ -17,8 +16,7 @@ Public Class frmMemoryGame
     End Sub
 
     Private Sub btnChangeDeck_Click(sender As Object, e As EventArgs) Handles btnChangeDeck.Click
-        Dim newDeck As List(Of Card) = frmChangeDeck.ChooseNewDeck()
-        If newDeck IsNot Nothing Then Delegate_.Deck = newDeck
+        Delegate_.Deck = frmChangeDeck.ChooseNewDeck(defaultDeck:=Delegate_.Deck)
     End Sub
 
     Private Sub btnNewGame_Click(sender As Object, e As EventArgs) Handles btnNewGame.Click

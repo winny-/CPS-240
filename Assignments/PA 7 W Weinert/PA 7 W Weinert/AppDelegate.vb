@@ -8,7 +8,7 @@ Public Class AppDelegate
     Private _GameCount As Integer = 0
     Private _InGame As Boolean
 
-    Public Property Deck As List(Of Card)
+    Public Property Deck As DeckUtility.Deck
 
     Public ReadOnly Property Misses As Integer
         Get
@@ -43,7 +43,7 @@ Public Class AppDelegate
 
     Public Sub New(ByVal mgc As MemoryGameControl)
         Me.MemoryGameControl = mgc
-        Deck = Decks.DefaultDeck
+        Deck = DeckUtility.DefaultDeck
     End Sub
 
     Public Function CardWasMiss() As Integer

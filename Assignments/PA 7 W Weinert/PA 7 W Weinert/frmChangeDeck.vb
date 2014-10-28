@@ -2,8 +2,8 @@
 
 Public Class frmChangeDeck
 
-    Private Decks As Dictionary(Of String, List(Of Card))
-    Private SelectedDeck As List(Of Card)
+    Private Decks As List(Of DeckUtility.Deck)
+    Private SelectedDeck As DeckUtility.Deck
     Private ChangeDeckWasClicked As Boolean = False
 
     Public Sub New()
@@ -12,23 +12,22 @@ Public Class frmChangeDeck
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Me.Decks = PA_7_W_Weinert.Decks.AllDecks
+        Me.Decks = DeckUtility.AllDecks
     End Sub
 
-    Public Shared Function ChooseNewDeck(Optional ByVal defaultDeck As List(Of Card) = Nothing) As List(Of Card)
+    Public Shared Function ChooseNewDeck(Optional ByVal defaultDeck As DeckUtility.Deck = Nothing) As DeckUtility.Deck
         Dim f As New frmChangeDeck
-        Dim l As List(Of String) = f.Decks.Keys.ToList
-        l.Sort()
+        Dim l As List(Of String) = From d As DeckUtility.Deck In f.Decks Select d.Name Order By Name Ascending.ToList()
         f.cbDeckChoices.Items.Clear()
         l.ForEach(Function(s As String) f.cbDeckChoices.Items.Add(s))
-        f.cbDeckChoices.SelectedIndex = 0
+        f.cbDeckChoices.SelectedItem = If(defaultDeck.Cards IsNot Nothing, defaultDeck.Name, f.Decks(0).Name)
 
         f.ShowDialog()
-        Return If(f.ChangeDeckWasClicked, f.SelectedDeck, defaultDeck)
+        Return f.SelectedDeck
     End Function
 
     Private Sub cbDeckChoices_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbDeckChoices.SelectedIndexChanged
-        SelectedDeck = Decks(cbDeckChoices.SelectedItem.ToString)
+        SelectedDeck = (From d As DeckUtility.Deck In Decks Where d.Name = cbDeckChoices.SelectedItem.ToString).Single
         MemoryGameControl1.ShowDeckInPresentationMode(SelectedDeck)
     End Sub
 

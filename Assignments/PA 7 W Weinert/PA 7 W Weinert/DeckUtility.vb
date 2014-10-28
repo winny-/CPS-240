@@ -2,7 +2,12 @@
 
 Imports System.Text.RegularExpressions
 
-Public Class Decks
+Public Class DeckUtility
+
+    Public Structure Deck
+        Public Name As String
+        Public Cards As List(Of Card)
+    End Structure
 
     Public Shared Function ImagesMatchingName(name As String) As Dictionary(Of String, Image)
         Dim runTimeResourceSet As Resources.ResourceSet
@@ -29,54 +34,54 @@ Public Class Decks
 
     Public Shared ReadOnly DefaultBack As Image = My.Resources.cardback1
 
-    Public Shared ReadOnly DefaultDeck As List(Of Card) = Birds
+    Public Shared ReadOnly DefaultDeck As Deck = Birds
 
-    Public Shared ReadOnly Property Test As List(Of Card)
+    Public Shared ReadOnly Property Test As Deck
         Get
-            Return CardsMatchingName("green_")
+            Return New Deck With {.Cards = CardsMatchingName("green_"), .Name = "Test (small)"}
         End Get
     End Property
 
-    Public Shared ReadOnly Property ChessAll As List(Of Card)
+    Public Shared ReadOnly Property ChessAll As Deck
         Get
-            Return CardsMatchingName("_black").Extend(CardsMatchingName("_white"))
+            Return New Deck With {.Cards = ChessWhite.Cards.Extend(ChessBlack.Cards), .Name = "Full chess suite"}
         End Get
     End Property
 
-    Public Shared ReadOnly Property ChessBlack As List(Of Card)
+    Public Shared ReadOnly Property ChessBlack As Deck
         Get
-            Return CardsMatchingName("_black")
+            Return New Deck With {.Cards = CardsMatchingName("_black"), .Name = "Chess (black)"}
         End Get
     End Property
 
-    Public Shared ReadOnly Property ChessWhite As List(Of Card)
+    Public Shared ReadOnly Property ChessWhite As Deck
         Get
-            Return CardsMatchingName("_white")
+            Return New Deck With {.Cards = CardsMatchingName("_white"), .Name = "Chess (white)"}
         End Get
     End Property
 
-    Public Shared ReadOnly Property Birds As List(Of Card)
+    Public Shared ReadOnly Property Birds As Deck
         Get
-            Return CardsMatchingName("birds")
+            Return New Deck With {.Cards = CardsMatchingName("birds"), .Name = "Birds"}
         End Get
     End Property
 
-    Public Shared ReadOnly Property Renders As List(Of Card)
+    Public Shared ReadOnly Property Renders As Deck
         Get
-            Return CardsMatchingName("_render")
+            Return New Deck With {.Cards = CardsMatchingName("_render"), .Name = "Computer Renders"}
         End Get
     End Property
 
-    Public Shared ReadOnly Property AllDecks As Dictionary(Of String, List(Of Card))
+    Public Shared ReadOnly Property AllDecks As List(Of Deck)
         Get
-            Dim d As New Dictionary(Of String, List(Of Card))
-            d.Add("Half Chess suite", ChessBlack)
-            d.Add("Test (small)", Test)
-            d.Add("Birds", Birds)
-            d.Add("Renders", Renders)
-            d.Add("Everything", d.Values.SelectMany(Function(L As List(Of Card)) L).ToList())
-            d.Add("Full Chess suite", ChessAll)
-            Return d
+            Dim L As New List(Of Deck)
+            L.Add(ChessBlack)
+            L.Add(ChessWhite)
+            L.Add(Test)
+            L.Add(Birds)
+            L.Add(Renders)
+            L.Add(ChessAll)
+            Return L
         End Get
     End Property
 
