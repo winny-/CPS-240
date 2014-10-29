@@ -24,7 +24,7 @@ Partial Class MemoryGameControl
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.Board = New System.Windows.Forms.FlowLayoutPanel()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.tmrHideMisses = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Board
@@ -37,7 +37,7 @@ Partial Class MemoryGameControl
         '
         'Timer1
         '
-        Me.Timer1.Interval = 750
+        Me.tmrHideMisses.Interval = 750
         '
         'MemoryGameControl
         '
@@ -50,6 +50,6 @@ Partial Class MemoryGameControl
 
     End Sub
     Friend WithEvents Board As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents Timer1 As System.Windows.Forms.Timer
+    Friend WithEvents tmrHideMisses As System.Windows.Forms.Timer
 
 End Class

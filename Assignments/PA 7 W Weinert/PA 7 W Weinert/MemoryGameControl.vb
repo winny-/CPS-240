@@ -17,10 +17,10 @@ Public Class MemoryGameControl
     Private Property WorkingDeck As List(Of Card)
     Private Property AutomaticallyHidingGuesses As Boolean
         Get
-            Return Timer1.Enabled
+            Return tmrHideMisses.Enabled
         End Get
         Set(value As Boolean)
-            Timer1.Enabled = value
+            tmrHideMisses.Enabled = value
         End Set
     End Property
 
@@ -41,9 +41,9 @@ Public Class MemoryGameControl
     End Sub
 
     Public Sub CreateGameLayout(Optional ByVal presentationMode As Boolean = False)
-        WorkingDeck = New List(Of Card)(Deck.Cards)
+        WorkingDeck = DeckUtility.CloneCards(Deck.Cards)
         If Not presentationMode Then
-            WorkingDeck = WorkingDeck.SelectMany(Function(c As Card) {c.Clone(), c.Clone()}).ToList()
+            WorkingDeck.AddRange(DeckUtility.CloneCards(WorkingDeck))
             WorkingDeck.Shuffle()
         End If
 
@@ -64,51 +64,64 @@ Public Class MemoryGameControl
         Dim guessCount As Integer = GuessedCards().Count
         Dim isFaceDown As Boolean = clicked.Card.CurrentState = Card.State.FaceDown
         Dim r As RevealedState = RevealedState.None
+
         Select Case guessCount
             Case Is > 1
-                AutomaticallyHidingGuesses = False
-                For Each c As Card In GuessedCards()
-                    c.CurrentState = Card.State.FaceDown
-                    c.CardBox.Image = DeckUtility.DefaultBack
-                Next
+                'Allow the user to play faster than the timer will hide missed pairs.
+                tmrHideMisses_Tick(Me, New EventArgs)
+                CardWasClicked(sender, New EventArgs)
             Case 1
-                If isFaceDown Then
-                    Dim other As Card = GuessedCards(WithoutCard:=clicked.Card).Single
-                    clicked.Card.CurrentState = Card.State.Guess
-                    clicked.Image = clicked.Card.Face
-                    r = RevealedState.Miss
-                    If other.Name = clicked.Card.Name Then
-                        other.CurrentState = Card.State.Matched
-                        clicked.Card.CurrentState = Card.State.Matched
-                        r = RevealedState.Match
-                    End If
+                If Not isFaceDown Then Exit Select
+
+                Dim other As Card = GuessedCards(WithoutCard:=clicked.Card).Single
+
+                clicked.Card.CurrentState = Card.State.Guess
+                clicked.Image = clicked.Card.Face
+
+                Dim isMatch As Boolean = other.Name = clicked.Card.Name
+
+                r = If(isMatch,
+                       RevealedState.Match,
+                       RevealedState.Miss)
+
+                If isMatch Then
+                    other.CurrentState = Card.State.Matched
+                    clicked.Card.CurrentState = Card.State.Matched
                 End If
             Case 0
-                If isFaceDown Then
-                    clicked.Card.CurrentState = Card.State.Guess
-                    clicked.Image = clicked.Card.Face
-                    r = RevealedState.FirstUp
-                End If
+                If Not isFaceDown Then Exit Select
+
+                clicked.Card.CurrentState = Card.State.Guess
+                clicked.Image = clicked.Card.Face
+
+                r = RevealedState.FirstUp
         End Select
-        If r <> RevealedState.None Then
-            RaiseEvent CardWasRevealed(clicked.Card, r)
-            If r = RevealedState.Miss Then
-                RaiseEvent PairWasMiss()
-                AutomaticallyHidingGuesses = True
-            End If
-            If FaceDownCards().Count = 0 And r = RevealedState.Match Then RaiseEvent GameFinished()
+
+        'If there wasn't a meaningful change on the board, don't raise any events.
+        If r = RevealedState.None Then Return
+
+        'Events
+        RaiseEvent CardWasRevealed(clicked.Card, r)
+
+        If r = RevealedState.Miss Then
+            RaiseEvent PairWasMiss()
+            AutomaticallyHidingGuesses = True 'Activates the timer which returns the missed pair to face-down.
         End If
+
+        If FaceDownCards().Count = 0 And r = RevealedState.Match Then RaiseEvent GameFinished()
     End Sub
 
     Private Function GuessedCards(Optional ByVal WithoutCard As Card = Nothing) As List(Of Card)
-        Return (From c In WorkingDeck Where c.CurrentState = Card.State.Guess And c IsNot WithoutCard).ToList()
+        Return (From c In WorkingDeck
+                Where c.CurrentState = Card.State.Guess And c IsNot WithoutCard).ToList()
     End Function
 
     Private Function FaceDownCards() As List(Of Card)
-        Return (From c In WorkingDeck Where c.CurrentState = Card.State.FaceDown).ToList()
+        Return (From c In WorkingDeck
+                Where c.CurrentState = Card.State.FaceDown).ToList()
     End Function
 
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+    Private Sub tmrHideMisses_Tick(sender As Object, e As EventArgs) Handles tmrHideMisses.Tick
         If AutomaticallyHidingGuesses Then
             ClearGuessed()
             AutomaticallyHidingGuesses = False
@@ -116,10 +129,10 @@ Public Class MemoryGameControl
     End Sub
 
     Private Sub ClearGuessed()
-        GuessedCards.ForEach(Sub(c As Card)
-                                 c.CurrentState = Card.State.FaceDown
-                                 c.CardBox.Image = DeckUtility.DefaultBack
-                             End Sub)
+        For Each c As Card In GuessedCards()
+            c.CurrentState = Card.State.FaceDown
+            c.CardBox.Image = DeckUtility.DefaultBack
+        Next
     End Sub
 
     Public Sub ShowDeckInPresentationMode(Optional ByVal deck As DeckUtility.Deck = Nothing)

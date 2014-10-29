@@ -31,7 +31,7 @@ Partial Class frmMemoryGame
         Me.lblAuthor = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.btnChangeDeck = New System.Windows.Forms.Button()
-        Me.MemoryGameControl1 = New PA_7_W_Weinert.MemoryGameControl()
+        Me.mgcMemoryGame = New PA_7_W_Weinert.MemoryGameControl()
         Me.StatusStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -113,14 +113,14 @@ Partial Class frmMemoryGame
         '
         'MemoryGameControl1
         '
-        Me.MemoryGameControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.mgcMemoryGame.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.MemoryGameControl1.Deck = Nothing
-        Me.MemoryGameControl1.Location = New System.Drawing.Point(0, 0)
-        Me.MemoryGameControl1.Name = "MemoryGameControl1"
-        Me.MemoryGameControl1.Size = New System.Drawing.Size(638, 497)
-        Me.MemoryGameControl1.TabIndex = 0
+        Me.mgcMemoryGame.Deck = Nothing
+        Me.mgcMemoryGame.Location = New System.Drawing.Point(0, 0)
+        Me.mgcMemoryGame.Name = "MemoryGameControl1"
+        Me.mgcMemoryGame.Size = New System.Drawing.Size(638, 497)
+        Me.mgcMemoryGame.TabIndex = 0
         '
         'frmMemoryGame
         '
@@ -130,7 +130,7 @@ Partial Class frmMemoryGame
         Me.ClientSize = New System.Drawing.Size(638, 566)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.MemoryGameControl1)
+        Me.Controls.Add(Me.mgcMemoryGame)
         Me.MinimumSize = New System.Drawing.Size(493, 366)
         Me.Name = "frmMemoryGame"
         Me.Text = "Memory Game"
@@ -142,7 +142,7 @@ Partial Class frmMemoryGame
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MemoryGameControl1 As PA_7_W_Weinert.MemoryGameControl
+    Friend WithEvents mgcMemoryGame As PA_7_W_Weinert.MemoryGameControl
     Friend WithEvents btnExit As System.Windows.Forms.Button
     Friend WithEvents btnNewGame As System.Windows.Forms.Button
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip

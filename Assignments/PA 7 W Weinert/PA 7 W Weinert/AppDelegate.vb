@@ -2,7 +2,6 @@
 
 Public Class AppDelegate
 
-    Public Property MemoryGameControl As MemoryGameControl
     Private _Misses As Integer = 0
     Private _TotalMisses As Integer = 0
     Private _GameCount As Integer = 0
@@ -41,8 +40,7 @@ Public Class AppDelegate
         End Get
     End Property
 
-    Public Sub New(ByVal mgc As MemoryGameControl)
-        Me.MemoryGameControl = mgc
+    Public Sub New()
         Deck = DeckUtility.DefaultDeck
     End Sub
 

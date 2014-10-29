@@ -1,14 +1,21 @@
-﻿Option Strict On
+﻿'*****************************************************************
+'PA 7: Memory Game
+'Name: Winston Weinert
+'Help recieved: None
+'Self-assessment: it works and I expect to recieve full credit
+'*****************************************************************
+
+Option Strict On
 
 Public Class frmMemoryGame
 
-    Public Delegate_ As New AppDelegate(MemoryGameControl1)
+    Private Delegate_ As New AppDelegate()
 
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmMemoryGame_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DisplayStats()
     End Sub
 
-    Private Sub MemoryGameControl1_GameFinished() Handles MemoryGameControl1.GameFinished
+    Private Sub mgcMemoryGame_GameFinished() Handles mgcMemoryGame.GameFinished
         btnNewGame.Enabled = True
         btnChangeDeck.Enabled = True
         Delegate_.GameWasFinished()
@@ -23,8 +30,8 @@ Public Class frmMemoryGame
         Delegate_.GameWasStarted()
         btnNewGame.Enabled = False
         btnChangeDeck.Enabled = False
-        MemoryGameControl1.Deck = Delegate_.Deck
-        MemoryGameControl1.CreateGameLayout()
+        mgcMemoryGame.Deck = Delegate_.Deck
+        mgcMemoryGame.CreateGameLayout()
         DisplayStats()
     End Sub
 
@@ -34,12 +41,25 @@ Public Class frmMemoryGame
 
     Private Sub DisplayStats()
         Dim avg As Double = Delegate_.AverageMisses
-        tsslAverageMisses.Text = If(avg < 0, "", "Average misses: " & avg.ToString())
-        tsslMissesThisGame.Text = If(Delegate_.InGame, "Misses this game: " & Delegate_.Misses, "")
-        tsslGames.Text = If(Delegate_.InGame Or Delegate_.GameCount > 0, "Games: " & If(Delegate_.InGame, Delegate_.GameCount + 1, Delegate_.GameCount).ToString, "")
+        tsslAverageMisses.Text = IfOrEmpty(avg > -1,
+                                           String.Format("Average misses: {0:F2}", avg))
+
+        tsslMissesThisGame.Text = IfOrEmpty(Delegate_.InGame,
+                                            String.Format("Misses this game: {0:D}", Delegate_.Misses))
+
+        'In VB.NET True is -1, so we cannot rely on CInt(Boolean) to become 1 or 0 aka mathematical logic symbols.
+        Dim inGameOffset As Integer = If(Delegate_.InGame, 1, 0)
+        tsslGames.Text = IfOrEmpty(Delegate_.GameCount > 0 Or Delegate_.InGame,
+                                   String.Format("Games: {0:D}", Delegate_.GameCount + inGameOffset))
     End Sub
 
-    Private Sub MemoryGameControl1_PairWasMiss() Handles MemoryGameControl1.PairWasMiss
+    Private Function IfOrEmpty(cond As Boolean, s As String) As String
+        Return If(cond,
+                  s,
+                  String.Empty)
+    End Function
+
+    Private Sub mgcMemoryGame_PairWasMiss() Handles mgcMemoryGame.PairWasMiss
         Delegate_.CardWasMiss()
         DisplayStats()
     End Sub

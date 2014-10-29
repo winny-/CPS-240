@@ -4,6 +4,12 @@ Imports System.Runtime.CompilerServices
 
 Module ClassExtensions
 
+    ''' <summary>
+    ''' Fisher-Yates shuffle
+    ''' </summary>
+    ''' <typeparam name="T"></typeparam>
+    ''' <param name="list"></param>
+    ''' <remarks>https://stackoverflow.com/questions/273313/randomize-a-listt-in-c-sharp</remarks>
     <Extension()>
     Public Sub Shuffle(Of T)(ByVal list As IList(Of T))
         Dim r As New Random
@@ -17,6 +23,14 @@ Module ClassExtensions
         End While
     End Sub
 
+    ''' <summary>
+    ''' Create a new list by joining two lists.
+    ''' </summary>
+    ''' <typeparam name="T"></typeparam>
+    ''' <param name="list"></param>
+    ''' <param name="other"></param>
+    ''' <returns>the new, joined list</returns>
+    ''' <remarks>This is basically a Pythonic wrapper around List.AddRange()</remarks>
     <Extension()>
     Public Function Extend(Of T)(ByVal list As List(Of T), ByVal other As IList(Of T)) As List(Of T)
         Dim L As New List(Of T)(list)

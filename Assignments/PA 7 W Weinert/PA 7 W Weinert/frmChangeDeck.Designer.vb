@@ -27,7 +27,7 @@ Partial Class frmChangeDeck
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.MemoryGameControl1 = New PA_7_W_Weinert.MemoryGameControl()
+        Me.mgcDeckViewer = New PA_7_W_Weinert.MemoryGameControl()
         Me.Panel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -82,13 +82,13 @@ Partial Class frmChangeDeck
         '
         'MemoryGameControl1
         '
-        Me.MemoryGameControl1.AutoScroll = True
-        Me.MemoryGameControl1.Deck = Nothing
-        Me.MemoryGameControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.MemoryGameControl1.Location = New System.Drawing.Point(0, 28)
-        Me.MemoryGameControl1.Name = "MemoryGameControl1"
-        Me.MemoryGameControl1.Size = New System.Drawing.Size(507, 351)
-        Me.MemoryGameControl1.TabIndex = 6
+        Me.mgcDeckViewer.AutoScroll = True
+        Me.mgcDeckViewer.Deck = Nothing
+        Me.mgcDeckViewer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.mgcDeckViewer.Location = New System.Drawing.Point(0, 28)
+        Me.mgcDeckViewer.Name = "MemoryGameControl1"
+        Me.mgcDeckViewer.Size = New System.Drawing.Size(507, 351)
+        Me.mgcDeckViewer.TabIndex = 6
         '
         'frmChangeDeck
         '
@@ -97,7 +97,7 @@ Partial Class frmChangeDeck
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
         Me.ClientSize = New System.Drawing.Size(507, 409)
-        Me.Controls.Add(Me.MemoryGameControl1)
+        Me.Controls.Add(Me.mgcDeckViewer)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Panel2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -114,5 +114,5 @@ Partial Class frmChangeDeck
     Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
-    Friend WithEvents MemoryGameControl1 As PA_7_W_Weinert.MemoryGameControl
+    Friend WithEvents mgcDeckViewer As PA_7_W_Weinert.MemoryGameControl
 End Class
