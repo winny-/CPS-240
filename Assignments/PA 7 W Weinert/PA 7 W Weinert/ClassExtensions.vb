@@ -38,4 +38,18 @@ Module ClassExtensions
         Return L
     End Function
 
+    ''' <summary>
+    ''' Convert a Boolean to a sane Integral representation
+    ''' </summary>
+    ''' <param name="b">the Boolean</param>
+    ''' <returns>1 for True, 0 for False</returns>
+    ''' <remarks>
+    ''' In .NET, Convert.ToInt32(True) returns -1, Convert.ToInt32(False) 0.
+    ''' This is very undesirable, so I wrote this extension method.
+    ''' </remarks>
+    <Extension()>
+    Public Function ToBinary(ByVal b As Boolean) As Integer
+        Return If(b, 1, 0)
+    End Function
+
 End Module

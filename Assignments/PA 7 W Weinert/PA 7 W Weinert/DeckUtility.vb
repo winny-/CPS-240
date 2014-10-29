@@ -38,14 +38,14 @@ Public Class DeckUtility
         Return cards.Select(Function(c As Card) c.Clone()).ToList()
     End Function
 
-    Public Shared ReadOnly DefaultBack As Image = My.Resources.cardback1
+    Public Shared ReadOnly DefaultBack As Image = My.Resources.line_segments_no__1_by_dazzling_rust_d4ajcpm
 
     Public Shared ReadOnly DefaultDeck As Deck = Renders
 
-    Public Shared ReadOnly Property Test As Deck
+    Public Shared ReadOnly Property Flowers As Deck
         Get
-            Return New Deck With {.Cards = CardsMatchingName("green_"),
-                                  .Name = "Test (small)"}
+            Return New Deck With {.Cards = CardsMatchingName("_flower"),
+                                  .Name = "Flowers (small)"}
         End Get
     End Property
 
@@ -88,7 +88,7 @@ Public Class DeckUtility
         Get
             Return New List(Of Deck)({ChessBlack,
                                       ChessWhite,
-                                      Test,
+                                      Flowers,
                                       Birds,
                                       Renders,
                                       ChessAll})

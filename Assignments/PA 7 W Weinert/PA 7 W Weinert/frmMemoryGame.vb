@@ -40,28 +40,28 @@ Public Class frmMemoryGame
     End Sub
 
     Private Sub DisplayStats()
+        Dim ifElseEmpty As Func(Of Boolean, String, String) = Function(cond As Boolean, s As String) If(cond, s, String.Empty)
+
         Dim avg As Double = Delegate_.AverageMisses
-        tsslAverageMisses.Text = IfOrEmpty(avg > -1,
-                                           String.Format("Average misses: {0:F2}", avg))
+        tsslAverageMisses.Text = ifElseEmpty(avg > -1,
+                                             String.Format("Average misses: {0:F2}", avg))
 
-        tsslMissesThisGame.Text = IfOrEmpty(Delegate_.InGame,
-                                            String.Format("Misses this game: {0:D}", Delegate_.Misses))
+        tsslMissesThisGame.Text = ifElseEmpty(Delegate_.InGame,
+                                              String.Format("Misses this game: {0:D}", Delegate_.Misses))
 
-        'In VB.NET True is -1, so we cannot rely on CInt(Boolean) to become 1 or 0 aka mathematical logic symbols.
-        Dim inGameOffset As Integer = If(Delegate_.InGame, 1, 0)
-        tsslGames.Text = IfOrEmpty(Delegate_.GameCount > 0 Or Delegate_.InGame,
-                                   String.Format("Games: {0:D}", Delegate_.GameCount + inGameOffset))
+        tsslGames.Text = ifElseEmpty(Delegate_.GameCount > 0 Or Delegate_.InGame,
+                                     String.Format("Games: {0:D}", Delegate_.GameCount + Delegate_.InGame.ToBinary))
     End Sub
 
-    Private Function IfOrEmpty(cond As Boolean, s As String) As String
-        Return If(cond,
-                  s,
-                  String.Empty)
-    End Function
 
     Private Sub mgcMemoryGame_PairWasMiss() Handles mgcMemoryGame.PairWasMiss
         Delegate_.CardWasMiss()
         DisplayStats()
+    End Sub
+
+    Private Sub btnAbout_Click(sender As Object, e As EventArgs) Handles btnAbout.Click
+        Dim f As New frmAbout()
+        f.ShowDialog()
     End Sub
 
 End Class
