@@ -1,4 +1,6 @@
-﻿Option Strict On
+﻿'Please don't copy this file as the terms of use are.... disputed.
+
+Option Strict On
 
 'a Bird watcher wants to keep track of all the sightings of birds
 

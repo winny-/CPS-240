@@ -1,4 +1,6 @@
-﻿Option Strict On
+﻿'Please don't copy this file as the terms of use are.... disputed.
+
+Option Strict On
 Imports System.IO
 
 Public Class CData
