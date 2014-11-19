@@ -4,6 +4,12 @@ Public Class LogicLayer
 
     Private Property _MyDataLayer As New DataLayer
 
+    Public ReadOnly Property CanPlay As Boolean
+        Get
+            Return Game.Players.Count >= 2 'Need at least two players.
+        End Get
+    End Property
+
     Public ReadOnly Property FileName As String
         Get
             Return _MyDataLayer.FileName
@@ -41,7 +47,7 @@ Public Class LogicLayer
     End Function
 
     Public Function NewFile(fname As String) As Boolean
-        'Debug.Assert(_MyDataLayer.Game Is Nothing)
+        If Not CloseFile() Then Return False
         _MyDataLayer.FileName = fname
         Return _MyDataLayer.WriteGame()
     End Function

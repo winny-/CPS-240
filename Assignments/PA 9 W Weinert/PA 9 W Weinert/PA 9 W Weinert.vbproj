@@ -70,6 +70,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassExtensions.vb" />
     <Compile Include="DataLayer.vb" />
     <Compile Include="frmSerialize.vb">
       <SubType>Form</SubType>

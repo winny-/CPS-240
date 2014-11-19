@@ -114,20 +114,21 @@ Partial Class frmSerialize
         '
         Me.miOpenFile.Name = "miOpenFile"
         Me.miOpenFile.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.O), System.Windows.Forms.Keys)
-        Me.miOpenFile.Size = New System.Drawing.Size(159, 22)
+        Me.miOpenFile.Size = New System.Drawing.Size(163, 22)
         Me.miOpenFile.Text = "&Open File"
         '
         'miNewFile
         '
         Me.miNewFile.Name = "miNewFile"
         Me.miNewFile.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.N), System.Windows.Forms.Keys)
-        Me.miNewFile.Size = New System.Drawing.Size(159, 22)
+        Me.miNewFile.Size = New System.Drawing.Size(163, 22)
         Me.miNewFile.Text = "&New File"
         '
         'miCloseFile
         '
         Me.miCloseFile.Name = "miCloseFile"
-        Me.miCloseFile.Size = New System.Drawing.Size(159, 22)
+        Me.miCloseFile.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.F4), System.Windows.Forms.Keys)
+        Me.miCloseFile.Size = New System.Drawing.Size(163, 22)
         Me.miCloseFile.Text = "&Close File"
         '
         'dgvPlayers

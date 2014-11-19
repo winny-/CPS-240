@@ -9,6 +9,9 @@ Public Class frmSerialize
     Private _WindowTitleFormat As String
     Private _LastWinner As String = Nothing
     Private _FlashCount As Integer = 1
+    Private _ColorsForWinnerFG As New List(Of Color) From {Color.BlueViolet,
+                                                           Color.ForestGreen,
+                                                           Color.DeepPink}
 
     Private Const NFlashes As Integer = 3
 
@@ -18,7 +21,7 @@ Public Class frmSerialize
         If _LogicLayer.HaveFile Then
             btnRemovePlayer.Enabled = dgvPlayers.SelectedRows.Count > 0 AndAlso
                 dgvPlayers.SelectedRows(0) IsNot Nothing
-            btnPlay.Enabled = _LogicLayer.Game.Players.Count > 0
+            btnPlay.Enabled = _LogicLayer.CanPlay
         End If
     End Sub
 
@@ -57,6 +60,10 @@ Public Class frmSerialize
     End Sub
 
     Private Sub ShowWinner()
+        _ColorsForWinnerFG.Shuffle()
+        lblWinner.ForeColor = (From c As Color In _ColorsForWinnerFG
+                               Where c <> lblWinner.ForeColor
+                               ).First
         _FlashCount = 0
         tmrWinnerFlash.Enabled = True
     End Sub
