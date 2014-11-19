@@ -1,6 +1,15 @@
-﻿Option Strict On
+﻿'*****************************************************************
+'PA 9: Serialization
+'Name: Winston Weinert
+'Help recieved: None
+'Self-assessment: it works and I expect to recieve full credit
+'*****************************************************************
+
+Option Strict On
 
 Public Class frmSerialize
+
+    Private Const NFlashes As Integer = 3
 
     Private Property _LogicLayer As New LogicLayer()
 
@@ -13,7 +22,9 @@ Public Class frmSerialize
                                                            Color.ForestGreen,
                                                            Color.DeepPink}
 
-    Private Const NFlashes As Integer = 3
+    '*****************************************************************
+    'UI controller routines
+    '*****************************************************************
 
     Private Sub ValidateControls()
         pnlControlGame.Enabled = _LogicLayer.HaveFile
@@ -73,18 +84,33 @@ Public Class frmSerialize
         tmrWinnerFlash.Enabled = False
     End Sub
 
-    Private Sub Exit_Click(sender As Object, e As EventArgs) Handles _
-        miExit.Click,
-        btnExit.Click
-
-        Me.Close()
-    End Sub
+    '*****************************************************************
+    'Events
+    '*****************************************************************
 
     Private Sub frmSerialize_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         _WinnerFormat = lblWinner.Text
         _TotalPlaysFormat = tsslTotalPlays.Text
         _WindowTitleFormat = Me.Text
         Display()
+    End Sub
+
+    Private Sub frmSerialize_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If Not _LogicLayer.HaveFile Then Return
+        If Not _LogicLayer.CloseFile() Then
+            Dim res As DialogResult = MessageBox.Show("Unable to save file on close. Exit anyway?",
+                                                      "Error",
+                                                      MessageBoxButtons.YesNo,
+                                                      MessageBoxIcon.Error)
+            If res <> Windows.Forms.DialogResult.Yes Then Return
+        End If
+    End Sub
+
+    Private Sub Exit_Click(sender As Object, e As EventArgs) Handles _
+        miExit.Click,
+        btnExit.Click
+
+        Me.Close()
     End Sub
 
     Private Sub miCloseFile_Click(sender As Object, e As EventArgs) Handles miCloseFile.Click
@@ -132,6 +158,7 @@ Public Class frmSerialize
     Private Sub btnAddPlayer_Click(sender As Object, e As EventArgs) Handles btnAddPlayer.Click
         Dim name As String = txtName.Text
         Dim ok As Boolean = True
+
         If Not Player.ValidateName(name) Then
             MessageBox.Show("Bad player name")
             ok = False
@@ -139,6 +166,7 @@ Public Class frmSerialize
             MessageBox.Show("Player name already exists")
             ok = False
         End If
+
         If ok Then
             txtName.Clear()
         Else
@@ -147,6 +175,7 @@ Public Class frmSerialize
                 .Focus()
             End With
         End If
+
         HideWinner()
         Display()
     End Sub

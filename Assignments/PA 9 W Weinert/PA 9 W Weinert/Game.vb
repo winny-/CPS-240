@@ -6,7 +6,7 @@ Public Class Game
     Private _Matches As New List(Of Match)
     Public ReadOnly Property Matches As List(Of Match)
         Get
-            Return _Matches.ToList()
+            Return _Matches.ToList() 'Return copy
         End Get
     End Property
 
@@ -19,7 +19,7 @@ Public Class Game
     Private _Players As New List(Of Player)
     Public ReadOnly Property Players As List(Of Player)
         Get
-            Return _Players.ToList()
+            Return _Players.ToList() 'Return copy
         End Get
     End Property
 
