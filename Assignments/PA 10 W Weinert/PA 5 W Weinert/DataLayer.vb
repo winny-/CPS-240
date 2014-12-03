@@ -116,7 +116,7 @@ Public Class DataLayer
     End Function
 
     Public Function Accounts() As List(Of Account)
-        Dim command As OleDbCommand = CreateCommand("SELECT * FROM [Account] LEFT OUTER JOIN [Transaction] ON [Account].[UUID]=[Transaction].[AccountUUID]")
+        Dim command As OleDbCommand = CreateCommand("SELECT * FROM Account LEFT OUTER JOIN [Transaction] ON Account.UUID=[Transaction].AccountUUID")
         Dim reader As OleDbDataReader = command.ExecuteReader()
         Dim D As New Dictionary(Of Account, List(Of Transaction))
         While reader.Read()
