@@ -27,6 +27,15 @@ Public Class frmBankAccounts
     End Sub
 
     Private Sub frmBankAccounts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'Debug.WriteLine() messages will now appear in the application log.
+        'How to find them: http://windows.microsoft.com/en-us/windows/open-event-viewer
+        Debug.Listeners.Add(New EventLogTraceListener("Application"))
+        Debug.WriteLine("PA 10 W Weinert has been launched.")
+
+        If Not PA_10_W_Weinert.LogicLayer.HasDatabaseSupport() Then
+            If MessageBox.Show("This computer does not have the ACE (Microsoft Access OLE provider) installed. Really continue?", "", MessageBoxButtons.YesNo) <> Windows.Forms.DialogResult.Yes Then Close()
+        End If
+
         ofdOpenDatabase.FileName = LogicLayer.LastFileOpened
         If Not LogicLayer.OpenLastFileOrDefault() Then
             MessageBox.Show("Unable to open last opened or default database.")
@@ -189,6 +198,7 @@ Public Class frmBankAccounts
     Private Sub miRemoveAccount_Click(sender As Object, e As EventArgs) Handles miRemoveAccount.Click
         LogicLayer.RemoveAccount(SelectedAccount)
         Display()
+        ClearInfo()
     End Sub
 
 End Class

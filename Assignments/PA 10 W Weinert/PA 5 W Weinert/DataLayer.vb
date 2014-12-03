@@ -4,6 +4,7 @@ Imports System.Data.OleDb
 Imports System.IO
 Imports System.Runtime.Serialization
 Imports System.Runtime.Serialization.Formatters.Binary
+Imports Microsoft.Win32
 Imports PA_10_W_Weinert.Account
 
 Public Class DataLayer
@@ -37,7 +38,10 @@ Public Class DataLayer
     End Function
 
     Public Function OpenDatabase(fname As String) As Boolean
-        If Not File.Exists(fname) Then Return False
+        If Not File.Exists(fname) Then
+            Debug.WriteLine("File does not exist, returning from OpenDatabase(): " & fname)
+            Return False
+        End If
         Dim builder As New OleDbConnectionStringBuilder()
         builder.Provider = DefaultProvider
         builder.DataSource = fname
@@ -52,6 +56,7 @@ Public Class DataLayer
 
             FileName = fname
         Catch ex As Exception
+            Debug.WriteLine("Failed to open database: " & ex.ToString())
             If ConnectionIsOpen Then MainConnection.Close()
             Return False
         End Try
@@ -154,6 +159,12 @@ Public Class DataLayer
         Return (From t As Transaction In Accounts.SelectMany(Function(a As Account) a.Transactions)
                 Order By t.Time Ascending
                 ).ToList()
+    End Function
+
+    Public Shared Function OLEProviderInstalled(provider As String) As Boolean
+        Dim providerKey As RegistryKey = Registry.ClassesRoot.OpenSubKey(provider)
+        Return providerKey IsNot Nothing AndAlso
+            providerKey.OpenSubKey("CLSID") IsNot Nothing
     End Function
 
 End Class

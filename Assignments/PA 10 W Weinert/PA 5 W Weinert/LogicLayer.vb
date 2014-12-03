@@ -88,12 +88,14 @@ Public Class LogicLayer
 
     Public Function OpenLastFileOrDefault() As Boolean
         If LastFileOpened Is Nothing Then
-            OpenDefaultFile()
+            Return OpenDefaultFile()
         Else
-            OpenFile(LastFileOpened)
+            Return OpenFile(LastFileOpened)
         End If
-        If Not DatabaseIsOpen Then Return False
-        Return True
+    End Function
+
+    Public Shared Function HasDatabaseSupport() As Boolean
+        Return DataLayer.OLEProviderInstalled(DataLayer.DefaultProvider)
     End Function
 
 End Class
