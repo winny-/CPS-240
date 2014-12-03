@@ -24,6 +24,15 @@ Public Class LogicLayer
         End Get
     End Property
 
+    Public Property LastFileOpened As String
+        Get
+            Return CType(Application.UserAppDataRegistry.GetValue("lastfile"), String)
+        End Get
+        Private Set(value As String)
+            Application.UserAppDataRegistry.SetValue("lastfile", value)
+        End Set
+    End Property
+
     Public Property BankName As String
         Get
             Dim o As Object = Nothing
@@ -40,13 +49,13 @@ Public Class LogicLayer
     End Function
 
     Public Function OpenFile(fname As String) As Boolean
-        Application.UserAppDataRegistry.SetValue("lastfile", fname)
+        LastFileOpened = fname
         Return DataLayer.OpenDatabase(fname)
     End Function
 
     Public Function NewFile(fname As String) As Boolean
         If Not DataLayer.CreateDatabase(fname) Then Return False
-        Application.UserAppDataRegistry.SetValue("lastfile", fname)
+        LastFileOpened = fname
         Dim fullUserName As String = System.Security.Principal.WindowsIdentity.GetCurrent().Name
         Dim domainlessUserName As String = fullUserName.Substring(fullUserName.IndexOf("\"c) + 1)
         BankName = "First Bank of " & domainlessUserName
@@ -69,16 +78,19 @@ Public Class LogicLayer
         Return DataLayer.AddAccount(a)
     End Function
 
+    Public Function RemoveAccount(a As Account) As Boolean
+        Return DataLayer.RemoveAccount(a)
+    End Function
+
     Public Function AddTransaction(t As Transaction) As Boolean
         Return DataLayer.AddTransaction(t)
     End Function
 
     Public Function OpenLastFileOrDefault() As Boolean
-        Dim fname As String = CType(Application.UserAppDataRegistry.GetValue("lastfile"), String)
-        If fname Is Nothing Then
+        If LastFileOpened Is Nothing Then
             OpenDefaultFile()
         Else
-            OpenFile(fname)
+            OpenFile(LastFileOpened)
         End If
         If Not DatabaseIsOpen Then Return False
         Return True

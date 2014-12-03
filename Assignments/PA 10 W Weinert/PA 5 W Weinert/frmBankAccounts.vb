@@ -27,6 +27,7 @@ Public Class frmBankAccounts
     End Sub
 
     Private Sub frmBankAccounts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ofdOpenDatabase.FileName = LogicLayer.LastFileOpened
         If Not LogicLayer.OpenLastFileOrDefault() Then
             MessageBox.Show("Unable to open last opened or default database.")
             ResetControls()
@@ -63,6 +64,7 @@ Public Class frmBankAccounts
         miTotalBankBalance.Enabled = LogicLayer.DatabaseIsOpen
         miChangeBankName.Enabled = LogicLayer.DatabaseIsOpen
         miNewCustomer.Enabled = LogicLayer.DatabaseIsOpen
+        miRemoveAccount.Enabled = SelectedAccount IsNot Nothing
     End Sub
 
     Public Sub ResetControls()
@@ -181,6 +183,11 @@ Public Class frmBankAccounts
     End Sub
 
     Private Sub chkShowTransactionsForAllAccounts_CheckedChanged(sender As Object, e As EventArgs) Handles chkShowTransactionsForAllAccounts.CheckedChanged
+        Display()
+    End Sub
+
+    Private Sub miRemoveAccount_Click(sender As Object, e As EventArgs) Handles miRemoveAccount.Click
+        LogicLayer.RemoveAccount(SelectedAccount)
         Display()
     End Sub
 

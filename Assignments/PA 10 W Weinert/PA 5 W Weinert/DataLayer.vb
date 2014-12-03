@@ -104,6 +104,17 @@ Public Class DataLayer
         Return command.ExecuteNonQuery() = 1
     End Function
 
+    Public Function RemoveAccount(a As Account) As Boolean
+        Dim nTransactions As Integer = a.Transactions.Count
+        Dim command As OleDbCommand = CreateCommand("DELETE FROM Account WHERE UUID=?")
+        command.Parameters.Add("@UUID", OleDbType.VarWChar).Value = a.UUID.ToString()
+        If command.ExecuteNonQuery() <> 1 Then Return False
+        Dim command2 As OleDbCommand = CreateCommand("DELETE FROM [Transaction] WHERE AccountUUID=?")
+        command2.Parameters.Add("@AccountUUID", OleDbType.VarWChar).Value = a.UUID.ToString()
+        Debug.Assert(command2.ExecuteNonQuery() = nTransactions, "Failed to delete all transactions.")
+        Return True
+    End Function
+
     Public Function Accounts() As List(Of Account)
         Dim command As OleDbCommand = CreateCommand("SELECT * FROM [Account] LEFT OUTER JOIN [Transaction] ON [Account].[UUID]=[Transaction].[AccountUUID]")
         Dim reader As OleDbDataReader = command.ExecuteReader()

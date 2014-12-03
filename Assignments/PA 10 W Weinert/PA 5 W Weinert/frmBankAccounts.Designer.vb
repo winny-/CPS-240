@@ -59,6 +59,7 @@ Partial Class frmBankAccounts
         Me.pbFlowIndicator = New System.Windows.Forms.PictureBox()
         Me.ofdOpenDatabase = New System.Windows.Forms.OpenFileDialog()
         Me.sfdNewDatabase = New System.Windows.Forms.SaveFileDialog()
+        Me.miRemoveAccount = New System.Windows.Forms.ToolStripMenuItem()
         Me.msMain.SuspendLayout()
         Me.gbMakeATransaction.SuspendLayout()
         CType(Me.dgvTransactions, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -116,7 +117,7 @@ Partial Class frmBankAccounts
         '
         'ToolsToolStripMenuItem
         '
-        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miNewCustomer, Me.miTotalBankBalance, Me.miChangeBankName})
+        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miNewCustomer, Me.miRemoveAccount, Me.miTotalBankBalance, Me.miChangeBankName})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
         Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.ToolsToolStripMenuItem.Text = "&Tools"
@@ -373,6 +374,12 @@ Partial Class frmBankAccounts
         '
         Me.sfdNewDatabase.Filter = "Access Database files|*.accdb"
         '
+        'miRemoveAccount
+        '
+        Me.miRemoveAccount.Name = "miRemoveAccount"
+        Me.miRemoveAccount.Size = New System.Drawing.Size(189, 22)
+        Me.miRemoveAccount.Text = "&Remove Account"
+        '
         'frmBankAccounts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -451,5 +458,6 @@ Partial Class frmBankAccounts
     Friend WithEvents NewDatabaseToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ofdOpenDatabase As System.Windows.Forms.OpenFileDialog
     Friend WithEvents sfdNewDatabase As System.Windows.Forms.SaveFileDialog
+    Friend WithEvents miRemoveAccount As System.Windows.Forms.ToolStripMenuItem
 
 End Class
