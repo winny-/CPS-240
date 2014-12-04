@@ -46,26 +46,6 @@ Public Class NoSQLTable
                 .Add("@Value", OleDbType.LongVarWChar).Value = valueString
             End With
         End If
-        'Command.CommandText = String.Format("INSERT INTO {0} VALUES (?, ?) ON DUPLICATE KEY UPDATE Base64Data=?;", TableName)
-
-        ''        command.CommandText = String.Format(<![CDATA[
-        ''IF EXISTS (SELECT * FROM {0} WHERE [Key]=?)
-        ''    UPDATE {1} SET Base64Data=? WHERE [Key]=?
-        ''ELSE
-        ''    INSERT INTO {2} VALUES(?, ?)
-        '']]>.Value, TableName, TableName, TableName)
-        'With command.Parameters
-        '    '.Add("@Key", OleDbType.VarWChar).Value = key
-
-        '    '.Add("@Value", OleDbType.LongVarWChar).Value = valueString
-        '    '.Add("@Key", OleDbType.VarWChar).Value = key
-
-        '    .Add("@Key", OleDbType.VarWChar).Value = key
-        '    .Add("@Value", OleDbType.LongVarWChar).Value = valueString
-
-        '    .Add("@Value", OleDbType.LongVarWChar).Value = valueString
-        '    '.Add("@Key", OleDbType.VarWChar).Value = key
-        'End With
 
         Debug.WriteLine(String.Format("Executing command ""{0}""", command.CommandText))
 
