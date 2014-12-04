@@ -56,9 +56,8 @@ Public Class LogicLayer
     Public Function NewFile(fname As String) As Boolean
         If Not DataLayer.CreateDatabase(fname) Then Return False
         LastFileOpened = fname
-        Dim fullUserName As String = System.Security.Principal.WindowsIdentity.GetCurrent().Name
-        Dim domainlessUserName As String = fullUserName.Substring(fullUserName.IndexOf("\"c) + 1)
-        BankName = "First Bank of " & domainlessUserName
+
+        BankName = "First Bank of " & UsernameWithoutDomain()
         Return True
     End Function
 
@@ -96,6 +95,11 @@ Public Class LogicLayer
 
     Public Shared Function HasDatabaseSupport() As Boolean
         Return DataLayer.OLEProviderInstalled(DataLayer.DefaultProvider)
+    End Function
+
+    Private Shared Function UsernameWithoutDomain() As String
+        Dim fullUserName As String = System.Security.Principal.WindowsIdentity.GetCurrent().Name
+        Return fullUserName.Substring(fullUserName.IndexOf("\"c) + 1)
     End Function
 
 End Class

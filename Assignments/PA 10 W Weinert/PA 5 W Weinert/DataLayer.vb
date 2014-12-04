@@ -120,17 +120,22 @@ Public Class DataLayer
         Return True
     End Function
 
+    'This function not only creates a list of Accounts but adds all transactions to each corresponding account using only one query.
     Public Function Accounts() As List(Of Account)
         Dim command As OleDbCommand = CreateCommand("SELECT * FROM Account LEFT OUTER JOIN [Transaction] ON Account.UUID=[Transaction].AccountUUID")
         Dim reader As OleDbDataReader = command.ExecuteReader()
         Dim D As New Dictionary(Of Account, List(Of Transaction))
         While reader.Read()
             Dim uuid As Guid = Guid.Parse(reader.GetString(0))
+
+            'Get account if it already exists
             Dim account As Account = (From kvp As KeyValuePair(Of Account, List(Of Transaction)) In D
                                       Where kvp.Key.UUID = uuid
                                       Select kvp.Key
                                       ).SingleOrDefault()
             Dim transactionList As List(Of Transaction)
+
+            'Or create the account...
             If account Is Nothing Then
                 transactionList = New List(Of Transaction)
                 account = New Account(reader.GetString(1),
@@ -143,6 +148,8 @@ Public Class DataLayer
             Else
                 transactionList = D(account)
             End If
+
+            'If there is a transaction in this row...
             If Not reader.IsDBNull(4) Then
                 Dim o As Object = [Enum].Parse(GetType(Transaction.TransactionType), reader.GetString(6))
                 transactionList.Add(New Transaction(reader.GetDateTime(7),
@@ -156,6 +163,7 @@ Public Class DataLayer
     End Function
 
     Public Function Transactions() As List(Of Transaction)
+        'Flatten all the accounts' Transactions lists into one list, then sort them by the Transaction time.
         Return (From t As Transaction In Accounts.SelectMany(Function(a As Account) a.Transactions)
                 Order By t.Time Ascending
                 ).ToList()
